@@ -2,9 +2,9 @@
 Create Azure infrastructure with Terraform
 
 
-Pre-requisites 
+* Pre-requisites to be install  
 Install Azure Cli 
-brew update && brew install azure-cli
+    brew update && brew install azure-cli
 
-Connect with Azure account 
-az login
+* Connect with Azure account 
+    az login
