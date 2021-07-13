@@ -3,19 +3,22 @@ env = "production"
 region = "centralus" 
 
 /* STORAGE */
-storage_name = "bsai"
+storage_name = "bsaistg"
 
 /* APP SERVICE */
-#app_service  = "bsai"
+app_service1  = "voxelbox"
 
 /* AZURE FUNCTION */
-function_name1 = "concurrencybs"    #should not use "-" for function_name 
-#function_name2 = "middleware"
-#function_name3 = "invokeprocessing"
+function_name1 = "dataupload"    #should not use "-" for function_name 
+function_name2 = "middleware"
+function_name3 = "processinvoke"
 
 /* SERVICE_BUS */
-servicebus_name_1 = "contest"        #should not use "-" for servicebus_queue_name 
-servicebus_queue_name = "conqueue"   #should not use "-" for servicebus_queue_name 
+servicebus_name_1 = "datatrigger"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_1 = "datatrigger"   #should not use "-" for servicebus_queue_name 
+
+servicebus_name_2 = "preprocesstrigger"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_2 = "preprocesstrigger"   #should not use "-" for servicebus_queue_name 
 
 /* COSMOS DB */
 cosmodb_account_name_1 = "bsaidb"

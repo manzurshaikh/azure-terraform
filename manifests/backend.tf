@@ -98,25 +98,25 @@ module "azure_function1" {
   virtual_network_name            = azurerm_subnet.backend.id
 }
 
-#module "azure_function2" {
-#  depends_on           = [module.resource_group]
-#  source               = "./../modules/function-basic"
-#  function_name        = "${var.env}${var.function_name2}"
-#  location             = "${var.region}"
-#  resource_group_name  = "${var.env}-bsai"
-#  storageaccount_name  = "${var.function_name1}"
-#  virtual_network_name = azurerm_subnet.backend.id
-#}
-#
-#module "azure_function3" {
-#  depends_on           = [module.resource_group]
-#  source               = "./../modules/function-basic"
-#  function_name        = "${var.env}${var.function_name3}"
-#  location             = "${var.region}"
-#  resource_group_name  = "${var.env}-bsai"
-#  storageaccount_name  = "${var.function_name1}"
-#  virtual_network_name = azurerm_subnet.backend.id
-#}
+module "azure_function2" {
+  depends_on           = [module.resource_group]
+  source               = "./../modules/function-basic"
+  function_name        = "${var.env}${var.function_name2}"
+  location             = "${var.region}"
+  resource_group_name  = "${var.env}-bsai"
+  storageaccount_name  = "${var.function_name1}"
+  virtual_network_name = azurerm_subnet.backend.id
+}
+
+module "azure_function3" {
+  depends_on           = [module.resource_group]
+  source               = "./../modules/function-basic"
+  function_name        = "${var.env}${var.function_name3}"
+  location             = "${var.region}"
+  resource_group_name  = "${var.env}-bsai"
+  storageaccount_name  = "${var.function_name1}"
+  virtual_network_name = azurerm_subnet.backend.id
+}
 
 module "cosmosdb_1" {
   depends_on                   = [module.vnet]
@@ -139,6 +139,15 @@ module "servicebus_1" {
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_1
+}
+
+module "servicebus_2" {
+  depends_on            = [module.resource_group]
+  source                = "./../modules/service-bus"
+  servicebus_name       = "${var.env}${var.servicebus_name_2}"
+  resource_group_name   = "${var.env}-bsai"
+  location              = "${var.region}"
+  servicebus_queue_name = var.servicebus_queue_name_2
 }
 
 /* OUTOUT */

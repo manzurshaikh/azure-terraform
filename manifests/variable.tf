@@ -13,11 +13,11 @@ variable "storage_name" {
 variable "function_name1" {
 }
 
-#variable "function_name2" {
-#}
-#
-#variable "function_name3" {
-#}
+variable "function_name2" {
+}
+
+variable "function_name3" {
+}
 
 /* DATABASE */
 variable "cosmodb_account_name_1" {
@@ -45,6 +45,12 @@ variable "servicebus_name_1" {
 }
 
 variable "servicebus_queue_name_1" {
+}
+
+variable "servicebus_name_2" {
+}
+
+variable "servicebus_queue_name_2" {
 }
 
 /* APP_SERVICE */
