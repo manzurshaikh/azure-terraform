@@ -9,9 +9,9 @@ storage_name = "bsaistg"
 app_service1  = "voxelbox"
 
 /* AZURE FUNCTION */
-function_name1 = "dataupload"    #should not use "-" for function_name 
-function_name2 = "middleware"
-function_name3 = "processinvoke"
+function_name1 = "datauploadbs"    #should not use "-" for function_name 
+function_name2 = "middlewarebs"
+function_name3 = "processinvokebs"
 
 /* SERVICE_BUS */
 servicebus_name_1 = "datatrigger"        #should not use "-" for servicebus_queue_name 
