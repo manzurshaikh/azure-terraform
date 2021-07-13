@@ -22,7 +22,7 @@ resource "azurerm_application_insights" "main" {
   name                = var.function_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  application_type    = "web"
+  application_type    = "Node.JS"
 }
 
 resource "azurerm_app_service_plan" "main" {
