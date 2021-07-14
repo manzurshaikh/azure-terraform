@@ -12,11 +12,11 @@ resource "azurerm_storage_account" "storageaccount_name" {
     "terraform"        = "v0.13"
   }
 
-  #network_rules {
-  #  default_action             = "Deny"
-  #  ip_rules                   = var.stg_ip_rules
-  #  virtual_network_subnet_ids = [var.vnet_subnet_id]
-  #}
+  network_rules {
+    default_action             = "Deny"
+    ip_rules                   = var.stg_ip_rules
+    virtual_network_subnet_ids = [var.vnet_subnet_id]
+  }
 
 }
 
@@ -26,19 +26,4 @@ resource "azurerm_storage_account" "storageaccount_name" {
 #  name                 = var.storageshare_name
 #  storage_account_name = var.storage_account_name
 #  quota                = var.storageshare_quota
-#}
-
-
-#resource "azurerm_subnet_service_endpoint_storage_policy" "stg" {
-#  name                = "storage-policy"
-#  resource_group_name = var.resource_group_name
-#  location            = var.storageaccount_location
-#  definition {
-#    name        = "storage"
-#    #description = "definition1"
-#    service_resources = [
-#      azurerm_resource_group.example.id,
-#      azurerm_storage_account.storageaccount_name.id
-#    ]
-#  }
 #}
