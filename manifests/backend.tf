@@ -53,7 +53,7 @@ module "storage_bsai" {
   storage_account_name      = "${var.env}${var.storage_name}"
   stg_account_tier          = var.stg_account_tier_bsai
   storageshare_quota        = var.storageshare_quota_bsai
-  stg_ip_rules              = var.stg_ip_rules_bsai
+  #stg_ip_rules              = var.stg_ip_rules_bsai
   #vnet_subnet_id            = azurerm_subnet.backend.id
   allow_blob_public_access  = var.allow_blob_public_access_bsai
   enable_https_traffic_only = var.enable_https_traffic_only_bsai

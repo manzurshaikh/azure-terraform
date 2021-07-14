@@ -9,8 +9,8 @@ variable "region" {
 variable "storage_name" {
 }
 
-variable "stg_ip_rules_bsai" {
-}
+#variable "stg_ip_rules_bsai" {
+#}
 
 variable "allow_blob_public_access_bsai" {
 }

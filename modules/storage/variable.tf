@@ -19,8 +19,8 @@ variable "resource_group_name" {
 variable "storageaccount_location" {
 }
 
-variable "stg_ip_rules" {
-}
+#variable "stg_ip_rules" {
+#}
 
 #variable "vnet_subnet_id" {
 #}
