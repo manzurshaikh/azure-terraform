@@ -52,6 +52,7 @@ resource "azurerm_function_app" "main" {
     AppInsights_InstrumentationKey = azurerm_application_insights.main.instrumentation_key
     FUNCTIONS_WORKER_RUNTIME = "node"
     WEBSITE_NODE_DEFAULT_VERSION = "~14"
+    WEBSITE_RUN_FROM_PACKAGE = "0"
   #      FUNCTION_APP_EDIT_MODE = "readonly"
   #      HASH = "${base64encode(filesha256("${var.functionapp}"))}"
   #      WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.main.name}.blob.core.windows.net/${azurerm_storage_container.example.name}/${azurerm_storage_blob.example.name}${data.azurerm_storage_account_sas.sas.sas}"

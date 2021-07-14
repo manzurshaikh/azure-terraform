@@ -4,6 +4,13 @@ region = "centralindia"
 
 /* STORAGE */
 storage_name = "bsaistg"
+stg_ip_rules_bsai = ["103.199.93.222"]
+allow_blob_public_access_bsai = false
+stg_account_tier_bsai = "Standard"
+storageshare_quota_bsai = "50"
+enable_https_traffic_only_bsai = true
+nfsv3_enabled_bsai = false
+account_replication_type_bsai = "LRS"
 
 /* APP SERVICE */
 app_service1  = "voxelbox"

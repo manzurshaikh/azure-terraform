@@ -9,6 +9,28 @@ variable "region" {
 variable "storage_name" {
 }
 
+variable "stg_ip_rules_bsai" {
+}
+
+variable "allow_blob_public_access_bsai" {
+}
+
+variable "stg_account_tier_bsai" {
+}
+
+variable "storageshare_quota_bsai" {
+}
+
+variable "enable_https_traffic_only_bsai" {
+}
+
+variable "nfsv3_enabled_bsai" {
+}
+
+variable "account_replication_type_bsai" {
+}
+
+
 /* Azure Function */
 variable "function_name1" {
 }

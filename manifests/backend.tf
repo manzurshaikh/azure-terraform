@@ -43,15 +43,22 @@ module "vnet" {
   vnet_address            = ["10.0.0.0/16"]
 }
 
-module "storage" {
+module "storage_bsai" {
   depends_on = [module.resource_group]
   source   = "./../modules/storage"
-  storageaccount_name      = "${var.env}${var.storage_name}"
-  resource_group_name      = "${var.env}-bsai"
-  storageaccount_location  = "${var.region}"
-  storageshare_name        = "${var.env}${var.storage_name}"
-  storage_account_name     = "${var.env}${var.storage_name}"
-  storageshare_quota       = "50"
+  storageaccount_name       = "${var.env}${var.storage_name}"
+  resource_group_name       = "${var.env}-bsai"
+  storageaccount_location   = "${var.region}"
+  storageshare_name         = "${var.env}${var.storage_name}"
+  storage_account_name      = "${var.env}${var.storage_name}"
+  stg_account_tier          = var.stg_account_tier_bsai
+  storageshare_quota        = var.storageshare_quota_bsai
+  stg_ip_rules              = var.stg_ip_rules_bsai
+  #vnet_subnet_id            = azurerm_subnet.backend.id
+  allow_blob_public_access  = var.allow_blob_public_access_bsai
+  enable_https_traffic_only = var.enable_https_traffic_only_bsai
+  nfsv3_enabled             = var.nfsv3_enabled_bsai
+  account_replication_type  = var.account_replication_type_bsai
 }
 
 module "container_registery" {
