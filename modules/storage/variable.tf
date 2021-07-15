@@ -4,6 +4,9 @@ variable "storageaccount_name" {
 variable "stg_account_tier" {
 }
 
+variable "stg_access_tier" {
+}
+
 variable "storageshare_name" {
 }
 
@@ -17,6 +20,9 @@ variable "resource_group_name" {
 }
 
 variable "storageaccount_location" {
+}
+
+variable "default_action_rule" {
 }
 
 variable "stg_ip_rules" {

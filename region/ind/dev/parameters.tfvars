@@ -4,9 +4,11 @@ region = "centralindia"
 
 /* STORAGE */
 storage_name = "bsaistg"
-#stg_ip_rules_bsai = ["103.199.93.222"]
+stg_ip_rules_bsai = ["103.199.93.37"]
+default_action_rule = "Allow"
 allow_blob_public_access_bsai = true
 stg_account_tier_bsai = "Standard"
+stg_access_tier = "Cool"
 storageshare_quota_bsai = "50"
 enable_https_traffic_only_bsai = true
 nfsv3_enabled_bsai = false

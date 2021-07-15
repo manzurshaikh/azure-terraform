@@ -24,7 +24,7 @@ resource "azurerm_subnet" "backend" {
   virtual_network_name = "${var.env}-${var.region}-bsai"
   resource_group_name  = "${var.env}-bsai"
   address_prefixes     = ["10.0.0.0/24"]
-  enforce_private_link_service_network_policies = true
+  enforce_private_link_service_network_policies = false
   service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
   service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
 
@@ -70,8 +70,10 @@ module "storage_bsai" {
   storageshare_name         = "${var.env}${var.storage_name}"
   storage_account_name      = "${var.env}${var.storage_name}"
   stg_account_tier          = var.stg_account_tier_bsai
+  stg_access_tier           = var.stg_access_tier
   storageshare_quota        = var.storageshare_quota_bsai
   stg_ip_rules              = var.stg_ip_rules_bsai
+  default_action_rule       = var.default_action_rule
   vnet_subnet_id            = azurerm_subnet.backend.id
   allow_blob_public_access  = var.allow_blob_public_access_bsai
   enable_https_traffic_only = var.enable_https_traffic_only_bsai

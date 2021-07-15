@@ -12,10 +12,16 @@ variable "storage_name" {
 variable "stg_ip_rules_bsai" {
 }
 
+variable "default_action_rule" {
+}
+
 variable "allow_blob_public_access_bsai" {
 }
 
 variable "stg_account_tier_bsai" {
+}
+
+variable "stg_access_tier" {
 }
 
 variable "storageshare_quota_bsai" {
