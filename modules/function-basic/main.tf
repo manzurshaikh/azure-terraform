@@ -27,14 +27,14 @@ resource "azurerm_application_insights" "main" {
 
 resource "azurerm_app_service_plan" "main" {
   #depends_on = [azurerm_function_app.main]
-  name                = var.function_name
+  name                = var.fun_service_plan_name
   resource_group_name = var.resource_group_name
   location            = var.location
   kind                = "functionapp"
 
   sku {
-    tier = "Dynamic"
-    size = "Y1"
+    tier = var.tier_az_fun_plan
+    size = var.size_az_fun_plan
   }
 }
 
@@ -50,12 +50,9 @@ resource "azurerm_function_app" "main" {
 
   app_settings = {
     AppInsights_InstrumentationKey = azurerm_application_insights.main.instrumentation_key
-    FUNCTIONS_WORKER_RUNTIME = "node"
-    WEBSITE_NODE_DEFAULT_VERSION = "~14"
-    WEBSITE_RUN_FROM_PACKAGE = "0"
-  #      FUNCTION_APP_EDIT_MODE = "readonly"
-  #      HASH = "${base64encode(filesha256("${var.functionapp}"))}"
-  #      WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.main.name}.blob.core.windows.net/${azurerm_storage_container.example.name}/${azurerm_storage_blob.example.name}${data.azurerm_storage_account_sas.sas.sas}"
+    FUNCTIONS_WORKER_RUNTIME = "var.functions_worker_runtime"
+    WEBSITE_NODE_DEFAULT_VERSION = "var.website_node_default_version"
+    WEBSITE_RUN_FROM_PACKAGE = "var.website_run_from_package"
   }
 
   tags = {

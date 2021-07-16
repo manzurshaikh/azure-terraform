@@ -47,6 +47,24 @@ variable "function_name2" {
 variable "function_name3" {
 }
 
+variable "fun_service_plan_name" {
+}
+
+variable "tier_az_fun_plan" {
+}
+
+variable "size_az_fun_plan" {
+}
+
+variable "functions_worker_runtime" {
+}
+
+variable "website_node_default_version" {
+}
+
+variable "website_run_from_package" {
+}
+
 /* DATABASE */
 variable "cosmodb_account_name_1" {
 }
@@ -88,6 +106,15 @@ variable "app_service1" {
 #variable "app_service2" { 
 #}
 
+variable "app_service_plan_name" {
+}
+
+variable "tier_az_appservice_plan" {
+}
+
+variable "size_az_appservice_plan" {
+}
+
 variable "docker_registry_server_url" {
 }
 
@@ -101,4 +128,7 @@ variable "docker_custom_image_name" {
 }
 
 variable "linux_fx_version" {
+}
+
+variable "capacity_az_appservice_plan" {
 }

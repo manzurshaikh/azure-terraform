@@ -56,13 +56,13 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
   }
 }
 
-resource "azurerm_cosmosdb_mongo_database" "mongo" {
-  depends_on = [azurerm_cosmosdb_account.cosmosdb]
-  name                = var.cosmosdb_name
-  resource_group_name = var.resource_group_name
-  account_name        = var.cosmodb_account_name
-  #throughput          = "autoscale"
-}
+#resource "azurerm_cosmosdb_mongo_database" "mongo" {
+#  depends_on = [azurerm_cosmosdb_account.cosmosdb]
+#  name                = var.cosmosdb_name
+#  resource_group_name = var.resource_group_name
+#  account_name        = var.cosmodb_account_name
+#  #throughput          = "autoscale"
+#}
 
 #resource "azurerm_cosmosdb_mongo_collection" "table" {
 #  depends_on = [azurerm_cosmosdb_mongo_database.mongo]

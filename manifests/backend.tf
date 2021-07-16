@@ -93,7 +93,10 @@ module "container_registery" {
 module "app_service1" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  app_name                        = "${var.env}-${var.app_service1}"
+  app_service_plan_name           = "${var.env}_${var.app_service_plan_name}"
+  capacity_az_appservice_plan     = var.capacity_az_appservice_plan
+  tier_az_appservice_plan         = var.tier_az_appservice_plan
+  size_az_appservice_plan         = var.size_az_appservice_plan
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service1}"
@@ -116,34 +119,53 @@ module "app_service1" {
 #}
 
 module "azure_function1" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/function-basic"
-  function_name                   = "${var.env}${var.function_name1}"
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  storageaccount_name             = "${var.function_name1}"
-  virtual_network_name            = azurerm_subnet.backend.id
+  depends_on            = [module.resource_group]
+  source                = "./../modules/function-basic"
+  function_name         = "${var.env}${var.function_name1}"
+  fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
+  tier_az_fun_plan      = var.tier_az_fun_plan
+  size_az_fun_plan      = var.size_az_fun_plan
+  location              = "${var.region}"
+  resource_group_name   = "${var.env}-bsai"
+  storageaccount_name   = "${var.function_name1}"
+  virtual_network_name  = azurerm_subnet.backend.id
+  functions_worker_runtime = var.functions_worker_runtime
+  website_node_default_version = var.website_node_default_version
+  website_run_from_package = var.website_run_from_package
 }
 
 module "azure_function2" {
-  depends_on           = [module.resource_group]
-  source               = "./../modules/function-basic"
-  function_name        = "${var.env}${var.function_name2}"
-  location             = "${var.region}"
-  resource_group_name  = "${var.env}-bsai"
-  storageaccount_name  = "${var.function_name1}"
-  virtual_network_name = azurerm_subnet.backend.id
+  depends_on            = [module.resource_group]
+  source                = "./../modules/function-basic"
+  function_name         = "${var.env}${var.function_name2}"
+  fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
+  tier_az_fun_plan      = var.tier_az_fun_plan
+  size_az_fun_plan      = var.size_az_fun_plan
+  location              = "${var.region}"
+  resource_group_name   = "${var.env}-bsai"
+  storageaccount_name   = "${var.function_name1}"
+  virtual_network_name  = azurerm_subnet.backend.id
+  functions_worker_runtime = var.functions_worker_runtime
+  website_node_default_version = var.website_node_default_version
+  website_run_from_package = var.website_run_from_package
 }
 
 module "azure_function3" {
-  depends_on           = [module.resource_group]
-  source               = "./../modules/function-basic"
-  function_name        = "${var.env}${var.function_name3}"
-  location             = "${var.region}"
-  resource_group_name  = "${var.env}-bsai"
-  storageaccount_name  = "${var.function_name1}"
-  virtual_network_name = azurerm_subnet.backend.id
+  depends_on            = [module.resource_group]
+  source                = "./../modules/function-basic"
+  function_name         = "${var.env}${var.function_name3}"
+  fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
+  tier_az_fun_plan      = var.tier_az_fun_plan
+  size_az_fun_plan      = var.size_az_fun_plan
+  location              = "${var.region}"
+  resource_group_name   = "${var.env}-bsai"
+  storageaccount_name   = "${var.function_name1}"
+  virtual_network_name  = azurerm_subnet.backend.id
+  functions_worker_runtime = var.functions_worker_runtime
+  website_node_default_version = var.website_node_default_version
+  website_run_from_package = var.website_run_from_package
 }
+
 
 module "cosmosdb_1" {
   depends_on                   = [module.vnet]
