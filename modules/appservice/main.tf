@@ -6,8 +6,9 @@ resource "azurerm_app_service_plan" "appservice_plan" {
   reserved            = true
 
   sku {
-    tier = "Basic"
-    size = "B1"
+    capacity = var.capacity_az_appservice_plan
+    tier = var.tier_az_appservice_plan
+    size = var.size_az_appservice_plan
   }
 }
 
@@ -36,7 +37,7 @@ resource "azurerm_app_service" "app_service" {
   }
 }
 
-resource "azurerm_app_service_virtual_network_swift_connection" "swift_connection" {
+resource "azurerm_app_service_virtual_network_swift_connection" "app_service" {
   app_service_id = azurerm_app_service.app_service.id
   subnet_id      = var.virtual_network_name
 }

@@ -3,6 +3,7 @@ resource "azurerm_storage_account" "main" {
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = "Standard"
+  access_tier             = "Cool"
   account_replication_type = "LRS"
 
   tags = {
@@ -60,7 +61,7 @@ resource "azurerm_function_app" "main" {
   }
 }
 
-#resource "azurerm_app_service_virtual_network_swift_connection" "swift_connection" {
-#  app_service_id = azurerm_function_app.main.id
-#  subnet_id      = var.virtual_network_name
-#}
+resource "azurerm_app_service_virtual_network_swift_connection" "swift_connection" {
+  app_service_id = azurerm_function_app.main.id
+  subnet_id      = var.virtual_network_name
+}

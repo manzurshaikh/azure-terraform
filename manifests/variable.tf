@@ -82,8 +82,8 @@ variable "cosmosdb_name_1" {
 }
 
 variable "ip_range_filter" {
-    type        = string
-    default = "0.0.0.0"
+    #type        = list(string)
+    #default = "0.0.0.0"
 }
 
 /*SERVICE_BUS */

@@ -38,12 +38,44 @@ resource "azurerm_subnet" "backend" {
   }
 }
 
+resource "azurerm_subnet" "application" {
+  depends_on           = [module.vnet]
+  name                 = "application"
+  virtual_network_name = "${var.env}-${var.region}-bsai"
+  resource_group_name  = "${var.env}-bsai"
+  address_prefixes     = ["10.0.2.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
 resource "azurerm_subnet" "frontend" {
   depends_on = [module.vnet]
   name                 = "frontend"
   virtual_network_name = "${var.env}-${var.region}-bsai"
   resource_group_name  = "${var.env}-bsai"
   address_prefixes     = ["10.0.1.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
 }
 
 module "resource_group" {
@@ -100,7 +132,7 @@ module "app_service1" {
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service1}"
-  virtual_network_name            = azurerm_subnet.backend.id
+  virtual_network_name            = azurerm_subnet.application.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
@@ -127,7 +159,6 @@ module "azure_function1" {
   size_az_fun_plan      = var.size_az_fun_plan
   location              = "${var.region}"
   resource_group_name   = "${var.env}-bsai"
-  storageaccount_name   = "${var.function_name1}"
   virtual_network_name  = azurerm_subnet.backend.id
   functions_worker_runtime = var.functions_worker_runtime
   website_node_default_version = var.website_node_default_version
@@ -143,7 +174,6 @@ module "azure_function2" {
   size_az_fun_plan      = var.size_az_fun_plan
   location              = "${var.region}"
   resource_group_name   = "${var.env}-bsai"
-  storageaccount_name   = "${var.function_name1}"
   virtual_network_name  = azurerm_subnet.backend.id
   functions_worker_runtime = var.functions_worker_runtime
   website_node_default_version = var.website_node_default_version
@@ -159,7 +189,6 @@ module "azure_function3" {
   size_az_fun_plan      = var.size_az_fun_plan
   location              = "${var.region}"
   resource_group_name   = "${var.env}-bsai"
-  storageaccount_name   = "${var.function_name1}"
   virtual_network_name  = azurerm_subnet.backend.id
   functions_worker_runtime = var.functions_worker_runtime
   website_node_default_version = var.website_node_default_version
