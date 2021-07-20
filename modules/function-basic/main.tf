@@ -12,11 +12,11 @@ resource "azurerm_storage_account" "main" {
   }
 }
 
-resource "azurerm_storage_container" "example" {
-    name = "${var.function_name}-release"
-    storage_account_name = azurerm_storage_account.main.name
-    container_access_type = "private"
-}
+#resource "azurerm_storage_container" "example" {
+#    name = "${var.function_name}-release"
+#    storage_account_name = azurerm_storage_account.main.name
+#    container_access_type = "private"
+#}
 
 resource "azurerm_application_insights" "main" {
   #depends_on = [azurerm_function_app.main]
@@ -51,9 +51,9 @@ resource "azurerm_function_app" "main" {
 
   app_settings = {
     AppInsights_InstrumentationKey = azurerm_application_insights.main.instrumentation_key
-    FUNCTIONS_WORKER_RUNTIME = "var.functions_worker_runtime"
-    WEBSITE_NODE_DEFAULT_VERSION = "var.website_node_default_version"
-    WEBSITE_RUN_FROM_PACKAGE = "var.website_run_from_package"
+    FUNCTIONS_WORKER_RUNTIME = var.functions_worker_runtime
+    WEBSITE_NODE_DEFAULT_VERSION = var.website_node_default_version
+    WEBSITE_RUN_FROM_PACKAGE = var.website_run_from_package
   }
 
   tags = {
@@ -61,6 +61,7 @@ resource "azurerm_function_app" "main" {
   }
 }
 
+/* Enable in Premium Plan */
 resource "azurerm_app_service_virtual_network_swift_connection" "swift_connection" {
   app_service_id = azurerm_function_app.main.id
   subnet_id      = var.virtual_network_name
