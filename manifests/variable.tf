@@ -47,6 +47,9 @@ variable "function_name2" {
 variable "function_name3" {
 }
 
+variable "function_name4" {
+}
+
 variable "fun_service_plan_name" {
 }
 

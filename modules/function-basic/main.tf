@@ -26,25 +26,26 @@ resource "azurerm_application_insights" "main" {
   application_type    = "Node.JS"
 }
 
-resource "azurerm_app_service_plan" "main" {
-  #depends_on = [azurerm_function_app.main]
-  name                = var.fun_service_plan_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  kind                = "functionapp"
-
-  sku {
-    tier = var.tier_az_fun_plan
-    size = var.size_az_fun_plan
-  }
-}
+#resource "azurerm_app_service_plan" "main" {
+#  #depends_on = [azurerm_function_app.main]
+#  name                = var.fun_service_plan_name
+#  resource_group_name = var.resource_group_name
+#  location            = var.location
+#  kind                = "functionapp"
+#
+#  sku {
+#    tier = var.tier_az_fun_plan
+#    size = var.size_az_fun_plan
+#  }
+#}
 
 resource "azurerm_function_app" "main" {
   depends_on = [azurerm_storage_account.main]
   name                       = var.function_name
   resource_group_name        = var.resource_group_name
   location                   = var.location
-  app_service_plan_id        = azurerm_app_service_plan.main.id
+  #app_service_plan_id        = azurerm_app_service_plan.main.id
+  app_service_plan_id        = var.app_service_plan_id
   storage_account_name       = azurerm_storage_account.main.name
   storage_account_access_key = azurerm_storage_account.main.primary_access_key
   version                    = "~3"

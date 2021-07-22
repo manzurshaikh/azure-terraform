@@ -26,6 +26,7 @@ size_az_appservice_plan     = "B1"
 function_name1               = "datauploadbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
+function_name4               = "processstatusbs"
 fun_service_plan_name        = "fun_service_plan"
 tier_az_fun_plan             = "Dynamic"
 size_az_fun_plan             = "Y1"
