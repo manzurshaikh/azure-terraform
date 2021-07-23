@@ -28,15 +28,3 @@ variable "vnet_subnet_id" {
 
 variable "cosmosdb_name" {
 }
-
-
-#variable "backup" {
-#  type        = map(string)
-#  description = "Backup block with type (Continuous / Periodic), interval_in_minutes and retention_in_hours keys"
-#  default = {
-#    type                = "Periodic"
-#    interval_in_minutes = 24 * 60
-#    retention_in_hours  = 7 * 24
-#  }
-#}
-

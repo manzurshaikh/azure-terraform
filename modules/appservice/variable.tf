@@ -1,4 +1,4 @@
-variable "app_service_plan_name" {
+variable "azurerm_app_service_plan" {
 }
 
 variable "location" {
@@ -8,15 +8,6 @@ variable "resource_group_name" {
 }
 
 variable "app_service_name" {
-}
-
-variable "capacity_az_appservice_plan" {
-}
-
-variable "tier_az_appservice_plan" {
-}
-
-variable "size_az_appservice_plan" {
 }
 
 variable "virtual_network_name" {

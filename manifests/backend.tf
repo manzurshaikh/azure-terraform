@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_subnet_service_endpoint_storage_policy" "stg" {
-  depends_on           = [module.vnet]
+  depends_on          = [module.vnet]
   name                = "storage-policy-bsai"
   resource_group_name = "${var.env}-bsai"
   location            = var.region
@@ -19,14 +19,14 @@ resource "azurerm_subnet_service_endpoint_storage_policy" "stg" {
 }
 
 resource "azurerm_subnet" "backend" {
-  depends_on           = [module.vnet]
-  name                 = "backend"
-  virtual_network_name = "${var.env}-${var.region}-bsai"
-  resource_group_name  = "${var.env}-bsai"
-  address_prefixes     = ["10.0.0.0/24"]
+  depends_on                                    = [module.vnet]
+  name                                          = "backend"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.0.0/24"]
   enforce_private_link_service_network_policies = false
-  service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
-  service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
 
   delegation {
     name = "delegation"
@@ -39,14 +39,14 @@ resource "azurerm_subnet" "backend" {
 }
 
 resource "azurerm_subnet" "application" {
-  depends_on           = [module.vnet]
-  name                 = "application"
-  virtual_network_name = "${var.env}-${var.region}-bsai"
-  resource_group_name  = "${var.env}-bsai"
-  address_prefixes     = ["10.0.2.0/24"]
+  depends_on                                    = [module.vnet]
+  name                                          = "application"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.2.0/24"]
   enforce_private_link_service_network_policies = false
-  service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
-  service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
 
   delegation {
     name = "delegation"
@@ -59,14 +59,14 @@ resource "azurerm_subnet" "application" {
 }
 
 resource "azurerm_subnet" "frontend" {
-  depends_on = [module.vnet]
-  name                 = "frontend"
-  virtual_network_name = "${var.env}-${var.region}-bsai"
-  resource_group_name  = "${var.env}-bsai"
-  address_prefixes     = ["10.0.1.0/24"]
+  depends_on                                    = [module.vnet]
+  name                                          = "frontend"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.1.0/24"]
   enforce_private_link_service_network_policies = false
-  service_endpoints = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
-  service_endpoint_policy_ids = toset(null)    #Enable from the console currently not supported in Terraform
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
 
   delegation {
     name = "delegation"
@@ -81,12 +81,26 @@ resource "azurerm_subnet" "frontend" {
 resource "azurerm_app_service_plan" "main" {
   name                = "${var.env}_${var.fun_service_plan_name}"
   resource_group_name = "${var.env}-bsai"
-  location            = "${var.region}"
+  location            = var.region
   kind                = "functionapp"
 
   sku {
     tier = var.tier_az_fun_plan
     size = var.size_az_fun_plan
+  }
+}
+
+resource "azurerm_app_service_plan" "appservice_plan" {
+  name                = "${var.env}_${var.app_service_plan_name}"
+  location            = var.region
+  resource_group_name = "${var.env}-bsai"
+  kind                = "Linux"
+  reserved            = true
+
+  sku {
+    capacity = var.capacity_az_appservice_plan
+    tier     = var.tier_az_appservice_plan
+    size     = var.size_az_appservice_plan
   }
 }
 
@@ -137,10 +151,7 @@ module "container_registery" {
 module "app_service1" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  app_service_plan_name           = "${var.env}_${var.app_service_plan_name}"
-  capacity_az_appservice_plan     = var.capacity_az_appservice_plan
-  tier_az_appservice_plan         = var.tier_az_appservice_plan
-  size_az_appservice_plan         = var.size_az_appservice_plan
+  azurerm_app_service_plan        = azurerm_app_service_plan.appservice_plan.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service1}"
@@ -163,67 +174,59 @@ module "app_service1" {
 #}
 
 module "azure_function1" {
-  depends_on            = [module.resource_group]
-  source                = "./../modules/function-basic"
-  function_name         = "${var.env}${var.function_name1}"
-  #fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
-  #tier_az_fun_plan      = var.tier_az_fun_plan
-  #size_az_fun_plan      = var.size_az_fun_plan
-  location              = "${var.region}"
-  resource_group_name   = "${var.env}-bsai"
-  virtual_network_name  = azurerm_subnet.backend.id
-  functions_worker_runtime = var.functions_worker_runtime
-  website_node_default_version = var.website_node_default_version
-  website_run_from_package = var.website_run_from_package
-  app_service_plan_id          = azurerm_app_service_plan.main.id
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name1}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs.fileupload.Disabled = toset(null)
+  app_service_plan_id              = azurerm_app_service_plan.main.id
 }
 
 module "azure_function2" {
-  depends_on            = [module.resource_group]
-  source                = "./../modules/function-basic"
-  function_name         = "${var.env}${var.function_name2}"
-  #fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
-  #tier_az_fun_plan      = var.tier_az_fun_plan
-  #size_az_fun_plan      = var.size_az_fun_plan
-  location              = "${var.region}"
-  resource_group_name   = "${var.env}-bsai"
-  virtual_network_name  = azurerm_subnet.backend.id
-  functions_worker_runtime = var.functions_worker_runtime
-  website_node_default_version = var.website_node_default_version
-  website_run_from_package = var.website_run_from_package
-  app_service_plan_id          = azurerm_app_service_plan.main.id
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name2}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = toset(null)
+  app_service_plan_id              = azurerm_app_service_plan.main.id
 }
 
 module "azure_function3" {
-  depends_on            = [module.resource_group]
-  source                = "./../modules/function-basic"
-  function_name         = "${var.env}${var.function_name3}"
-  #fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
-  #tier_az_fun_plan      = var.tier_az_fun_plan
-  #size_az_fun_plan      = var.size_az_fun_plan
-  location              = "${var.region}"
-  resource_group_name   = "${var.env}-bsai"
-  virtual_network_name  = azurerm_subnet.backend.id
-  functions_worker_runtime = var.functions_worker_runtime
-  website_node_default_version = var.website_node_default_version
-  website_run_from_package = var.website_run_from_package
-  app_service_plan_id          = azurerm_app_service_plan.main.id
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name3}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = toset(null)
+  app_service_plan_id              = azurerm_app_service_plan.main.id
 }
 
 module "azure_function4" {
-  depends_on            = [module.resource_group]
-  source                = "./../modules/function-basic"
-  function_name         = "${var.env}${var.function_name4}"
-  #fun_service_plan_name = "${var.env}_${var.fun_service_plan_name}"
-  #tier_az_fun_plan      = var.tier_az_fun_plan
-  #size_az_fun_plan      = var.size_az_fun_plan
-  location              = "${var.region}"
-  resource_group_name   = "${var.env}-bsai"
-  virtual_network_name  = azurerm_subnet.backend.id
-  functions_worker_runtime = var.functions_worker_runtime
-  website_node_default_version = var.website_node_default_version
-  website_run_from_package = var.website_run_from_package
-  app_service_plan_id          = azurerm_app_service_plan.main.id
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name4}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = "1"
+  app_service_plan_id              = azurerm_app_service_plan.main.id
 }
 
 
@@ -266,6 +269,10 @@ output "subnet_backend_id" {
 
 output "subnet_frontend_id" {
   value = "${azurerm_subnet.frontend.id}"
+}
+
+output "subnet_application_id" {
+  value = "${azurerm_subnet.application.id}"
 }
 
 output "resource_group_id" {

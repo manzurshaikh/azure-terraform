@@ -20,11 +20,3 @@ resource "azurerm_storage_account" "storageaccount_name" {
   }
 
 }
-
-/* FileShare_Folder_Not_Required */
-#resource "azurerm_storage_share" "storageshr" {
-#  depends_on = [azurerm_storage_account.storageaccount_name]
-#  name                 = var.storageshare_name
-#  storage_account_name = var.storage_account_name
-#  quota                = var.storageshare_quota
-#}

@@ -112,6 +112,9 @@ variable "app_service1" {
 variable "app_service_plan_name" {
 }
 
+variable "capacity_az_appservice_plan" {
+}
+
 variable "tier_az_appservice_plan" {
 }
 
@@ -131,7 +134,4 @@ variable "docker_custom_image_name" {
 }
 
 variable "linux_fx_version" {
-}
-
-variable "capacity_az_appservice_plan" {
 }

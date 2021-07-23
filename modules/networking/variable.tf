@@ -8,7 +8,4 @@ variable "location" {
 }
 
 variable "vnet_address" {
-    #type = list(string)
 }
-
-
