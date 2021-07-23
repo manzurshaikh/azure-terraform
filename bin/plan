@@ -26,7 +26,7 @@ manifests()
   [ -f "$file" ] && rm $file
   terraform workspace select "$APP_REGION-$APP_ENV"
   terraform plan \
-    -var-file=region/$APP_REGION/secrets.tfvars \
+    -var-file=region/$APP_REGION/$APP_ENV/secrets.tfvars \
     -var-file=region/$APP_REGION/$APP_ENV/parameters.tfvars \
     -out=$file \
     manifests
