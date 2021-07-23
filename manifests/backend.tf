@@ -161,6 +161,12 @@ module "app_service1" {
   docker_registry_server_password = var.docker_registry_server_password
   docker_custom_image_name        = var.docker_custom_image_name
   linux_fx_version                = var.linux_fx_version
+  docker_enable_ci                = var.docker_enable_ci
+  app_storage_key                 = var.app_storage_key
+  app_storage_account_name        = var.app_storage_account_name
+  app_storage_mount_path          = var.app_storage_mount_path
+  app_storage_name_prefix         = var.app_storage_name_prefix
+  app_storage_share_name          = var.app_storage_share_name
 }
 
 #module "app_service2" {

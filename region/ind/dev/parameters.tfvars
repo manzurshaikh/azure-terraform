@@ -20,6 +20,11 @@ app_service_plan_name       = "app_service_plan"
 capacity_az_appservice_plan = "1"
 tier_az_appservice_plan     = "Basic"
 size_az_appservice_plan     = "B1"
+docker_enable_ci            = "true"
+app_storage_account_name    = "devbsaistg"
+app_storage_mount_path      = "/storage"
+app_storage_name_prefix     = "storage"
+app_storage_share_name      = "training"
 
 
 /* AZURE FUNCTION */

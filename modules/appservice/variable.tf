@@ -27,3 +27,21 @@ variable "docker_custom_image_name" {
 
 variable "linux_fx_version" {
 }
+
+variable "docker_enable_ci" {
+}
+
+variable "app_storage_key" {
+}
+
+variable "app_storage_account_name" {
+}
+
+variable "app_storage_mount_path" {
+}
+
+variable "app_storage_name_prefix" {
+}
+
+variable "app_storage_share_name" {
+}

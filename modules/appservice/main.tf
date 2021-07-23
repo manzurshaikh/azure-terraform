@@ -15,10 +15,29 @@ resource "azurerm_app_service" "app_service" {
     "DOCKER_REGISTRY_SERVER_USERNAME"     = var.docker_registry_server_username
     "DOCKER_REGISTRY_SERVER_PASSWORD"     = var.docker_registry_server_password
     "DOCKER_CUSTOM_IMAGE_NAME"            = var.docker_custom_image_name
+    "DOCKER_ENABLE_CI"                    = var.docker_enable_ci
   }
 
   tags = {
     "terraform"        = "v0.13"
+  }
+
+  #storage_account {
+  #    access_key   = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
+  #    account_name = "devbsaistg"
+  #    mount_path   = "/storage"
+  #    name         = "storage"
+  #    share_name   = "training"
+  #    type         = "AzureFiles"
+  #}
+
+  storage_account {
+      access_key   = var.app_storage_key
+      account_name = var.app_storage_account_name
+      mount_path   = var.app_storage_mount_path
+      name         = var.app_storage_name_prefix
+      share_name   = var.app_storage_share_name
+      type         = "AzureFiles"
   }
 }
 
