@@ -185,12 +185,12 @@ module "azure_function1" {
   function_name                    = "${var.env}${var.function_name1}"
   location                         = "${var.region}"
   resource_group_name              = "${var.env}-bsai"
-  virtual_network_name             = azurerm_subnet.backend.id
+  virtual_network_name             = azurerm_subnet.application.id
   functions_worker_runtime         = var.functions_worker_runtime
   website_node_default_version     = var.website_node_default_version
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs.fileupload.Disabled = toset(null)
-  app_service_plan_id              = azurerm_app_service_plan.main.id
+  app_service_plan_id              = azurerm_app_service_plan.appservice_plan.id
 }
 
 module "azure_function2" {

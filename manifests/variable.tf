@@ -36,7 +36,7 @@ variable "nfsv3_enabled_bsai" {
 variable "account_replication_type_bsai" {
 }
 
-/* Azure_Function_Service_Plan */
+/* Azure_Function_Service_Plan_consumtion */
 variable "fun_service_plan_name" {
 }
 

@@ -28,15 +28,16 @@ docker_enable_ci_1            = "true"
 #app_storage_name_prefix_1     = ""
 #app_storage_share_name_1      = ""
 
+/* AZURE FUNCTION PLAN */
+fun_service_plan_name        = "fun_service_plan"
+tier_az_fun_plan             = "Dynamic"
+size_az_fun_plan             = "Y1"
 
 /* AZURE FUNCTION */
 function_name1               = "datauploadbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
-fun_service_plan_name        = "fun_service_plan"
-tier_az_fun_plan             = "Dynamic"
-size_az_fun_plan             = "Y1"
 functions_worker_runtime     = "node"
 website_node_default_version = "~14"
 website_run_from_package     = "0"
