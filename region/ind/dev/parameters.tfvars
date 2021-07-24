@@ -14,17 +14,19 @@ enable_https_traffic_only_bsai = true
 nfsv3_enabled_bsai             = false
 account_replication_type_bsai = "LRS"
 
-/* APP SERVICE */
-app_service1                = "voxelbox"
+/* APP_SERVICE_PLAN */
 app_service_plan_name       = "app_service_plan"
 capacity_az_appservice_plan = "1"
-tier_az_appservice_plan     = "Basic"
-size_az_appservice_plan     = "B1"
-docker_enable_ci            = "true"
-app_storage_account_name    = "devbsaistg"
-app_storage_mount_path      = "/storage"
-app_storage_name_prefix     = "storage"
-app_storage_share_name      = "training"
+tier_az_appservice_plan     = "Standard"
+size_az_appservice_plan     = "S1"
+
+/* APP SERVICE */
+app_service1                  = "voxelbox"
+docker_enable_ci_1            = "true"
+#app_storage_account_name_1    = ""
+#app_storage_mount_path_1      = ""
+#app_storage_name_prefix_1     = ""
+#app_storage_share_name_1      = ""
 
 
 /* AZURE FUNCTION */

@@ -36,6 +36,15 @@ variable "nfsv3_enabled_bsai" {
 variable "account_replication_type_bsai" {
 }
 
+/* Azure_Function_Service_Plan */
+variable "fun_service_plan_name" {
+}
+
+variable "tier_az_fun_plan" {
+}
+
+variable "size_az_fun_plan" {
+}
 
 /* Azure Function */
 variable "function_name1" {
@@ -48,15 +57,6 @@ variable "function_name3" {
 }
 
 variable "function_name4" {
-}
-
-variable "fun_service_plan_name" {
-}
-
-variable "tier_az_fun_plan" {
-}
-
-variable "size_az_fun_plan" {
 }
 
 variable "functions_worker_runtime" {
@@ -102,13 +102,7 @@ variable "servicebus_name_2" {
 variable "servicebus_queue_name_2" {
 }
 
-/* APP_SERVICE */
-variable "app_service1" { 
-}
-
-#variable "app_service2" { 
-#}
-
+/* APP_SERVICE_PLAN */
 variable "app_service_plan_name" {
 }
 
@@ -121,6 +115,13 @@ variable "tier_az_appservice_plan" {
 variable "size_az_appservice_plan" {
 }
 
+/* APP_SERVICE */
+variable "app_service1" { 
+}
+
+#variable "app_service2" { 
+#}
+
 variable "docker_registry_server_url" {
 }
 
@@ -130,26 +131,26 @@ variable "docker_registry_server_username" {
 variable "docker_registry_server_password" {
 }
 
-variable "docker_custom_image_name" {
+variable "docker_custom_image_name_1" {
 }
 
-variable "linux_fx_version" {
+variable "linux_fx_version_1" {
 }
 
-variable "docker_enable_ci" {
+variable "docker_enable_ci_1" {
 }
 
-variable "app_storage_key" {
-}
-
-variable "app_storage_account_name" {
-}
-
-variable "app_storage_mount_path" {
-}
-
-variable "app_storage_name_prefix" {
-}
-
-variable "app_storage_share_name" {
-}
+#variable "app_storage_key_1" {
+#}
+#
+#variable "app_storage_account_name_1" {
+#}
+#
+#variable "app_storage_mount_path_1" {
+#}
+#
+#variable "app_storage_name_prefix_1" {
+#}
+#
+#variable "app_storage_share_name_1" {
+#}

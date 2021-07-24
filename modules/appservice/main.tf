@@ -23,22 +23,13 @@ resource "azurerm_app_service" "app_service" {
   }
 
   #storage_account {
-  #    access_key   = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
-  #    account_name = "devbsaistg"
-  #    mount_path   = "/storage"
-  #    name         = "storage"
-  #    share_name   = "training"
+  #    access_key   = var.app_storage_key
+  #    account_name = var.app_storage_account_name
+  #    mount_path   = var.app_storage_mount_path
+  #    name         = var.app_storage_name_prefix
+  #    share_name   = var.app_storage_share_name
   #    type         = "AzureFiles"
   #}
-
-  storage_account {
-      access_key   = var.app_storage_key
-      account_name = var.app_storage_account_name
-      mount_path   = var.app_storage_mount_path
-      name         = var.app_storage_name_prefix
-      share_name   = var.app_storage_share_name
-      type         = "AzureFiles"
-  }
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "app_service" {

@@ -159,14 +159,14 @@ module "app_service1" {
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name
-  linux_fx_version                = var.linux_fx_version
-  docker_enable_ci                = var.docker_enable_ci
-  app_storage_key                 = var.app_storage_key
-  app_storage_account_name        = var.app_storage_account_name
-  app_storage_mount_path          = var.app_storage_mount_path
-  app_storage_name_prefix         = var.app_storage_name_prefix
-  app_storage_share_name          = var.app_storage_share_name
+  docker_custom_image_name        = var.docker_custom_image_name_1
+  linux_fx_version                = var.linux_fx_version_1
+  docker_enable_ci                = var.docker_enable_ci_1
+  #app_storage_key                 = toset(null)
+  #app_storage_account_name        = toset(null)
+  #app_storage_mount_path          = toset(null)
+  #app_storage_name_prefix         = toset(null)
+  #app_storage_share_name          = toset(null)
 }
 
 #module "app_service2" {
