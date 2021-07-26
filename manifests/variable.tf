@@ -154,3 +154,37 @@ variable "docker_enable_ci_1" {
 #
 #variable "app_storage_share_name_1" {
 #}
+
+/* ACI */
+variable "aci_name_1" {
+}
+
+variable "aci_ip_type_aci_1" {
+}
+
+variable "container_name_aci_1" {
+}
+
+variable "container_image_aci_1" {
+}
+
+variable "container_cpu_aci_1" {
+}
+
+variable "container_memory_aci_1" {
+}
+
+variable "container_port_aci_1" {
+}
+
+variable "docker_registry_server_url_aci" {
+}
+
+variable "aci_storage_share_name" {
+}
+
+variable "aci_storage_mount_path" {
+}
+
+variable "aci_storage_key" {
+}

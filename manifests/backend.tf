@@ -78,6 +78,26 @@ resource "azurerm_subnet" "frontend" {
   }
 }
 
+resource "azurerm_subnet" "aci" {
+  depends_on                                    = [module.vnet]
+  name                                          = "aci"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.4.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
 resource "azurerm_app_service_plan" "main" {
   name                = "${var.env}_${var.fun_service_plan_name}"
   resource_group_name = "${var.env}-bsai"
@@ -191,6 +211,7 @@ module "azure_function1" {
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs.fileupload.Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.appservice_plan.id
+  fun_os_type                      = "linux"
 }
 
 module "azure_function2" {
@@ -205,6 +226,7 @@ module "azure_function2" {
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs_fileupload_Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
 }
 
 module "azure_function3" {
@@ -219,6 +241,7 @@ module "azure_function3" {
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs_fileupload_Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
 }
 
 module "azure_function4" {
@@ -233,6 +256,7 @@ module "azure_function4" {
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs_fileupload_Disabled = "1"
   app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
 }
 
 
@@ -268,6 +292,28 @@ module "servicebus_2" {
   servicebus_queue_name = var.servicebus_queue_name_2
 }
 
+module "aci_1" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/aci"
+  resource_group_name             = "${var.env}-bsai"
+  location                        = "${var.region}"
+  aci_name                        = "${var.env}-${var.aci_name_1}"
+  aci_ip_type                     = var.aci_ip_type_aci_1
+  virtual_network_name            = azurerm_subnet.aci.id
+  container_name                  = var.container_name_aci_1
+  container_image                 = var.container_image_aci_1
+  container_cpu                   = var.container_cpu_aci_1
+  container_memory                = var.container_memory_aci_1
+  container_port                  = var.container_port_aci_1
+  docker_registry_server_url      = var.docker_registry_server_url_aci
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  aci_storage_account_name        = "${var.env}${var.storage_name}"
+  aci_storage_share_name          = var.aci_storage_share_name
+  aci_storage_mount_path          = var.aci_storage_mount_path
+  aci_storage_key                 = var.aci_storage_key
+}
+
 /* OUTOUT */
 output "subnet_backend_id" {
   value = "${azurerm_subnet.backend.id}"
@@ -279,6 +325,10 @@ output "subnet_frontend_id" {
 
 output "subnet_application_id" {
   value = "${azurerm_subnet.application.id}"
+}
+
+output "subnet_aci_id" {
+  value = "${azurerm_subnet.aci.id}"
 }
 
 output "resource_group_id" {

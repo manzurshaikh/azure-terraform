@@ -22,5 +22,9 @@ variable "website_run_from_package" {
 variable "app_service_plan_id" {
 }
 
+variable "fun_os_type" {
+}
+
 #variable "AzureWebJobs_fileupload_Disabled" {
 #}
+

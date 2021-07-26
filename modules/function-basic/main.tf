@@ -28,6 +28,7 @@ resource "azurerm_function_app" "main" {
   storage_account_name       = azurerm_storage_account.main.name
   storage_account_access_key = azurerm_storage_account.main.primary_access_key
   version                    = "~3"
+  os_type                    = var.fun_os_type
 
   app_settings = {
     AppInsights_InstrumentationKey   = azurerm_application_insights.main.instrumentation_key

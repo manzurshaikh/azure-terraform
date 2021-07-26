@@ -49,6 +49,18 @@ servicebus_queue_name_1 = "datatrigger"   #should not use "-" for servicebus_que
 servicebus_name_2       = "preprocesstrigger"        #should not use "-" for servicebus_queue_name 
 servicebus_queue_name_2 = "preprocesstrigger"   #should not use "-" for servicebus_queue_name 
 
+/* ACI */
+aci_name_1              = "voxelbox"
+aci_ip_type_aci_1       = "Private"
+container_name_aci_1    = "voxelbox"
+container_image_aci_1   = "devbsai.azurecr.io/voxelbox:v0.1"
+container_cpu_aci_1     = "4"
+container_memory_aci_1  = "16"
+container_port_aci_1    = "5000"
+aci_storage_share_name  = "training"
+aci_storage_mount_path  = "/training"
+
+
 /* COSMOS DB */
 /* Note - Enable Azure portal Access in Network once this feature is available */
 cosmodb_account_name_1       = "bsaidb"
@@ -56,4 +68,4 @@ cosmosdb_name_1              = "bsaidb"
 enable_automatic_failover    = false
 failover_location_secondary  = "centralindia"
 failover_priority_secondary  = "0"
-ip_range_filter              = "20.193.136.157,20.193.136.160,20.193.136.214,20.193.136.224,20.193.136.239,20.193.136.249,20.193.137.13,20.193.137.14,20.193.137.36,20.193.137.55,20.193.136.216,20.193.136.217,104.211.113.109,52.172.164.90,104.211.116.183,13.71.1.53,52.172.221.97,52.172.211.172,52.172.144.111,104.211.118.93,52.172.215.180,52.172.221.13,13.71.36.155,52.172.136.188,20.193.128.244,20.193.129.6,20.193.129.126,20.193.136.12,20.193.136.57,20.193.136.59,52.140.106.224,103.199.93.77"
+ip_range_filter              = "20.193.136.157,20.193.136.160,20.193.136.214,20.193.136.224,20.193.136.239,20.193.136.249,20.193.137.13,20.193.137.14,20.193.137.36,20.193.137.55,20.193.136.216,20.193.136.217,104.211.113.109,52.172.164.90,104.211.116.183,13.71.1.53,52.172.221.97,52.172.211.172,52.172.144.111,104.211.118.93,52.172.215.180,52.172.221.13,13.71.36.155,52.172.136.188,20.193.128.244,20.193.129.6,20.193.129.126,20.193.136.12,20.193.136.57,20.193.136.59,52.140.106.224,103.199.93.77,104.42.195.92,40.76.54.131,52.176.6.30,52.169.50.45,52.187.184.26"
