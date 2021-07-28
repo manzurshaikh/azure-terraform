@@ -23,10 +23,6 @@ size_az_appservice_plan     = "S1"
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 docker_enable_ci_1            = "true"
-#app_storage_account_name_1    = ""
-#app_storage_mount_path_1      = ""
-#app_storage_name_prefix_1     = ""
-#app_storage_share_name_1      = ""
 
 /* AZURE FUNCTION PLAN */
 fun_service_plan_name        = "fun_service_plan"
@@ -51,7 +47,7 @@ servicebus_queue_name_2 = "preprocesstrigger"   #should not use "-" for serviceb
 
 /* ACI */
 aci_name_1              = "voxelbox"
-aci_ip_type_aci_1       = "Private"
+aci_ip_type_aci_1       = "Public"
 container_name_aci_1    = "voxelbox"
 container_image_aci_1   = "devbsai.azurecr.io/voxelbox:v0.1"
 container_cpu_aci_1     = "4"

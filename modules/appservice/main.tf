@@ -22,14 +22,14 @@ resource "azurerm_app_service" "app_service" {
     "terraform"        = "v0.13"
   }
 
-  #storage_account {
-  #    access_key   = var.app_storage_key
-  #    account_name = var.app_storage_account_name
-  #    mount_path   = var.app_storage_mount_path
-  #    name         = var.app_storage_name_prefix
-  #    share_name   = var.app_storage_share_name
-  #    type         = "AzureFiles"
-  #}
+  storage_account {
+      access_key   = var.app_storage_key
+      account_name = var.app_storage_account_name
+      mount_path   = var.app_storage_mount_path
+      name         = var.app_storage_name_prefix
+      share_name   = var.app_storage_share_name
+      type         = "AzureFiles"
+  }
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "app_service" {

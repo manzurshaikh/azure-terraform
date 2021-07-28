@@ -10,8 +10,8 @@ variable "resource_group_name" {
 variable "aci_ip_type" {
 }
 
-variable "virtual_network_name" {
-}
+#variable "virtual_network_name" {
+#}
 
 variable "container_name" {
 }

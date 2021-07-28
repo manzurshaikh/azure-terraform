@@ -182,11 +182,11 @@ module "app_service1" {
   docker_custom_image_name        = var.docker_custom_image_name_1
   linux_fx_version                = var.linux_fx_version_1
   docker_enable_ci                = var.docker_enable_ci_1
-  #app_storage_key                 = toset(null)
-  #app_storage_account_name        = toset(null)
-  #app_storage_mount_path          = toset(null)
-  #app_storage_name_prefix         = toset(null)
-  #app_storage_share_name          = toset(null)
+  app_storage_key                 = var.app_storage_key_1
+  app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
 }
 
 #module "app_service2" {
@@ -299,7 +299,7 @@ module "aci_1" {
   location                        = "${var.region}"
   aci_name                        = "${var.env}-${var.aci_name_1}"
   aci_ip_type                     = var.aci_ip_type_aci_1
-  virtual_network_name            = azurerm_subnet.aci.id
+  #virtual_network_name            = azurerm_subnet.aci.id
   container_name                  = var.container_name_aci_1
   container_image                 = var.container_image_aci_1
   container_cpu                   = var.container_cpu_aci_1

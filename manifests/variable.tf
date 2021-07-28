@@ -140,20 +140,8 @@ variable "linux_fx_version_1" {
 variable "docker_enable_ci_1" {
 }
 
-#variable "app_storage_key_1" {
-#}
-#
-#variable "app_storage_account_name_1" {
-#}
-#
-#variable "app_storage_mount_path_1" {
-#}
-#
-#variable "app_storage_name_prefix_1" {
-#}
-#
-#variable "app_storage_share_name_1" {
-#}
+variable "app_storage_key_1" {
+}
 
 /* ACI */
 variable "aci_name_1" {

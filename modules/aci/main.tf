@@ -1,17 +1,17 @@
-resource "azurerm_network_profile" "main" {
-  name                = var.aci_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-
-  container_network_interface {
-    name = "bsainic"
-
-    ip_configuration {
-      name      = "bsaiipconfig"
-      subnet_id = var.virtual_network_name
-    }
-  }
-}
+#resource "azurerm_network_profile" "main" {
+#  name                = var.aci_name
+#  location            = var.location
+#  resource_group_name = var.resource_group_name
+#
+#  container_network_interface {
+#    name = "bsainic"
+#
+#    ip_configuration {
+#      name      = "bsaiipconfig"
+#      subnet_id = var.virtual_network_name
+#    }
+#  }
+#}
 
 
 resource "azurerm_container_group" "container_instance" {
@@ -20,9 +20,10 @@ resource "azurerm_container_group" "container_instance" {
   location            = var.location
   resource_group_name = var.resource_group_name
   ip_address_type     = var.aci_ip_type
-  network_profile_id  = azurerm_network_profile.main.id
+  #network_profile_id  = azurerm_network_profile.main.id
   os_type             = "Linux"
   restart_policy      = "OnFailure"
+  dns_name_label      = var.aci_name
 
   image_registry_credential {
     server   = var.docker_registry_server_url
@@ -50,8 +51,6 @@ resource "azurerm_container_group" "container_instance" {
     storage_account_key  = var.aci_storage_key
     }
   }
-
-
 
   tags     = {
     "terraform"        = "v0.13"
