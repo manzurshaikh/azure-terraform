@@ -34,6 +34,7 @@ function_name1               = "datauploadbs"    #should not use "-" for functio
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
+function_name5               = "inferencestatusbs"
 functions_worker_runtime     = "node"
 website_node_default_version = "~14"
 website_run_from_package     = "0"
