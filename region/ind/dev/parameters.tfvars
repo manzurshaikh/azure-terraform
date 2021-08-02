@@ -30,7 +30,7 @@ tier_az_fun_plan             = "Dynamic"
 size_az_fun_plan             = "Y1"
 
 /* AZURE FUNCTION */
-#function_name1               = "datauploadbs"    #should not use "-" for function_name 
+function_name1               = "datauploadbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
