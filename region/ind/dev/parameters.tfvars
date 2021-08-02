@@ -17,8 +17,8 @@ account_replication_type_bsai = "LRS"
 /* APP_SERVICE_PLAN */
 app_service_plan_name       = "app_service_plan"
 capacity_az_appservice_plan = "1"
-tier_az_appservice_plan     = "Standard"
-size_az_appservice_plan     = "S1"
+tier_az_appservice_plan     = "PremiumV2"
+size_az_appservice_plan     = "P1v2"
 
 /* APP SERVICE */
 app_service1                  = "voxelbox"
@@ -30,7 +30,7 @@ tier_az_fun_plan             = "Dynamic"
 size_az_fun_plan             = "Y1"
 
 /* AZURE FUNCTION */
-function_name1               = "datauploadbs"    #should not use "-" for function_name 
+#function_name1               = "datauploadbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
