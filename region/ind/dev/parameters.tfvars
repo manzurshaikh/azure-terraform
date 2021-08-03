@@ -57,6 +57,15 @@ container_port_aci_1    = "5000"
 aci_storage_share_name  = "training"
 aci_storage_mount_path  = "/training"
 
+#/* ACI-2 */
+#aci_name_2              = "voxelbox-2"
+#aci_ip_type_aci_2       = "Public"
+#container_name_aci_2    = "voxelbox"
+#container_image_aci_2   = "devbsai.azurecr.io/voxelbox:latest"
+#container_cpu_aci_2     = "4"
+#container_memory_aci_2  = "16"
+#container_port_aci_2    = "5000"
+
 
 /* COSMOS DB */
 /* Note - Enable Azure portal Access in Network once this feature is available */

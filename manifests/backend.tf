@@ -296,7 +296,7 @@ module "servicebus_1" {
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_1
-  max_delivery_count    = "2"
+  max_delivery_count    = 1
 }
 
 module "servicebus_2" {
@@ -306,7 +306,7 @@ module "servicebus_2" {
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_2
-  max_delivery_count    = "2"
+  max_delivery_count    = 1
 }
 
 module "aci_1" {
@@ -330,6 +330,28 @@ module "aci_1" {
   aci_storage_mount_path          = var.aci_storage_mount_path
   aci_storage_key                 = var.aci_storage_key
 }
+
+#module "aci_2" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/aci"
+#  resource_group_name             = "${var.env}-bsai"
+#  location                        = "${var.region}"
+#  aci_name                        = "${var.env}-${var.aci_name_2}"
+#  aci_ip_type                     = var.aci_ip_type_aci_2
+#  #virtual_network_name            = azurerm_subnet.aci.id
+#  container_name                  = var.container_name_aci_2
+#  container_image                 = var.container_image_aci_2
+#  container_cpu                   = var.container_cpu_aci_2
+#  container_memory                = var.container_memory_aci_2
+#  container_port                  = var.container_port_aci_2
+#  docker_registry_server_url      = var.docker_registry_server_url_aci
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  aci_storage_account_name        = "${var.env}${var.storage_name}"
+#  aci_storage_share_name          = var.aci_storage_share_name
+#  aci_storage_mount_path          = var.aci_storage_mount_path
+#  aci_storage_key                 = var.aci_storage_key
+#}
 
 /* OUTOUT */
 output "subnet_backend_id" {

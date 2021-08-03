@@ -179,3 +179,25 @@ variable "aci_storage_mount_path" {
 
 variable "aci_storage_key" {
 }
+
+/* ACI - 2 */
+#variable "aci_name_2" {
+#}
+#
+#variable "aci_ip_type_aci_2" {
+#}
+#
+#variable "container_name_aci_2" {
+#}
+#
+#variable "container_image_aci_2" {
+#}
+#
+#variable "container_cpu_aci_2" {
+#}
+#
+#variable "container_memory_aci_2" {
+#}
+#
+#variable "container_port_aci_2" {
+#}
