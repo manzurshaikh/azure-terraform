@@ -52,7 +52,7 @@ resource "azurerm_servicebus_subscription" "example" {
   namespace_name      = azurerm_servicebus_namespace.namespace.name
   topic_name          = azurerm_servicebus_topic.source.name
   forward_to          = azurerm_servicebus_topic.destination.name
-  max_delivery_count  = 1
+  max_delivery_count  = var.max_delivery_count
 }
 
 

@@ -9,3 +9,6 @@ variable "servicebus_name" {
 
 variable "servicebus_queue_name" {
 }
+
+variable "max_delivery_count" {
+}
