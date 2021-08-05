@@ -57,7 +57,7 @@ container_port_aci_1    = "5000"
 aci_storage_share_name  = "training"
 aci_storage_mount_path  = "/training"
 
-#/* ACI-2 */
+/* ACI-2 */
 #aci_name_2              = "voxelbox-2"
 #aci_ip_type_aci_2       = "Public"
 #container_name_aci_2    = "voxelbox"
