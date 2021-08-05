@@ -1,0 +1,9 @@
+/* APP_SERVICE_CONFIG */
+docker_registry_server_url = "https://devbsai.azurecr.io"
+docker_registry_server_username = "username_container_registry"
+docker_registry_server_password = "container_registry_password"
+docker_custom_image_name_1 = "container_registry_name.azurecr.io/image_name:latest"
+linux_fx_version_1 = "DOCKER|container_registry_name.azurecr.io/image_name:latest"
+app_storage_key_1 = "storage_account_password"
+docker_registry_server_url_aci = "container_registry_name.azurecr.io"
+aci_storage_key = "aci_storage_account_key"

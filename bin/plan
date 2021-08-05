@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_NAME=$0
+OPTION=$1
+
+main()
+{
+  case $OPTION in
+    manifests) manifests;;
+    help) help;;
+    *)
+      [ $# -gt 0 ] && illegal_option_error
+      help
+      return 1
+      ;;
+  esac
+}
+
+manifests()
+{
+  check_app_region "$APP_REGION"
+  check_app_env "$APP_ENV"
+  local file=".manifests.$APP_REGION.$APP_ENV.tfplan"
+  [ -f "$file" ] && rm $file
+  terraform workspace select "$APP_REGION-$APP_ENV"
+  terraform plan \
+    -var-file=region/$APP_REGION/$APP_ENV/secrets.tfvars \
+    -var-file=region/$APP_REGION/$APP_ENV/parameters.tfvars \
+    -out=$file \
+    manifests
+}
+
+check_app_region()
+{
+  local value=$1
+  if [[ "$value" != "ind" && "$value" != "usa" ]]; then
+    printf "$SCRIPT_NAME: illegal option for \$APP_REGION -- $value\n"
+    help
+    exit 1
+  fi
+}
+
+check_app_env()
+{
+  local value=$1
+  if [[ "$value" != "dev" && "$value" != "production" ]]; then
+    printf "$SCRIPT_NAME: illegal option for \$APP_ENV -- $value\n"
+    help
+    exit 1
+  fi
+}
+
+illegal_option_error()
+{
+  printf "$SCRIPT_NAME: illegal option -- $OPTION\n"
+}
+
+help()
+{
+  printf 'usage:\n'
+  printf '\tAPP_REGION=[ind|usa] '$SCRIPT_NAME' common\n'
+  printf '\tAPP_REGION=[ind|usa] APP_ENV=[dev|production] '$SCRIPT_NAME' manifests\n'
+}
+
+main $@
