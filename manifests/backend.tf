@@ -286,7 +286,7 @@ module "cosmosdb_1" {
   enable_automatic_failover    = var.enable_automatic_failover
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}]
+  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}]
 }
 
 module "servicebus_1" {
