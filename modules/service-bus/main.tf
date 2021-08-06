@@ -61,4 +61,5 @@ resource "azurerm_servicebus_queue" "example" {
   resource_group_name = var.resource_group_name
   namespace_name      = azurerm_servicebus_namespace.namespace.name
   enable_partitioning = false
+  max_delivery_count  = "1"
 }
