@@ -24,6 +24,10 @@ variable "is_virtual_network_filter_enabled" {
 }
 
 variable "vnet_subnet_id" {
+  description = "List of subnets to be used in Cosmosdb."
+  type = list(object({
+    id   = string
+  }))
 }
 
 variable "cosmosdb_name" {

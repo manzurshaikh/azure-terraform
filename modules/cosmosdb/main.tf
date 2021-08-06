@@ -38,9 +38,12 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
     failover_priority = 0
   }
 
-  virtual_network_rule  {
-    id                = var.vnet_subnet_id
-    ignore_missing_vnet_service_endpoint = true
+  dynamic "virtual_network_rule" {
+    for_each = var.vnet_subnet_id
+    content {
+      id   = virtual_network_rule.value.id
+      ignore_missing_vnet_service_endpoint = true
+    }
   }
 
   tags = {
