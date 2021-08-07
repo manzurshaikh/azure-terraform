@@ -49,7 +49,7 @@ resource "azurerm_subnet" "application" {
   service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
 
   delegation {
-    name = "delegation"
+    name = "Microsoft.Web.serverFarms"
 
     service_delegation {
       name    = "Microsoft.Web/serverFarms"
@@ -98,6 +98,7 @@ resource "azurerm_subnet" "aci" {
   }
 }
 
+/* Azure Function Basic (consumtion) plan */
 resource "azurerm_app_service_plan" "main" {
   name                = "${var.env}_${var.fun_service_plan_name}"
   resource_group_name = "${var.env}-bsai"
@@ -110,6 +111,7 @@ resource "azurerm_app_service_plan" "main" {
   }
 }
 
+/* App_Service plan for Azure Function */
 resource "azurerm_app_service_plan" "appservice_plan" {
   name                = "${var.env}_${var.app_service_plan_name}"
   location            = var.region
@@ -121,6 +123,21 @@ resource "azurerm_app_service_plan" "appservice_plan" {
     capacity = var.capacity_az_appservice_plan
     tier     = var.tier_az_appservice_plan
     size     = var.size_az_appservice_plan
+  }
+}
+
+/* App_Service plan for Azure App Service ML Dockers */
+resource "azurerm_app_service_plan" "mldockers_plan" {
+  name                = "${var.env}_${var.app_service_plan_docker_name}"
+  location            = var.region
+  resource_group_name = "${var.env}-bsai"
+  kind                = "Linux"
+  reserved            = true
+
+  sku {
+    capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_docker_plan
+    size     = var.size_az_appservice_docker_plan
   }
 }
 
@@ -171,7 +188,7 @@ module "container_registery" {
 module "app_service1" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.appservice_plan.id
+  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service1}"
@@ -179,8 +196,8 @@ module "app_service1" {
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_1
-  linux_fx_version                = var.linux_fx_version_1
+  docker_custom_image_name        = var.docker_custom_image_name_1_app_service1
+  linux_fx_version                = var.linux_fx_version_1_app_service1
   docker_enable_ci                = var.docker_enable_ci_1
   app_storage_key                 = var.app_storage_key_1
   app_storage_account_name        = "${var.env}${var.storage_name}"
@@ -205,7 +222,7 @@ module "azure_function1" {
   function_name                    = "${var.env}${var.function_name1}"
   location                         = "${var.region}"
   resource_group_name              = "${var.env}-bsai"
-  virtual_network_name             = azurerm_subnet.application.id
+  virtual_network_name             = azurerm_subnet.frontend.id
   functions_worker_runtime         = var.functions_worker_runtime
   website_node_default_version     = var.website_node_default_version
   website_run_from_package         = var.website_run_from_package
@@ -362,9 +379,9 @@ output "subnet_frontend_id" {
   value = "${azurerm_subnet.frontend.id}"
 }
 
-output "subnet_application_id" {
-  value = "${azurerm_subnet.application.id}"
-}
+#output "subnet_application_id" {
+#  value = "${azurerm_subnet.application.id}"
+#}
 
 output "subnet_aci_id" {
   value = "${azurerm_subnet.aci.id}"

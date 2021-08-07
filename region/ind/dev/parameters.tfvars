@@ -14,20 +14,26 @@ enable_https_traffic_only_bsai = true
 nfsv3_enabled_bsai             = false
 account_replication_type_bsai = "LRS"
 
-/* APP_SERVICE_PLAN */
+/* AZURE FUNCTION PLAN - CONSUMTION */
+fun_service_plan_name        = "fun_service_plan"
+tier_az_fun_plan             = "Dynamic"
+size_az_fun_plan             = "Y1"
+
+/* APP_SERVICE_PLAN AZURE FUNCTION */
 app_service_plan_name       = "app_service_plan"
 capacity_az_appservice_plan = "1"
 tier_az_appservice_plan     = "PremiumV2"
 size_az_appservice_plan     = "P1v2"
 
+/* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
+app_service_plan_docker_name = "app_service_mldocker_plan"
+capacity_az_appservice_docker_plan = "1"
+tier_az_appservice_docker_plan = "PremiumV2"
+size_az_appservice_docker_plan = "P2v2"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 docker_enable_ci_1            = "true"
-
-/* AZURE FUNCTION PLAN */
-fun_service_plan_name        = "fun_service_plan"
-tier_az_fun_plan             = "Dynamic"
-size_az_fun_plan             = "Y1"
 
 /* AZURE FUNCTION */
 function_name1               = "datauploadbs"    #should not use "-" for function_name 
@@ -62,8 +68,8 @@ aci_name_2              = "voxelbox-2"
 aci_ip_type_aci_2       = "Public"
 container_name_aci_2    = "voxelbox"
 container_image_aci_2   = "devbsai.azurecr.io/voxelbox:v0.7"
-container_cpu_aci_2     = "4"
-container_memory_aci_2  = "16"
+container_cpu_aci_2     = "2"
+container_memory_aci_2  = "8"
 container_port_aci_2    = "5000"
 
 

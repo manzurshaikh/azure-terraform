@@ -5,6 +5,13 @@ variable "env" {
 variable "region" {
 }
 
+/* Container registry */
+variable "docker_registry_server_username" {
+}
+
+variable "docker_registry_server_password" {
+}
+
 /* STORAGE */
 variable "storage_name" {
 }
@@ -105,7 +112,7 @@ variable "servicebus_name_2" {
 variable "servicebus_queue_name_2" {
 }
 
-/* APP_SERVICE_PLAN */
+/* APP_SERVICE_PLAN Azure Function */
 variable "app_service_plan_name" {
 }
 
@@ -118,6 +125,20 @@ variable "tier_az_appservice_plan" {
 variable "size_az_appservice_plan" {
 }
 
+/* APP_SERVICE_PLAN Azure ML Docker */
+
+variable "app_service_plan_docker_name" {
+}
+
+variable "capacity_az_appservice_docker_plan" {
+}
+
+variable "tier_az_appservice_docker_plan" {
+}
+
+variable "size_az_appservice_docker_plan" {
+}
+
 /* APP_SERVICE */
 variable "app_service1" { 
 }
@@ -128,16 +149,10 @@ variable "app_service1" {
 variable "docker_registry_server_url" {
 }
 
-variable "docker_registry_server_username" {
+variable "docker_custom_image_name_1_app_service1" {
 }
 
-variable "docker_registry_server_password" {
-}
-
-variable "docker_custom_image_name_1" {
-}
-
-variable "linux_fx_version_1" {
+variable "linux_fx_version_1_app_service1" {
 }
 
 variable "docker_enable_ci_1" {
