@@ -4,6 +4,9 @@ variable "resource_group_name" {
 variable "location" {
 }
 
+variable "servicebus_sku" {
+}
+
 variable "servicebus_name" {
 }
 

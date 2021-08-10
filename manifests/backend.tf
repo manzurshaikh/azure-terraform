@@ -112,17 +112,17 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 /* App_Service plan for Azure Function */
-resource "azurerm_app_service_plan" "appservice_plan" {
-  name                = "${var.env}_${var.app_service_plan_name}"
+resource "azurerm_app_service_plan" "funpremium_plan" {
+  name                = "${var.env}_${var.fun_premium_plan_name}"
   location            = var.region
   resource_group_name = "${var.env}-bsai"
-  kind                = "Linux"
+  kind                = "elastic"
   reserved            = true
 
   sku {
-    capacity = var.capacity_az_appservice_plan
-    tier     = var.tier_az_appservice_plan
-    size     = var.size_az_appservice_plan
+    capacity = var.capacity_az_funpremium_plan
+    tier     = var.tier_az_funpremium_plan
+    size     = var.size_az_funpremium_plan
   }
 }
 
@@ -227,7 +227,7 @@ module "azure_function1" {
   website_node_default_version     = var.website_node_default_version
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs.fileupload.Disabled = toset(null)
-  app_service_plan_id              = azurerm_app_service_plan.appservice_plan.id
+  app_service_plan_id              = azurerm_app_service_plan.funpremium_plan.id
   fun_os_type                      = "linux"
 }
 
@@ -310,6 +310,7 @@ module "servicebus_1" {
   depends_on            = [module.resource_group]
   source                = "./../modules/service-bus"
   servicebus_name       = "${var.env}${var.servicebus_name_1}"
+  servicebus_sku        = "Standard"
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_1
@@ -320,6 +321,7 @@ module "servicebus_2" {
   depends_on            = [module.resource_group]
   source                = "./../modules/service-bus"
   servicebus_name       = "${var.env}${var.servicebus_name_2}"
+  servicebus_sku        = "Standard"
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_2

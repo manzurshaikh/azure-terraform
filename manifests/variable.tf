@@ -112,21 +112,20 @@ variable "servicebus_name_2" {
 variable "servicebus_queue_name_2" {
 }
 
-/* APP_SERVICE_PLAN Azure Function */
-variable "app_service_plan_name" {
+/* Premium_Plan Azure Function */
+variable "fun_premium_plan_name" {
 }
 
-variable "capacity_az_appservice_plan" {
+variable "capacity_az_funpremium_plan" {
 }
 
-variable "tier_az_appservice_plan" {
+variable "tier_az_funpremium_plan" {
 }
 
-variable "size_az_appservice_plan" {
+variable "size_az_funpremium_plan" {
 }
 
 /* APP_SERVICE_PLAN Azure ML Docker */
-
 variable "app_service_plan_docker_name" {
 }
 

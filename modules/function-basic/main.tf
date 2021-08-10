@@ -5,11 +5,18 @@ resource "azurerm_storage_account" "main" {
   account_tier             = "Standard"
   access_tier             = "Cool"
   account_replication_type = "LRS"
+  #allow_blob_public_access  = true
 
   tags = {
     "terraform"        = "v0.13"
     "createdby"        = "az_function"
   }
+
+  #network_rules {
+  #  default_action             = "Allow"
+  #  #ip_rules                  = var.stg_ip_rules
+  #  virtual_network_subnet_ids = [var.virtual_network_name]
+  #}
 }
 
 resource "azurerm_application_insights" "main" {
@@ -29,8 +36,12 @@ resource "azurerm_function_app" "main" {
   storage_account_access_key = azurerm_storage_account.main.primary_access_key
   version                    = "~3"
   os_type                    = var.fun_os_type
+  #identity {
+  #  type = "SystemAssigned"
+  #}
 
   app_settings = {
+    #StorageContainerName             = var.test_storage_container_name
     AppInsights_InstrumentationKey   = azurerm_application_insights.main.instrumentation_key
     #AzureWebJobs.fileupload.Disabled = var.AzureWebJobs_fileupload_Disabled
     FUNCTIONS_WORKER_RUNTIME         = var.functions_worker_runtime

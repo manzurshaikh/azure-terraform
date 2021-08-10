@@ -19,11 +19,11 @@ fun_service_plan_name        = "fun_service_plan"
 tier_az_fun_plan             = "Dynamic"
 size_az_fun_plan             = "Y1"
 
-/* APP_SERVICE_PLAN AZURE FUNCTION */
-app_service_plan_name       = "app_service_plan"
-capacity_az_appservice_plan = "1"
-tier_az_appservice_plan     = "PremiumV2"
-size_az_appservice_plan     = "P1v2"
+/* Premium_Plan Azure Function */
+fun_premium_plan_name       = "fun_premium_plan"
+capacity_az_funpremium_plan = "1"
+tier_az_funpremium_plan     = "ElasticPremium"
+size_az_funpremium_plan     = "EP1"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
 app_service_plan_docker_name = "app_service_mldocker_plan"
@@ -36,7 +36,7 @@ app_service1                  = "voxelbox"
 docker_enable_ci_1            = "true"
 
 /* AZURE FUNCTION */
-function_name1               = "datauploadbs"    #should not use "-" for function_name 
+function_name1               = "datauploadsbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
