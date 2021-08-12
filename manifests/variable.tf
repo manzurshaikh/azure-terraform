@@ -138,26 +138,30 @@ variable "tier_az_appservice_docker_plan" {
 variable "size_az_appservice_docker_plan" {
 }
 
-/* APP_SERVICE */
+/* APP_SERVICE_1 */
 variable "app_service1" { 
 }
-
-#variable "app_service2" { 
-#}
 
 variable "docker_registry_server_url" {
 }
 
-variable "docker_custom_image_name_1_app_service1" {
+variable "docker_custom_image_name_app_service1" {
 }
 
-variable "linux_fx_version_1_app_service1" {
-}
-
-variable "docker_enable_ci_1" {
+variable "linux_fx_version_app_service1" {
 }
 
 variable "app_storage_key_1" {
+}
+
+/* APP_SERVICE_2 */
+variable "app_service2" { 
+}
+
+variable "docker_custom_image_name_app_service2" {
+}
+
+variable "linux_fx_version_app_service2" {
 }
 
 /* ACI */
