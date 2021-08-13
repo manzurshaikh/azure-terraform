@@ -41,12 +41,14 @@ resource "azurerm_function_app" "main" {
   #}
 
   app_settings = {
-    #StorageContainerName             = var.test_storage_container_name
-    AppInsights_InstrumentationKey   = azurerm_application_insights.main.instrumentation_key
-    #AzureWebJobs.fileupload.Disabled = var.AzureWebJobs_fileupload_Disabled
-    FUNCTIONS_WORKER_RUNTIME         = var.functions_worker_runtime
-    WEBSITE_NODE_DEFAULT_VERSION     = var.website_node_default_version
-    WEBSITE_RUN_FROM_PACKAGE         = var.website_run_from_package
+    #StorageContainerName               = var.test_storage_container_name
+    AppInsights_InstrumentationKey      = azurerm_application_insights.main.instrumentation_key
+    #AzureWebJobs.fileupload.Disabled   = var.AzureWebJobs_fileupload_Disabled
+    FUNCTIONS_WORKER_RUNTIME            = var.functions_worker_runtime
+    WEBSITE_NODE_DEFAULT_VERSION        = var.website_node_default_version
+    WEBSITE_RUN_FROM_PACKAGE            = var.website_run_from_package
+    #WEBSITES_ENABLE_APP_SERVICE_STORAGE = true
+    #WEBSITE_ENABLE_SYNC_UPDATE_SITE     = true
   }
 
   tags = {
