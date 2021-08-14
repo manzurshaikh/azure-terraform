@@ -11,3 +11,8 @@ linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusdementia:
 /* ACI */
 docker_registry_server_url_aci = "devbsai.azurecr.io"
 aci_storage_key = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
+
+
+# terraform.tfvars
+appId         = "ccb1bcf0-f0d5-4159-a0a4-603186b175df"
+client_secret = "yRhg_MqvOuDmZRjBR1n4q_Ub.YW.2x1-VK"

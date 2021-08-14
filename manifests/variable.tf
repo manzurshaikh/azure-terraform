@@ -54,8 +54,8 @@ variable "size_az_fun_plan" {
 }
 
 /* Azure Function */
-variable "function_name1" {
-}
+#variable "function_name1" {
+#}
 
 variable "function_name2" {
 }
@@ -219,3 +219,10 @@ variable "container_memory_aci_2" {
 
 variable "container_port_aci_2" {
 }
+
+/* AKS */
+#variable "appId" {
+#}
+#
+#variable "client_secret" {
+#}
