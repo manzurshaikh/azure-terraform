@@ -118,7 +118,7 @@ resource "azurerm_app_service_plan" "funpremium_plan" {
   location            = var.region
   resource_group_name = "${var.env}-bsai"
   kind                = "elastic"
-  reserved            = false
+  reserved            = true
 
   sku {
     capacity = var.capacity_az_funpremium_plan
@@ -240,7 +240,7 @@ module "azure_function1" {
   website_run_from_package         = var.website_run_from_package
   #AzureWebJobs.fileupload.Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.funpremium_plan.id
-  fun_os_type                      = toset(null)
+  fun_os_type                      = "linux"
 }
 
 module "azure_function2" {

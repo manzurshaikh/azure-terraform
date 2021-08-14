@@ -28,3 +28,5 @@ variable "fun_os_type" {
 #variable "AzureWebJobs_fileupload_Disabled" {
 #}
 
+#variable "app_storage_key" {
+#}
