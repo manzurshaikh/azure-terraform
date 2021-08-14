@@ -37,7 +37,7 @@ app_service2                  = "voxelboxplus"
 
 
 /* AZURE FUNCTION */
-#function_name1               = "datauploadsbs"    #should not use "-" for function_name 
+function_name1               = "datauploadsbs"    #should not use "-" for function_name 
 function_name2               = "middlewarebs"
 function_name3               = "processinvokebs"
 function_name4               = "processstatusbs"
