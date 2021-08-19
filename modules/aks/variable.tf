@@ -15,3 +15,6 @@ variable "appId" {
 
 variable "client_secret" {
 }
+
+variable "aks_dns_name" {
+}
