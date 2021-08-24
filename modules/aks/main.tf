@@ -2,11 +2,24 @@
 #  features {}
 #}
 
-#resource "azurerm_public_ip" "aks" {
-#  name                = "aks"
+#resource "azurerm_public_ip" "voxelbox" {
+#  name                = "voxelbox"
 #  resource_group_name = var.resource_group_name
 #  location            = var.location
 #  allocation_method   = "Static"
+#  sku                 = "Standard"
+#
+#  tags = {
+#    environment = "Terraform-aks"
+#  }
+#}
+#
+#resource "azurerm_public_ip" "voxelboxplus" {
+#  name                = "voxelboxplus"
+#  resource_group_name = var.resource_group_name
+#  location            = var.location
+#  allocation_method   = "Static"
+#  sku                 = "Standard"
 #
 #  tags = {
 #    environment = "Terraform-aks"
@@ -33,12 +46,12 @@ resource "azurerm_kubernetes_cluster" "example" {
 
   default_node_pool {
     name                = "vmpool"
-    node_count          = 2
+    node_count          = 4
     vm_size             = "Standard_B2s"
     os_disk_size_gb     = 50
     enable_auto_scaling = true
     min_count           = 2
-    max_count           = 4
+    max_count           = 10
   }
 
   service_principal {
@@ -78,5 +91,4 @@ output "kube_config" {
 }
 
 #Notes - Persistant volume - kubectl create secret generic azure-secret --from-literal=azurestorageaccountname=$AKS_PERS_STORAGE_ACCOUNT_NAME --from-literal=azurestorageaccountkey=$STORAGE_KEY
-#az aks get-credentials --resource-group $(terraform output -raw resource_group_name) --name $(terraform output -raw kubernetes_cluster_name)
 #echo "$(terraform output kube_config)" > /Users/manjur/.kube/config

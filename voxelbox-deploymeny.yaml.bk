@@ -1,0 +1,166 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: voxelbox
+  template:
+    metadata:
+      labels:
+        app: voxelbox
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: voxelbox
+        image: devbsai.azurecr.io/voxelbox:latest
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 400m
+            memory: 1200Mi
+          limits:
+            cpu: 500m
+            memory: 1400Mi
+        ports:
+        - containerPort: 80
+          name: voxelbox
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voxelbox
+spec:
+  ports:
+  - port: 5000
+  selector:
+    app: voxelbox
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelboxplus
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: voxelbox-plus
+  template:
+    metadata:
+      labels:
+        app: voxelbox-plus
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: voxelbox-plus
+        image: devbsai.azurecr.io/voxelboxplusdementia:v0.2.1
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 400m
+            memory: 1200Mi
+          limits:
+            cpu: 500m
+            memory: 1400Mi
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: flask
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: flask
+#  template:
+#    metadata:
+#      labels:
+#        app: flask
+#    spec:
+#      nodeSelector:
+#        "kubernetes.io/os": linux
+#      containers:
+#      - name: flask
+#        image: devbsai.azurecr.io/flask:v0.1
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#        resources:
+#          requests:
+#            cpu: 100m
+#            memory: 400Mi
+#          limits:
+#            cpu: 200m
+#            memory: 500Mi
+#        ports:
+#        - containerPort: 5000
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#      volumes:
+#      - name: azure
+#        azureFile:
+#          secretName: azure-secret
+#          shareName: training
+#          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voxelbox
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: voxelbox
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voxelbox-plus        
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: voxelbox-plus
+---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: flask
+#spec:
+#  type: LoadBalancer
+#  ports:
+#  - port: 80
+#  selector:
+#    app: flask

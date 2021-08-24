@@ -30,6 +30,15 @@ resource "azurerm_app_service" "app_service" {
       share_name   = var.app_storage_share_name
       type         = "AzureFiles"
   }
+
+  #storage_account {
+  #    access_key   = var.app_storage_key2
+  #    account_name = "devfilesharestg"
+  #    mount_path   = "/training"
+  #    name         = "dev-storage"
+  #    share_name   = "training"
+  #    type         = "AzureFiles"
+  #}
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "app_service" {

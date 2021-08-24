@@ -26,10 +26,10 @@ tier_az_funpremium_plan     = "ElasticPremium"
 size_az_funpremium_plan     = "EP1"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
-app_service_plan_docker_name = "app_service_mldocker_plan"
+app_service_plan_docker_name       = "app_service_mldocker_plan"
 capacity_az_appservice_docker_plan = "1"
-tier_az_appservice_docker_plan = "PremiumV2"
-size_az_appservice_docker_plan = "P2v2"
+tier_az_appservice_docker_plan     = "PremiumV2"
+size_az_appservice_docker_plan     = "P2v2"
 
 /* APP SERVICE */
 app_service1                  = "voxelbox"
@@ -37,21 +37,26 @@ app_service2                  = "voxelboxplus"
 
 
 /* AZURE FUNCTION */
-function_name1               = "datauploadsbs"    #should not use "-" for function_name 
-function_name2               = "middlewarebs"
-function_name3               = "processinvokebs"
-function_name4               = "processstatusbs"
-function_name5               = "inferencestatusbs"
-functions_worker_runtime     = "node"
-website_node_default_version = "~14"
-website_run_from_package     = "0"
+function_name1                = "datauploadsbs"    #should not use "-" for function_name 
+function_name2                = "middlewarebs"
+function_name3                = "processinvokebs"
+function_name4                = "processstatusbs"
+function_name5                = "inferencestatusbs"
+function_name6                = "inferenceinvokebs"
+functions_worker_runtime      = "node"
+website_node_default_version  = "~14"
+website_run_from_package      = "0"
+website_run_from_package_fun1 = "true"
 
 /* SERVICE_BUS */
-servicebus_name_1       = "datatrigger"        #should not use "-" for servicebus_queue_name 
-servicebus_queue_name_1 = "datatrigger"   #should not use "-" for servicebus_queue_name 
+servicebus_name_1       = "datatrigger"             #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_1 = "datatrigger"             #should not use "-" for servicebus_queue_name 
 
-servicebus_name_2       = "preprocesstrigger"        #should not use "-" for servicebus_queue_name 
-servicebus_queue_name_2 = "preprocesstrigger"   #should not use "-" for servicebus_queue_name 
+servicebus_name_2       = "preprocesstrigger"       #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_2 = "preprocesstrigger"       #should not use "-" for servicebus_queue_name 
+
+servicebus_name_3       = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_3 = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
 
 /* ACI */
 aci_name_1              = "voxelbox"

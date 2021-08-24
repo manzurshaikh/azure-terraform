@@ -30,3 +30,9 @@ variable "fun_os_type" {
 
 #variable "app_storage_key" {
 #}
+
+variable "website_enable_app_service_storage" {
+}
+
+variable "website_enable_sync_update_site" {
+}

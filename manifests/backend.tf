@@ -201,7 +201,8 @@ module "app_service1" {
   linux_fx_version                = var.linux_fx_version_app_service1
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name}"
+  #app_storage_account_name        = "${var.env}${var.storage_name}" 
+  app_storage_account_name        = "devfilesharestg"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -222,7 +223,8 @@ module "app_service2" {
   linux_fx_version                = var.linux_fx_version_app_service2
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name}"
+  #app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_account_name        = "devfilesharestg"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -237,11 +239,14 @@ module "azure_function1" {
   virtual_network_name             = azurerm_subnet.frontend.id
   functions_worker_runtime         = var.functions_worker_runtime
   website_node_default_version     = var.website_node_default_version
-  website_run_from_package         = var.website_run_from_package
+  website_run_from_package         = var.website_run_from_package_fun1
   #AzureWebJobs.fileupload.Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.funpremium_plan.id
   fun_os_type                      = "linux"
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
 }
+
 
 module "azure_function2" {
   depends_on                       = [module.resource_group]
@@ -256,6 +261,8 @@ module "azure_function2" {
   #AzureWebJobs_fileupload_Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.main.id
   fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
 }
 
 module "azure_function3" {
@@ -271,6 +278,8 @@ module "azure_function3" {
   #AzureWebJobs_fileupload_Disabled = toset(null)
   app_service_plan_id              = azurerm_app_service_plan.main.id
   fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
 }
 
 module "azure_function4" {
@@ -286,6 +295,8 @@ module "azure_function4" {
   #AzureWebJobs_fileupload_Disabled = "1"
   app_service_plan_id              = azurerm_app_service_plan.main.id
   fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
 }
 
 module "azure_function5" {
@@ -301,6 +312,25 @@ module "azure_function5" {
   #AzureWebJobs_fileupload_Disabled = "1"
   app_service_plan_id              = azurerm_app_service_plan.main.id
   fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
+}
+
+module "azure_function6" {
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name6}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = "1"
+  app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
 }
 
 
@@ -337,6 +367,17 @@ module "servicebus_2" {
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_2
+  max_delivery_count    = 1
+}
+
+module "servicebus_3" {
+  depends_on            = [module.resource_group]
+  source                = "./../modules/service-bus"
+  servicebus_name       = "${var.env}${var.servicebus_name_3}"
+  servicebus_sku        = "Standard"
+  resource_group_name   = "${var.env}-bsai"
+  location              = "${var.region}"
+  servicebus_queue_name = var.servicebus_queue_name_3
   max_delivery_count    = 1
 }
 

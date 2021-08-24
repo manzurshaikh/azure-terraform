@@ -69,6 +69,9 @@ variable "function_name4" {
 variable "function_name5" {
 }
 
+variable "function_name6" {
+}
+
 variable "functions_worker_runtime" {
 }
 
@@ -76,6 +79,9 @@ variable "website_node_default_version" {
 }
 
 variable "website_run_from_package" {
+}
+
+variable "website_run_from_package_fun1" {
 }
 
 /* DATABASE */
@@ -110,6 +116,12 @@ variable "servicebus_name_2" {
 }
 
 variable "servicebus_queue_name_2" {
+}
+
+variable "servicebus_name_3" {
+}
+
+variable "servicebus_queue_name_3" {
 }
 
 /* Premium_Plan Azure Function */
@@ -221,8 +233,8 @@ variable "container_port_aci_2" {
 }
 
 /* AKS */
-#variable "appId" {
-#}
-#
-#variable "client_secret" {
-#}
+variable "appId" {
+}
+
+variable "client_secret" {
+}
