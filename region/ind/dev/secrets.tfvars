@@ -7,8 +7,11 @@ linux_fx_version_app_service1 = "DOCKER|devbsai.azurecr.io/voxelbox:latest"
 #app_storage_key_1 = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
 app_storage_key_1  = "qU/A1Xl1x58FGLCItQYsgNL1WmfzpS0rWl+6bl+K8CXI9KY3Mt2qsuna8rJk3MQ89V7N3JoEsDSkoOM0HPzHWA=="
 /* APP_SERVICE-2 */
-docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusdementia:v0.2.1"
-linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusdementia:v0.2.1"
+docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
+linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
+/* APP_SERVICE-3 */
+docker_custom_image_name_app_service3 = "devbsai.azurecr.io/file_processsing:latest"
+linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/file_processsing:latest"
 /* ACI */
 docker_registry_server_url_aci = "devbsai.azurecr.io"
 aci_storage_key = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="

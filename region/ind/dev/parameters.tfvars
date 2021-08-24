@@ -34,7 +34,7 @@ size_az_appservice_docker_plan     = "P2v2"
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
-
+app_service3                  = "fileprocesssing"
 
 /* AZURE FUNCTION */
 function_name1                = "datauploadsbs"    #should not use "-" for function_name 

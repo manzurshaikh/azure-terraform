@@ -230,6 +230,28 @@ module "app_service2" {
   app_storage_share_name          = "training"
 }
 
+module "app_service3" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service3}"
+  virtual_network_name            = azurerm_subnet.application.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service3
+  linux_fx_version                = var.linux_fx_version_app_service3
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  #app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_account_name        = "devfilesharestg"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+}
+
 module "azure_function1" {
   depends_on                       = [module.resource_group]
   source                           = "./../modules/function-basic"

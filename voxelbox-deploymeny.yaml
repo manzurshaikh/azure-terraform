@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: voxelbox
 spec:
-  replicas: 4 
+  replicas: 1 
   selector:
     matchLabels:
       app: voxelbox
@@ -45,7 +45,7 @@ kind: Deployment
 metadata:
   name: voxelboxplus
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: voxelbox-plus
@@ -58,7 +58,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: voxelbox-plus
-        image: devbsai.azurecr.io/voxelboxplusdementia:v0.2.1
+        image: devbsai.azurecr.io/voxelboxplusgliomaecm:latest
         volumeMounts:
         - name: azure
           mountPath: /training
