@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: voxelbox
 spec:
-  replicas: 1 
+  replicas: 0 
   selector:
     matchLabels:
       app: voxelbox
@@ -31,7 +31,7 @@ spec:
             cpu: 1600m
             memory: 1500Mi
         ports:
-        - containerPort: 8000
+        - containerPort: 80
           name: voxelbox
       volumes:
       - name: azure
@@ -64,13 +64,13 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 400m
+            cpu: 500m
             memory: 800Mi
           limits:
-            cpu: 500m
+            cpu: 600m
             memory: 1400Mi
         ports:
-        - containerPort: 5000
+        - containerPort: 9000
         volumeMounts:
         - name: azure
           mountPath: /training
@@ -185,6 +185,6 @@ spec:
   loadBalancerIP: 20.204.65.113
   type: LoadBalancer
   ports:
-  - port: 5000
+  - port: 9000
   selector:
     app: voxelbox-plus

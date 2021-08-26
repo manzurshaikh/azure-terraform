@@ -46,7 +46,7 @@ resource "azurerm_kubernetes_cluster" "example" {
 
   default_node_pool {
     name                = "vmpool"
-    node_count          = 4
+   #node_count          = 4
     vm_size             = "Standard_B2s"
     os_disk_size_gb     = 50
     enable_auto_scaling = true
