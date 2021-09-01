@@ -79,6 +79,27 @@ resource "azurerm_subnet" "frontend" {
   }
 }
 
+resource "azurerm_subnet" "internal" {
+  depends_on                                    = [module.vnet]
+  name                                          = "internal"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.3.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
+
 resource "azurerm_subnet" "aci" {
   depends_on                                    = [module.vnet]
   name                                          = "aci"
@@ -130,6 +151,21 @@ resource "azurerm_app_service_plan" "funpremium_plan" {
 /* App_Service plan for Azure App Service ML Dockers */
 resource "azurerm_app_service_plan" "mldockers_plan" {
   name                = "${var.env}_${var.app_service_plan_docker_name}"
+  location            = var.region
+  resource_group_name = "${var.env}-bsai"
+  kind                = "Linux"
+  reserved            = true
+
+  sku {
+    capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_docker_plan
+    size     = var.size_az_appservice_docker_plan
+  }
+}
+
+/* App_Service plan for Azure App Service file_processing */
+resource "azurerm_app_service_plan" "fileprocess_plan" {
+  name                = "${var.env}_${var.fileprocess_plan_name}"
   location            = var.region
   resource_group_name = "${var.env}-bsai"
   kind                = "Linux"
@@ -238,6 +274,28 @@ module "app_service3" {
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service3}"
   virtual_network_name            = azurerm_subnet.application.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service3
+  linux_fx_version                = var.linux_fx_version_app_service3
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  #app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_account_name        = "devfilesharestg"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+}
+
+module "app_service4" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.fileprocess_plan.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service4}"
+  virtual_network_name            = azurerm_subnet.internal.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
@@ -367,7 +425,7 @@ module "cosmosdb_1" {
   enable_automatic_failover    = var.enable_automatic_failover
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}]
+  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}]
 }
 
 module "servicebus_1" {

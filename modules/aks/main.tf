@@ -50,7 +50,7 @@ resource "azurerm_kubernetes_cluster" "example" {
     vm_size             = "Standard_B2s"
     os_disk_size_gb     = 50
     enable_auto_scaling = true
-    min_count           = 2
+    min_count           = 1
     max_count           = 10
   }
 
@@ -72,6 +72,23 @@ resource "azurerm_kubernetes_cluster" "example" {
   tags = {
     environment = "Terraform_aks"  
    }
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "pool" {
+  name                  = "memnodepool"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.example.id
+  vm_size               = "Standard_DS2_v2"
+  os_disk_size_gb       = 50
+  enable_auto_scaling   = true
+  min_count             = 1
+  max_count             = 10
+  node_labels = {
+    "hardware" = "highmem"
+  }
+
+  tags = {
+    Environment = "Production"
+  }
 }
 
 #data "azurerm_public_ip" "aks" {

@@ -1,9 +1,14 @@
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: backend
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: voxelbox
 spec:
-  replicas: 0 
+  replicas: 0
   selector:
     matchLabels:
       app: voxelbox
@@ -11,12 +16,14 @@ spec:
     metadata:
       labels:
         app: voxelbox
+#        namespace: backend
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
       - name: voxelbox
         image: devbsai.azurecr.io/voxelbox:latest
+        imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
           value: "yes"
@@ -25,10 +32,10 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 1500m
-            memory: 1200Mi
+            cpu: 400m
+            memory: 1400Mi
           limits:
-            cpu: 1600m
+            cpu: 500m
             memory: 1500Mi
         ports:
         - containerPort: 80
@@ -45,7 +52,7 @@ kind: Deployment
 metadata:
   name: voxelboxplus
 spec:
-  replicas: 4
+  replicas: 0
   selector:
     matchLabels:
       app: voxelbox-plus
@@ -53,12 +60,14 @@ spec:
     metadata:
       labels:
         app: voxelbox-plus
+#        namespace: backend
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
       - name: voxelbox-plus
         image: devbsai.azurecr.io/voxelboxplusgliomaecm:latest
+        imagePullPolicy: Always
         volumeMounts:
         - name: azure
           mountPath: /training
@@ -71,6 +80,49 @@ spec:
             memory: 1400Mi
         ports:
         - containerPort: 9000
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileprocessing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileprocessing
+  template:
+    metadata:
+      labels:
+        app: fileprocessing
+#        namespace: backend
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: fileprocessing
+        image: devbsai.azurecr.io/file_processsing:latest
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 400m
+            memory: 3000Mi
+          #limits:
+          #  cpu: 500m
+          #  memory: 9000Mi
+        ports:
+        - containerPort: 3000
         volumeMounts:
         - name: azure
           mountPath: /training
@@ -167,11 +219,12 @@ metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
   name: voxelbox
+#  namespace: backend 
 spec:
   loadBalancerIP: 20.204.13.137
   type: LoadBalancer
   ports:
-  - port: 8000
+  - port: 5000
   selector:
     app: voxelbox
 ---
@@ -181,6 +234,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
   name: voxelbox-plus
+#  namespace: backend
 spec:
   loadBalancerIP: 20.204.65.113
   type: LoadBalancer
@@ -188,3 +242,18 @@ spec:
   - port: 9000
   selector:
     app: voxelbox-plus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: fileprocessing
+#  namespace: backend
+spec:
+  loadBalancerIP: 20.193.245.2
+  type: LoadBalancer
+  ports:
+  - port: 3000
+  selector:
+    app: fileprocessing
