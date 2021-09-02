@@ -21,13 +21,13 @@ size_az_fun_plan             = "Y1"
 
 /* Premium_Plan Azure Function */
 fun_premium_plan_name       = "fun_premium_plan"
-capacity_az_funpremium_plan = "1"
+#capacity_az_funpremium_plan = "1"
 tier_az_funpremium_plan     = "ElasticPremium"
 size_az_funpremium_plan     = "EP1"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
 app_service_plan_docker_name       = "app_service_mldocker_plan"
-capacity_az_appservice_docker_plan = "1"
+#capacity_az_appservice_docker_plan = "1"
 tier_az_appservice_docker_plan     = "PremiumV2"
 size_az_appservice_docker_plan     = "P2v2"
 

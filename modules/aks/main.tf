@@ -54,6 +54,7 @@ resource "azurerm_kubernetes_cluster" "example" {
     max_count           = 10
   }
 
+
   service_principal {
     client_id     = var.appId
     client_secret = var.client_secret

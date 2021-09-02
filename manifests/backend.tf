@@ -142,7 +142,7 @@ resource "azurerm_app_service_plan" "funpremium_plan" {
   reserved            = true
 
   sku {
-    capacity = var.capacity_az_funpremium_plan
+  #  capacity = var.capacity_az_funpremium_plan
     tier     = var.tier_az_funpremium_plan
     size     = var.size_az_funpremium_plan
   }
@@ -155,35 +155,59 @@ resource "azurerm_app_service_plan" "mldockers_plan" {
   resource_group_name = "${var.env}-bsai"
   kind                = "Linux"
   reserved            = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
 
   sku {
-    capacity = var.capacity_az_appservice_docker_plan
+  #  capacity = var.capacity_az_appservice_docker_plan
     tier     = var.tier_az_appservice_docker_plan
     size     = var.size_az_appservice_docker_plan
   }
+}
+
+/* Azure Autoscaling for App Service Plan */
+module "appservice_autoscaling_mldocker" {
+  source                        = "./../modules/appservicescale"
+  appservice_plan_name          = "mldockers_plan_scaling_rule"
+  resource_group_name           = "${var.env}-bsai"
+  location                      = var.region
+  appservice_target_resource_id = azurerm_app_service_plan.mldockers_plan.id
 }
 
 /* App_Service plan for Azure App Service file_processing */
 resource "azurerm_app_service_plan" "fileprocess_plan" {
-  name                = "${var.env}_${var.fileprocess_plan_name}"
-  location            = var.region
-  resource_group_name = "${var.env}-bsai"
-  kind                = "Linux"
-  reserved            = true
+  name                         = "${var.env}_${var.fileprocess_plan_name}"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
 
   sku {
-    capacity = var.capacity_az_appservice_docker_plan
+  #  capacity = var.capacity_az_appservice_docker_plan
     tier     = var.tier_az_appservice_docker_plan
     size     = var.size_az_appservice_docker_plan
   }
 }
 
+/* Azure Autoscaling for App Service Plan */
+module "appservice_autoscaling_fileprocessing" {
+  source                        = "./../modules/appservicescale"
+  appservice_plan_name          = "fileprocess_plan_scaling_rule"
+  resource_group_name           = "${var.env}-bsai"
+  location                      = var.region
+  appservice_target_resource_id = azurerm_app_service_plan.fileprocess_plan.id
+}
+
+/* Azure Resource Group */
 module "resource_group" {
   source                 = "./../modules/resourcegp"
   resource_group_name    = "${var.env}-bsai"
   region                 = "${var.region}"
 }
 
+/* Azure Virtual Network */
 module "vnet" {
   depends_on = [module.resource_group]
   source                  = "./../modules/networking"
@@ -193,6 +217,7 @@ module "vnet" {
   vnet_address            = ["10.0.0.0/16"]
 }
 
+/* Azure Storage Account for File Share */
 module "storage_bsai" {
   depends_on = [module.resource_group]
   source   = "./../modules/storage"
@@ -218,8 +243,7 @@ module "container_registery" {
   source                   = "./../modules/contreg"
   contreg_name             = "${var.env}bsai"
   resource_group_name      = "${var.env}-bsai"
-  contreg_location         = "${var.region}"
-  
+  contreg_location         = "${var.region}"  
 }
 
 module "app_service1" {
@@ -242,6 +266,7 @@ module "app_service1" {
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
 }
 
 module "app_service2" {
@@ -264,6 +289,7 @@ module "app_service2" {
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
 }
 
 module "app_service3" {
@@ -286,6 +312,7 @@ module "app_service3" {
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
 }
 
 module "app_service4" {
@@ -308,6 +335,7 @@ module "app_service4" {
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
 }
 
 module "azure_function1" {
@@ -425,7 +453,7 @@ module "cosmosdb_1" {
   enable_automatic_failover    = var.enable_automatic_failover
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}]
+  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}]
 }
 
 module "servicebus_1" {
@@ -532,4 +560,12 @@ output "storage_bsai_id" {
 
 output "service_endpoint_policy_ids" {
   value = "${azurerm_subnet_service_endpoint_storage_policy.stg.id}"
+}
+
+output "app_service_plan_mldockers_plan" {
+  value = "${azurerm_app_service_plan.mldockers_plan.id}"
+}
+
+output "app_service_plan_funpremium_plan" {
+  value = "${azurerm_app_service_plan.funpremium_plan.id}"
 }

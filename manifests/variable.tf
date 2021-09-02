@@ -128,8 +128,8 @@ variable "servicebus_queue_name_3" {
 variable "fun_premium_plan_name" {
 }
 
-variable "capacity_az_funpremium_plan" {
-}
+#variable "capacity_az_funpremium_plan" {
+#}
 
 variable "tier_az_funpremium_plan" {
 }
@@ -141,8 +141,8 @@ variable "size_az_funpremium_plan" {
 variable "app_service_plan_docker_name" {
 }
 
-variable "capacity_az_appservice_docker_plan" {
-}
+#variable "capacity_az_appservice_docker_plan" {
+#}
 
 variable "tier_az_appservice_docker_plan" {
 }

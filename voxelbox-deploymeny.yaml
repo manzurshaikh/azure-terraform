@@ -95,7 +95,7 @@ kind: Deployment
 metadata:
   name: fileprocessing
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: fileprocessing
@@ -106,7 +106,7 @@ spec:
 #        namespace: backend
     spec:
       nodeSelector:
-        "kubernetes.io/os": linux
+        hardware: highmem
       containers:
       - name: fileprocessing
         image: devbsai.azurecr.io/file_processsing:latest
@@ -117,7 +117,7 @@ spec:
         resources:
           requests:
             cpu: 400m
-            memory: 3000Mi
+            memory: 4500Mi
           #limits:
           #  cpu: 500m
           #  memory: 9000Mi
