@@ -31,6 +31,10 @@ app_service_plan_docker_name       = "app_service_mldocker_plan"
 tier_az_appservice_docker_plan     = "PremiumV2"
 size_az_appservice_docker_plan     = "P2v2"
 
+/* APP_SERICE_PLAN File_processing Docker */
+tier_az_appservice_fileprocess_plan = "PremiumV2"
+size_az_appservice_fileprocess_plan = "P1v3"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"

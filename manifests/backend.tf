@@ -186,8 +186,8 @@ resource "azurerm_app_service_plan" "fileprocess_plan" {
 
   sku {
   #  capacity = var.capacity_az_appservice_docker_plan
-    tier     = var.tier_az_appservice_docker_plan
-    size     = var.size_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_fileprocess_plan
+    size     = var.size_az_appservice_fileprocess_plan
   }
 }
 

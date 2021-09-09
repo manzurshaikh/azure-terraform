@@ -150,8 +150,15 @@ variable "tier_az_appservice_docker_plan" {
 variable "size_az_appservice_docker_plan" {
 }
 
+/* APP_SERICE_PLAN File_processing */
 variable "fileprocess_plan_name" {
     default = "fileprocessing_plan"
+}
+
+variable "tier_az_appservice_fileprocess_plan" {
+}
+
+variable "size_az_appservice_fileprocess_plan" {
 }
 
 variable "app_service4" {

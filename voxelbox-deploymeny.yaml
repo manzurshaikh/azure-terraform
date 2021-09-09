@@ -95,7 +95,7 @@ kind: Deployment
 metadata:
   name: fileprocessing
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: fileprocessing
@@ -114,10 +114,10 @@ spec:
         volumeMounts:
         - name: azure
           mountPath: /training
-        resources:
-          requests:
-            cpu: 400m
-            memory: 4500Mi
+#        resources:
+#          requests:
+#            cpu: 400m
+#            memory: 4500Mi
           #limits:
           #  cpu: 500m
           #  memory: 9000Mi
@@ -257,3 +257,36 @@ spec:
   - port: 3000
   selector:
     app: fileprocessing
+---
+#HPA 
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fileprocessing
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: fileprocessing
+  minReplicas: 4
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much cpu is 80% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much memory is 160% of average utilization.
+        averageUtilization: 50
+        type: Utilization
