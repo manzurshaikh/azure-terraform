@@ -161,6 +161,13 @@ variable "tier_az_appservice_fileprocess_plan" {
 variable "size_az_appservice_fileprocess_plan" {
 }
 
+/* APP_SERVICE_PLAN Azure ML DOCKER_SMRI */
+variable "tier_az_appservice_voxelbox_smri" {
+}
+
+variable "size_az_appservice_voxelbox_smri" {
+}
+
 variable "app_service4" {
 }
 
@@ -198,6 +205,16 @@ variable "docker_custom_image_name_app_service3" {
 }
 
 variable "linux_fx_version_app_service3" {
+}
+
+/* APP_SERVICE_5 */
+variable "app_service5" { 
+}
+
+variable "docker_custom_image_name_app_service5" {
+}
+
+variable "linux_fx_version_app_service5" {
 }
 
 /* ACI */

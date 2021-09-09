@@ -32,14 +32,19 @@ tier_az_appservice_docker_plan     = "PremiumV2"
 size_az_appservice_docker_plan     = "P2v2"
 
 /* APP_SERICE_PLAN File_processing Docker */
-tier_az_appservice_fileprocess_plan = "PremiumV2"
+tier_az_appservice_fileprocess_plan = "PremiumV3"
 size_az_appservice_fileprocess_plan = "P1v3"
+
+/* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER_SMRI */
+tier_az_appservice_voxelbox_smri = "PremiumV3"
+size_az_appservice_voxelbox_smri = "P1v3"
 
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
 app_service3                  = "fileprocesssing"
 app_service4                  = "fileprocessingnew"
+app_service5                  = "voxelboxsmri"
 
 /* AZURE FUNCTION */
 function_name1                = "datauploadsbs"    #should not use "-" for function_name 

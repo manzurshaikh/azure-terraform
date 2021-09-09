@@ -99,6 +99,25 @@ resource "azurerm_subnet" "internal" {
   }
 }
 
+resource "azurerm_subnet" "internalml" {
+  depends_on                                    = [module.vnet]
+  name                                          = "internalml"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.6.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
 
 resource "azurerm_subnet" "aci" {
   depends_on                                    = [module.vnet]
@@ -198,6 +217,32 @@ module "appservice_autoscaling_fileprocessing" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.fileprocess_plan.id
+}
+
+/* App_Service plan for Azure App Service ML DOCKER_SMRI */
+resource "azurerm_app_service_plan" "voxelbox_smri" {
+  name                         = "${var.env}_voxelbox_smri"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
+
+  sku {
+  #  capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_voxelbox_smri
+    size     = var.size_az_appservice_voxelbox_smri
+  }
+}
+
+/* Azure Autoscaling for App Service Plan */
+module "appservice_autoscaling_voxelbox_smri" {
+  source                        = "./../modules/appservicescale"
+  appservice_plan_name          = "voxelbox_smri_scaling_rule"
+  resource_group_name           = "${var.env}-bsai"
+  location                      = var.region
+  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_smri.id
 }
 
 /* Azure Resource Group */
@@ -328,6 +373,29 @@ module "app_service4" {
   docker_registry_server_password = var.docker_registry_server_password
   docker_custom_image_name        = var.docker_custom_image_name_app_service3
   linux_fx_version                = var.linux_fx_version_app_service3
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  #app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_account_name        = "devfilesharestg"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
+}
+
+module "app_service5" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_smri.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service5}"
+  virtual_network_name            = azurerm_subnet.internalml.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service5
+  linux_fx_version                = var.linux_fx_version_app_service5
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
   #app_storage_account_name        = "${var.env}${var.storage_name}"
@@ -568,4 +636,8 @@ output "app_service_plan_mldockers_plan" {
 
 output "app_service_plan_funpremium_plan" {
   value = "${azurerm_app_service_plan.funpremium_plan.id}"
+}
+
+output "app_service_plan_voxelbox_smri" {
+  value = "${azurerm_app_service_plan.voxelbox_smri.id}"
 }
