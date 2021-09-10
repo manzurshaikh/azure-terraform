@@ -95,7 +95,7 @@ kind: Deployment
 metadata:
   name: fileprocessing
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: fileprocessing
@@ -114,13 +114,15 @@ spec:
         volumeMounts:
         - name: azure
           mountPath: /training
-#        resources:
-#          requests:
-#            cpu: 400m
-#            memory: 4500Mi
-          #limits:
-          #  cpu: 500m
-          #  memory: 9000Mi
+        resources:
+          requests:
+            cpu: 400m
+            memory: 4500Mi
+#            cpu: 70m
+#            memory: 40Mi
+          limits:
+            cpu: 500m
+            memory: 9000Mi
         ports:
         - containerPort: 3000
         volumeMounts:
@@ -266,10 +268,11 @@ metadata:
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: extensions/v1beta1
+    #apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     name: fileprocessing
-  minReplicas: 4
+  minReplicas: 1
   maxReplicas: 10
   metrics:
   - type: Resource

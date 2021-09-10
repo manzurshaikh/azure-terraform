@@ -72,6 +72,9 @@ variable "function_name5" {
 variable "function_name6" {
 }
 
+variable "function_name7" {
+}
+
 variable "functions_worker_runtime" {
 }
 
