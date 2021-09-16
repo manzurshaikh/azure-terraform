@@ -119,6 +119,26 @@ resource "azurerm_subnet" "internalml" {
   }
 }
 
+resource "azurerm_subnet" "internalml2" {
+  depends_on                                    = [module.vnet]
+  name                                          = "internalml2"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.7.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
 resource "azurerm_subnet" "aci" {
   depends_on                                    = [module.vnet]
   name                                          = "aci"
@@ -337,28 +357,28 @@ module "app_service2" {
   #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
 }
 
-module "app_service3" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service3}"
-  virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service3
-  linux_fx_version                = var.linux_fx_version_app_service3
-  docker_enable_ci                = "true"
-  app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}"
-  app_storage_account_name        = "devfilesharestg"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
-}
+#module "app_service3" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service3}"
+#  virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service3
+#  linux_fx_version                = var.linux_fx_version_app_service3
+#  docker_enable_ci                = "true"
+#  app_storage_key                 = var.app_storage_key_1
+#  #app_storage_account_name        = "${var.env}${var.storage_name}"
+#  app_storage_account_name        = "devfilesharestg"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
+#}
 
 module "app_service4" {
   depends_on                      = [module.resource_group]
@@ -371,8 +391,8 @@ module "app_service4" {
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service3
-  linux_fx_version                = var.linux_fx_version_app_service3
+  docker_custom_image_name        = var.docker_custom_image_name_app_service4
+  linux_fx_version                = var.linux_fx_version_app_service4
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
   #app_storage_account_name        = "${var.env}${var.storage_name}"
@@ -404,6 +424,29 @@ module "app_service5" {
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
   #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
+}
+
+module "app_service6" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_dti.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service6}"
+  virtual_network_name            = azurerm_subnet.internalml2.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service6
+  linux_fx_version                = var.linux_fx_version_app_service6
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  #app_storage_account_name        = "${var.env}${var.storage_name}"
+  app_storage_account_name        = "devfilesharestg"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
 module "azure_function1" {

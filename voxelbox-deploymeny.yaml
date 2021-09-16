@@ -116,15 +116,60 @@ spec:
           mountPath: /training
         resources:
           requests:
+#            cpu: 700m
+#            memory: 4500Mi
             cpu: 400m
-            memory: 4500Mi
+            memory: 800Mi
+          limits:
+            cpu: 800m
+            memory: 900Mi
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-smri
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: voxelbox-smri
+  template:
+    metadata:
+      labels:
+        app: voxelbox-smri
+#        namespace: backend
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-smri
+        image: devbsai.azurecr.io/voxelbox_smri_cloud:latest
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 7000m
+            memory: 4300Mi
 #            cpu: 70m
 #            memory: 40Mi
           limits:
-            cpu: 500m
+            cpu: 8000m
             memory: 9000Mi
         ports:
-        - containerPort: 3000
+        - containerPort: 5001
         volumeMounts:
         - name: azure
           mountPath: /training
@@ -175,34 +220,6 @@ spec:
 #          secretName: azure-secret
 #          shareName: training
 #          readOnly: false
----
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: voxelbox
-#  annotations:
-#    service.beta.kubernetes.io/azure-dns-label-name: voxelbox-lb
-#spec:
-#  loadBalancerIP: 20.204.13.137
-#  type: LoadBalancer
-#  ports:
-#  - port: 5000
-#  selector:
-#    app: voxelbox
----
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: voxelbox-plus        
-#  annotations:
-#    service.beta.kubernetes.io/azure-dns-label-name: voxelboxplus-lb
-#spec:
-#  type: LoadBalancer
-#  loadBalancerIP: 20.204.65.113
-#  ports:
-#  - port: 5000
-#  selector:
-#    app: voxelbox-plus
 ---
 #apiVersion: v1
 #kind: Service
@@ -260,6 +277,21 @@ spec:
   selector:
     app: fileprocessing
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-smri
+#  namespace: backend
+spec:
+  loadBalancerIP: 20.204.12.86
+  type: LoadBalancer
+  ports:
+  - port: 5001
+  selector:
+    app: voxelbox-smri
+---
 #HPA 
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
@@ -272,6 +304,40 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: fileprocessing
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much cpu is 80% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much memory is 160% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+---
+#HPA 
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: voxelbox-smri
+  namespace: default
+spec:
+  scaleTargetRef:
+    #apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
+    kind: Deployment
+    name: voxelbox-smri
   minReplicas: 1
   maxReplicas: 10
   metrics:

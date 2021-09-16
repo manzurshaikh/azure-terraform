@@ -171,7 +171,11 @@ variable "tier_az_appservice_voxelbox_smri" {
 variable "size_az_appservice_voxelbox_smri" {
 }
 
-variable "app_service4" {
+/* APP_SERVICE_PLAN Azure ML DOCKER_DTI */
+variable "tier_az_appservice_voxelbox_dti" {
+}
+
+variable "size_az_appservice_voxelbox_dti" {
 }
 
 /* APP_SERVICE_1 */
@@ -200,14 +204,24 @@ variable "docker_custom_image_name_app_service2" {
 variable "linux_fx_version_app_service2" {
 }
 
-/* APP_SERVICE_3 */
-variable "app_service3" { 
+#/* APP_SERVICE_3 */
+#variable "app_service3" { 
+#}
+#
+#variable "docker_custom_image_name_app_service3" {
+#}
+#
+#variable "linux_fx_version_app_service3" {
+#}
+
+/* APP_SERVICE_4 */
+variable "app_service4" { 
 }
 
-variable "docker_custom_image_name_app_service3" {
+variable "docker_custom_image_name_app_service4" {
 }
 
-variable "linux_fx_version_app_service3" {
+variable "linux_fx_version_app_service4" {
 }
 
 /* APP_SERVICE_5 */
@@ -218,6 +232,16 @@ variable "docker_custom_image_name_app_service5" {
 }
 
 variable "linux_fx_version_app_service5" {
+}
+
+/* APP_SERVICE_6 */
+variable "app_service6" { 
+}
+
+variable "docker_custom_image_name_app_service6" {
+}
+
+variable "linux_fx_version_app_service6" {
 }
 
 /* ACI */
