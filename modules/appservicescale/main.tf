@@ -23,7 +23,7 @@ resource "azurerm_monitor_autoscale_setting" "example" {
         time_window        = "PT2M"
         time_aggregation   = "Average"
         operator           = "GreaterThan"
-        threshold          = 50
+        threshold          = 30
         metric_namespace   = "microsoft.web/serverfarms"
         #dimensions {
         #  name     = "Instance"
@@ -49,7 +49,7 @@ resource "azurerm_monitor_autoscale_setting" "example" {
         time_window        = "PT5M"
         time_aggregation   = "Average"
         operator           = "LessThan"
-        threshold          = 50
+        threshold          = 20
         metric_namespace   = "microsoft.web/serverfarms"
       }
 
