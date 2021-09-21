@@ -16,14 +16,15 @@ resource "azurerm_monitor_autoscale_setting" "example" {
     rule {
       metric_trigger {
         #metric_name        = "CpuPercentage"
-        metric_name        = "MemoryPercentage"
+        #metric_name        = "MemoryPercentage"
+        metric_name        = var.metric_name_scale_up
         metric_resource_id = var.appservice_target_resource_id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT2M"
         time_aggregation   = "Average"
         operator           = "GreaterThan"
-        threshold          = 30
+        threshold          = 50
         metric_namespace   = "microsoft.web/serverfarms"
         #dimensions {
         #  name     = "Instance"
@@ -42,14 +43,15 @@ resource "azurerm_monitor_autoscale_setting" "example" {
 
     rule {
       metric_trigger {
-        metric_name        = "MemoryPercentage"
+        #metric_name        = "MemoryPercentage"
+        metric_name        = var.metric_name_scale_down
         metric_resource_id = var.appservice_target_resource_id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT5M"
         time_aggregation   = "Average"
         operator           = "LessThan"
-        threshold          = 20
+        threshold          = 30
         metric_namespace   = "microsoft.web/serverfarms"
       }
 

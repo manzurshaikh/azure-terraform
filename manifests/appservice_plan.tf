@@ -22,6 +22,8 @@ module "appservice_autoscaling_mldocker" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.mldockers_plan.id
+  metric_name_scale_up          = "CpuPercentage"
+  metric_name_scale_down        = "CpuPercentage"
 }
 
 /* App_Service plan for Azure App Service file_processing */
@@ -48,6 +50,8 @@ module "appservice_autoscaling_fileprocessing" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.fileprocess_plan.id
+  metric_name_scale_up          = "CpuPercentage"
+  metric_name_scale_down        = "CpuPercentage"
 }
 
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
@@ -74,6 +78,8 @@ module "appservice_autoscaling_voxelbox_dti" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.voxelbox_dti.id
+  metric_name_scale_up          = "CpuPercentage"
+  metric_name_scale_down        = "CpuPercentage"
 }
 
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
@@ -100,4 +106,6 @@ module "appservice_autoscaling_voxelbox_smri" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.voxelbox_smri.id
+  metric_name_scale_up          = "MemoryPercentage"
+  metric_name_scale_down        = "MemoryPercentage"
 }
