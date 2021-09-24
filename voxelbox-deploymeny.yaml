@@ -8,7 +8,7 @@ kind: Deployment
 metadata:
   name: voxelbox
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: voxelbox
@@ -32,11 +32,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 400m
-            memory: 1400Mi
+            cpu: 800m
+            memory: 1700Mi
           limits:
-            cpu: 500m
-            memory: 1500Mi
+            cpu: 1000m
+            memory: 1800Mi
         ports:
         - containerPort: 80
           name: voxelbox
@@ -118,11 +118,11 @@ spec:
           requests:
 #            cpu: 700m
 #            memory: 4500Mi
-            cpu: 400m
-            memory: 800Mi
+            cpu: 700m
+            memory: 4500Mi
           limits:
             cpu: 800m
-            memory: 900Mi
+            memory: 5000Mi
         ports:
         - containerPort: 3000
         volumeMounts:
@@ -291,6 +291,43 @@ spec:
   - port: 5001
   selector:
     app: voxelbox-smri
+---
+#HPA 
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: voxelbox
+  namespace: default
+spec:
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 3600
+  scaleTargetRef:
+    #apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
+    kind: Deployment
+    name: voxelbox
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much cpu is 80% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much memory is 160% of average utilization.
+        averageUtilization: 50
+        type: Utilization
 ---
 #HPA 
 apiVersion: autoscaling/v2beta2

@@ -244,61 +244,61 @@ variable "docker_custom_image_name_app_service6" {
 variable "linux_fx_version_app_service6" {
 }
 
-/* ACI */
-variable "aci_name_1" {
-}
-
-variable "aci_ip_type_aci_1" {
-}
-
-variable "container_name_aci_1" {
-}
-
-variable "container_image_aci_1" {
-}
-
-variable "container_cpu_aci_1" {
-}
-
-variable "container_memory_aci_1" {
-}
-
-variable "container_port_aci_1" {
-}
-
-variable "docker_registry_server_url_aci" {
-}
-
-variable "aci_storage_share_name" {
-}
-
-variable "aci_storage_mount_path" {
-}
-
-variable "aci_storage_key" {
-}
-
-/* ACI - 2 */
-variable "aci_name_2" {
-}
-
-variable "aci_ip_type_aci_2" {
-}
-
-variable "container_name_aci_2" {
-}
-
-variable "container_image_aci_2" {
-}
-
-variable "container_cpu_aci_2" {
-}
-
-variable "container_memory_aci_2" {
-}
-
-variable "container_port_aci_2" {
-}
+#/* ACI */
+#variable "aci_name_1" {
+#}
+#
+#variable "aci_ip_type_aci_1" {
+#}
+#
+#variable "container_name_aci_1" {
+#}
+#
+#variable "container_image_aci_1" {
+#}
+#
+#variable "container_cpu_aci_1" {
+#}
+#
+#variable "container_memory_aci_1" {
+#}
+#
+#variable "container_port_aci_1" {
+#}
+#
+#variable "docker_registry_server_url_aci" {
+#}
+#
+#variable "aci_storage_share_name" {
+#}
+#
+#variable "aci_storage_mount_path" {
+#}
+#
+#variable "aci_storage_key" {
+#}
+#
+#/* ACI - 2 */
+#variable "aci_name_2" {
+#}
+#
+#variable "aci_ip_type_aci_2" {
+#}
+#
+#variable "container_name_aci_2" {
+#}
+#
+#variable "container_image_aci_2" {
+#}
+#
+#variable "container_cpu_aci_2" {
+#}
+#
+#variable "container_memory_aci_2" {
+#}
+#
+#variable "container_port_aci_2" {
+#}
 
 /* AKS */
 variable "appId" {
