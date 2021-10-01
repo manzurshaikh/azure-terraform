@@ -82,7 +82,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   vm_size               = "Standard_D8as_v4"
   os_disk_size_gb       = 50
   enable_auto_scaling   = true
-  min_count             = 1
+  min_count             = 0
   max_count             = 10
   node_labels = {
     "hardware" = "highmem"

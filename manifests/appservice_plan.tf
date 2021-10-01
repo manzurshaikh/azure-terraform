@@ -106,6 +106,6 @@ module "appservice_autoscaling_voxelbox_smri" {
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.voxelbox_smri.id
-  metric_name_scale_up          = "MemoryPercentage"
-  metric_name_scale_down        = "MemoryPercentage"
+  metric_name_scale_up          = "CpuPercentage"       #MemoryPercentage
+  metric_name_scale_down        = "CpuPercentage"
 }

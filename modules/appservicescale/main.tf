@@ -8,8 +8,8 @@ resource "azurerm_monitor_autoscale_setting" "example" {
     name = "Default"
 
     capacity {
-      default = 1
-      minimum = 1
+      default = 2
+      minimum = 2
       maximum = 10
     }
 
@@ -20,11 +20,11 @@ resource "azurerm_monitor_autoscale_setting" "example" {
         metric_name        = var.metric_name_scale_up
         metric_resource_id = var.appservice_target_resource_id
         time_grain         = "PT1M"
-        statistic          = "Average"
-        time_window        = "PT2M"
-        time_aggregation   = "Average"
+        statistic          = "Average"                              #make as variable
+        time_window        = "PT5M"
+        time_aggregation   = "Maximum"
         operator           = "GreaterThan"
-        threshold          = 50
+        threshold          = 50                                  #make as variable
         metric_namespace   = "microsoft.web/serverfarms"
         #dimensions {
         #  name     = "Instance"
@@ -36,8 +36,8 @@ resource "azurerm_monitor_autoscale_setting" "example" {
       scale_action {
         direction = "Increase"
         type      = "ChangeCount"
-        value     = "2"
-        cooldown  = "PT1M"
+        value     = "1"
+        cooldown  = "PT5M"
       }
     }
 
@@ -47,19 +47,19 @@ resource "azurerm_monitor_autoscale_setting" "example" {
         metric_name        = var.metric_name_scale_down
         metric_resource_id = var.appservice_target_resource_id
         time_grain         = "PT1M"
-        statistic          = "Average"
+        statistic          = "Average"                              #make as variable
         time_window        = "PT5M"
-        time_aggregation   = "Average"
+        time_aggregation   = "Minimum"
         operator           = "LessThan"
-        threshold          = 30
+        threshold          = 2                                  #make as variable
         metric_namespace   = "microsoft.web/serverfarms"
       }
 
       scale_action {
         direction = "Decrease"
         type      = "ChangeCount"
-        value     = "2"
-        cooldown  = "PT1M"
+        value     = "1"
+        cooldown  = "PT20M"
       }
     }
   }
