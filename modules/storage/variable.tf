@@ -7,6 +7,9 @@ variable "stg_account_tier" {
 variable "stg_access_tier" {
 }
 
+variable "storage_account_kind" {
+}
+
 variable "storageshare_name" {
 }
 
@@ -41,4 +44,7 @@ variable "nfsv3_enabled" {
 }
 
 variable "account_replication_type" {
+}
+
+variable "storage_min_tls_version" {
 }

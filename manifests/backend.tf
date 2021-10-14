@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "2.65.0"
+  version = "2.80.0"
   features {}
 }
 
@@ -213,6 +213,7 @@ module "storage_bsai" {
   storageaccount_location   = "${var.region}"
   storageshare_name         = "${var.env}${var.storage_name}"
   storage_account_name      = "${var.env}${var.storage_name}"
+  storage_account_kind      = "StorageV2"
   stg_account_tier          = var.stg_account_tier_bsai
   stg_access_tier           = var.stg_access_tier
   storageshare_quota        = var.storageshare_quota_bsai
@@ -223,6 +224,29 @@ module "storage_bsai" {
   enable_https_traffic_only = var.enable_https_traffic_only_bsai
   nfsv3_enabled             = var.nfsv3_enabled_bsai
   account_replication_type  = var.account_replication_type_bsai
+  storage_min_tls_version   = "TLS1_0"
+}
+
+module "storage_bsai_1" {
+  depends_on = [module.resource_group]
+  source   = "./../modules/storage"
+  storageaccount_name       = "${var.env}${var.storage_name1}"
+  resource_group_name       = "${var.env}-bsai"
+  storageaccount_location   = "${var.region}"
+  storageshare_name         = "${var.env}${var.storage_name1}"
+  storage_account_name      = "${var.env}${var.storage_name1}"
+  storage_account_kind      = "FileStorage"
+  stg_account_tier          = var.stg_account_tier_bsai1
+  stg_access_tier           = var.stg_access_tier1
+  storageshare_quota        = var.storageshare_quota_bsai1
+  stg_ip_rules              = var.stg_ip_rules_bsai1
+  default_action_rule       = var.default_action_rule1
+  vnet_subnet_id            = azurerm_subnet.backend.id
+  allow_blob_public_access  = var.allow_blob_public_access_bsai1
+  enable_https_traffic_only = var.enable_https_traffic_only_bsai1
+  nfsv3_enabled             = var.nfsv3_enabled_bsai1
+  account_replication_type  = var.account_replication_type_bsai1
+  storage_min_tls_version   = "TLS1_2"
 }
 
 module "container_registery" {
@@ -609,12 +633,20 @@ output "subnet_frontend_id" {
   value = "${azurerm_subnet.frontend.id}"
 }
 
-#output "subnet_application_id" {
-#  value = "${azurerm_subnet.application.id}"
-#}
+output "subnet_application_id" {
+  value = "${azurerm_subnet.application.id}"
+}
 
 output "subnet_aci_id" {
   value = "${azurerm_subnet.aci.id}"
+}
+
+output "subnet_internalml_id" {
+  value = "${azurerm_subnet.internalml.id}"
+}
+
+output "subnet_internalml2_id" {
+  value = "${azurerm_subnet.internalml2.id}"
 }
 
 output "resource_group_id" {

@@ -43,6 +43,37 @@ variable "nfsv3_enabled_bsai" {
 variable "account_replication_type_bsai" {
 }
 
+/* STORAGE-2 */
+variable "storage_name1" {
+}
+
+variable "stg_ip_rules_bsai1" {
+}
+
+variable "default_action_rule1" {
+}
+
+variable "allow_blob_public_access_bsai1" {
+}
+
+variable "stg_account_tier_bsai1" {
+}
+
+variable "stg_access_tier1" {
+}
+
+variable "storageshare_quota_bsai1" {
+}
+
+variable "enable_https_traffic_only_bsai1" {
+}
+
+variable "nfsv3_enabled_bsai1" {
+}
+
+variable "account_replication_type_bsai1" {
+}
+
 /* Azure_Function_Service_Plan_consumtion */
 variable "fun_service_plan_name" {
 }

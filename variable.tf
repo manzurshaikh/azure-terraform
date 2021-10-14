@@ -1,3 +1,6 @@
+variable "subscription_id" {
+}
+
 #variable "subnet" {
 #    default = "dev-webappsubnet"
 #}
