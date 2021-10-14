@@ -18,7 +18,6 @@ resource "azurerm_storage_account" "storageaccount_name" {
   network_rules {
     default_action             = var.default_action_rule
     ip_rules                   = var.stg_ip_rules
-    virtual_network_subnet_ids = [var.vnet_subnet_id]
+    virtual_network_subnet_ids = var.vnet_subnet_id
   }
-
 }

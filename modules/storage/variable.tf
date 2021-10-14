@@ -32,6 +32,7 @@ variable "stg_ip_rules" {
 }
 
 variable "vnet_subnet_id" {
+    type = list(string)
 }
 
 variable "allow_blob_public_access" {
