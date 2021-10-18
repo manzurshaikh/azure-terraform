@@ -22,9 +22,6 @@ variable "vm_publicip_id" {
 variable "vm_network_securitygroup" {
 }
 
-variable "destination_port" {
-}
-
 variable "vm_name" {
 }
 

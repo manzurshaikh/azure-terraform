@@ -18,12 +18,24 @@ resource "azurerm_network_security_group" "vpnserver" {
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "tls"
+    name                       = "ssh"
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
     source_address_prefix      = "*"
-    destination_port_range     = var.destination_port
+    destination_port_range     = "22"
+    destination_address_prefix = azurerm_network_interface.main.private_ip_address
+  }
+
+    security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "openvpn"
+    priority                   = 101
+    protocol                   = "Udp"
+    source_port_range          = "*"
+    source_address_prefix      = "*"
+    destination_port_range     = "1194"
     destination_address_prefix = azurerm_network_interface.main.private_ip_address
   }
 }

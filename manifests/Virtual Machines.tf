@@ -14,7 +14,7 @@ resource "azurerm_subnet" "vmsubnet" {
   resource_group_name  = "${var.env}-bsai"
   address_prefixes     = ["10.0.8.0/24"]
   virtual_network_name = "${var.env}-${var.region}-bsai"
-  #service_endpoints    = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoints    = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
 }
 
 module "virtual_machine_vpn" {
@@ -27,7 +27,6 @@ module "virtual_machine_vpn" {
   vm_subnet_id               = azurerm_subnet.vmsubnet.id
   vm_publicip_id             = azurerm_public_ip.openvpn.id
   vm_network_securitygroup   = "vpn_server"
-  destination_port           = "22"
   vm_name                    = "vpnserver"
   vm_size                    = "Standard_B2s"
   image_publisher            = "Canonical"
@@ -44,4 +43,8 @@ module "virtual_machine_vpn" {
 
 output "public_ip" {
   value = "${azurerm_public_ip.openvpn.id}"
+}
+
+output "subnet_vmsubnet_id" {
+  value = "${azurerm_subnet.vmsubnet.id}"
 }
