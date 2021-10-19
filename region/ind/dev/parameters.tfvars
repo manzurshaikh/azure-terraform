@@ -14,7 +14,7 @@ enable_https_traffic_only_bsai = true
 nfsv3_enabled_bsai             = false
 account_replication_type_bsai = "LRS"
 
-storage_name1                  = "filesharestgnew"
+storage_name1                  = "bsdatastg"
 stg_ip_rules_bsai1              = ["20.193.136.157","20.193.136.160","20.193.136.214","20.193.136.224","20.193.136.239","20.193.136.249","20.193.137.13","20.193.137.14","20.193.137.36","20.193.137.55","20.193.136.216","20.193.136.217","104.211.113.109","52.172.164.90","104.211.116.183","13.71.1.53","52.172.221.97","52.172.211.172","52.172.144.111","104.211.118.93","52.172.215.180","52.172.221.13","13.71.36.155","52.172.136.188","20.193.128.244","20.193.129.6","20.193.129.126","20.193.136.12","20.193.136.57","20.193.136.59","52.140.106.224","52.140.106.225"]
 default_action_rule1            = "Deny"
 allow_blob_public_access_bsai1  = true
@@ -64,7 +64,7 @@ app_service5                  = "voxelboxsmri"
 app_service6                  = "voxelboxdti"
 
 /* AZURE FUNCTION */
-function_name1                = "datauploadsbs"    #should not use "-" for function_name 
+#function_name1                = "datauploadsbs"    #should not use "-" for function_name 
 function_name2                = "middlewarebs"
 function_name3                = "processinvokebs"
 function_name4                = "processstatusbs"

@@ -85,8 +85,8 @@ variable "size_az_fun_plan" {
 }
 
 /* Azure Function */
-variable "function_name1" {
-}
+#variable "function_name1" {
+#}
 
 variable "function_name2" {
 }
