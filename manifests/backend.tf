@@ -274,8 +274,7 @@ module "app_service1" {
   linux_fx_version                = var.linux_fx_version_app_service1
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}" 
-  app_storage_account_name        = "devfilesharestg"
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -297,8 +296,7 @@ module "app_service2" {
   linux_fx_version                = var.linux_fx_version_app_service2
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}"
-  app_storage_account_name        = "devfilesharestg"
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -321,7 +319,7 @@ module "app_service2" {
 #  docker_enable_ci                = "true"
 #  app_storage_key                 = var.app_storage_key_1
 #  #app_storage_account_name        = "${var.env}${var.storage_name}"
-#  app_storage_account_name        = "devfilesharestg"
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
 #  app_storage_mount_path          = "/training"
 #  app_storage_name_prefix         = "dev-storage"
 #  app_storage_share_name          = "training"
@@ -343,8 +341,7 @@ module "app_service4" {
   linux_fx_version                = var.linux_fx_version_app_service4
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}"
-  app_storage_account_name        = "devfilesharestg"
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -366,8 +363,7 @@ module "app_service5" {
   linux_fx_version                = var.linux_fx_version_app_service5
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}"
-  app_storage_account_name        = "devfilesharestg"
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
@@ -389,8 +385,7 @@ module "app_service6" {
   linux_fx_version                = var.linux_fx_version_app_service6
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
-  #app_storage_account_name        = "${var.env}${var.storage_name}"
-  app_storage_account_name        = "devfilesharestg"
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
