@@ -392,22 +392,22 @@ module "app_service6" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
-#module "azure_function1" {
-#  depends_on                       = [module.resource_group]
-#  source                           = "./../modules/function-basic"
-#  function_name                    = "${var.env}${var.function_name1}"
-#  location                         = "${var.region}"
-#  resource_group_name              = "${var.env}-bsai"
-#  virtual_network_name             = azurerm_subnet.frontend.id
-#  functions_worker_runtime         = var.functions_worker_runtime
-#  website_node_default_version     = var.website_node_default_version
-#  website_run_from_package         = var.website_run_from_package_fun1
-#  #AzureWebJobs.fileupload.Disabled = toset(null)
-#  app_service_plan_id              = azurerm_app_service_plan.funpremium_plan.id
-#  fun_os_type                      = "linux"
-#  website_enable_app_service_storage = "true"
-#  website_enable_sync_update_site    = "true"
-#}
+module "azure_function1" {
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name1}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.frontend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package_fun1
+  #AzureWebJobs.fileupload.Disabled = toset(null)
+  app_service_plan_id              = azurerm_app_service_plan.funpremium_plan.id
+  fun_os_type                      = "linux"
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
+}
 
 
 module "azure_function2" {

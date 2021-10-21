@@ -9,6 +9,13 @@ resource "azurerm_public_ip" "openvpn" {
   allocation_method   = "Static"
 }
 
+resource "azurerm_public_ip" "medidataserver" {
+  name                = "${var.env}-medidataserver"
+  resource_group_name = "${var.env}-bsai"
+  location            = "${var.region}"
+  allocation_method   = "Static"
+}
+
 resource "azurerm_subnet" "vmsubnet" {
   name                 = "vmsubnet"
   resource_group_name  = "${var.env}-bsai"
@@ -40,9 +47,36 @@ module "virtual_machine_vpn" {
   vm_admin_password          = "Brainsight@vpn"
 }
 
+module "virtual_machine_medidata" {
+  source                     = "./../modules/virtual-machine-windows"
+  public_ip_name             = "${var.env}-medidataip"
+  vm_network_interface       = "medidataserver"
+  location                   = "${var.region}"
+  resource_group_name        = "${var.env}-bsai"
+  virtual_network_name       = "${var.env}-${var.region}-bsai"
+  vm_subnet_id               = azurerm_subnet.vmsubnet.id
+  vm_publicip_id             = azurerm_public_ip.medidataserver.id
+  vm_network_securitygroup   = "medidata_server"
+  vm_name                    = "medidataserver"
+  vm_size                    = "Standard_DS1_v2"
+  image_publisher            = "MicrosoftWindowsServer"
+  image_offer                = "WindowsServer"
+  image_sku                  = "2019-datacenter-gensecond"
+  image_version              = "latest"
+  vm_disk_name               = "medidatasrvdisk"
+  vm_managed_disk_type       = "Standard_LRS"
+  vm_computer_name           = "medidataserver"
+  vm_admin_username          = "medidata"
+  vm_admin_password          = "Brainsight@2021"
+}
+
 
 output "public_ip" {
   value = "${azurerm_public_ip.openvpn.id}"
+}
+
+output "public_ip_medidataserver" {
+  value = "${azurerm_public_ip.medidataserver.id}"
 }
 
 output "subnet_vmsubnet_id" {
