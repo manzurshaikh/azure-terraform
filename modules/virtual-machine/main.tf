@@ -22,7 +22,7 @@ resource "azurerm_network_security_group" "vpnserver" {
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
-    source_address_prefix      = "*"
+    source_address_prefix      = "40.80.83.255/32"
     destination_port_range     = "22"
     destination_address_prefix = azurerm_network_interface.main.private_ip_address
   }
@@ -36,6 +36,17 @@ resource "azurerm_network_security_group" "vpnserver" {
     source_port_range          = "*"
     source_address_prefix      = "*"
     destination_port_range     = "1194"
+    destination_address_prefix = azurerm_network_interface.main.private_ip_address
+  }
+    security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "RDP"
+    priority                   = 102
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    source_address_prefix      = "40.80.83.255/32"
+    destination_port_range     = "3389"
     destination_address_prefix = azurerm_network_interface.main.private_ip_address
   }
 }
