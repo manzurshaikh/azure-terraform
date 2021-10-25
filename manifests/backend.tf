@@ -3,6 +3,14 @@ provider "azurerm" {
   features {}
 }
 
+/* Azure Public-DNS */
+module "dns" {
+  depends_on = [module.resource_group]
+  source                  = "./../modules/dns-zones"
+  resource_group_name     = "${var.env}-bsai"
+  domain_name             = "brainsightai.com"
+}
+
 /* AZURE SUBNETS */
 resource "azurerm_subnet_service_endpoint_storage_policy" "stg" {
   depends_on          = [module.vnet]
