@@ -59,6 +59,10 @@ size_az_appservice_voxelbox_dti = "P1v3"
 tier_az_appservice_bsaigeneralpurpose = "PremiumV2"
 size_az_appservice_bsaigeneralpurpose = "P1v2"
 
+/* APP_SERVICE_PLAN AZURE APP SERVICE windows */
+tier_az_appservice_windows = "Free"
+size_az_appservice_windows = "F1"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
@@ -66,6 +70,7 @@ app_service3                  = "brainsightuploaderbackend"
 app_service4                  = "fileprocessingnew"
 app_service5                  = "voxelboxsmri"
 app_service6                  = "voxelboxdti"
+app_service7                  = "brainsightuploader"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 

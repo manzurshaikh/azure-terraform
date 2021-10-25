@@ -137,3 +137,21 @@ module "appservice_autoscaling_brainsightuploader" {
   metric_name_scale_up          = "CpuPercentage"       #MemoryPercentage
   metric_name_scale_down        = "CpuPercentage"
 }
+
+
+/* App_Service plan for Azure App Service windows */
+resource "azurerm_app_service_plan" "windows" {
+  name                         = "${var.env}_windows"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
+
+  sku {
+  #  capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_windows
+    size     = var.size_az_appservice_windows
+  }
+}

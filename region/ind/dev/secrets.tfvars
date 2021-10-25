@@ -9,8 +9,8 @@ app_storage_key_1  = "oeJ6/JQaRKiFfO2bSmTutT7wA3MHbxVb+Um4J7Eu6LZ38Cawdq7jTewUum
 docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
 linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
 /* APP_SERVICE-3 */
-docker_custom_image_name_app_service3 = "maxbackendcontainer.azurecr.io/uploadfile:latest"
-linux_fx_version_app_service3 = "DOCKER|maxbackendcontainer.azurecr.io/uploadfile:latest"
+docker_custom_image_name_app_service3 = "devbsai.azurecr.io/uploadfile:latest"
+linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/uploadfile:latest"
 /* APP_SERVICE-4 */
 docker_custom_image_name_app_service4 = "devbsai.azurecr.io/file_processsing:latest"
 linux_fx_version_app_service4 = "DOCKER|devbsai.azurecr.io/file_processsing:latest"

@@ -420,6 +420,15 @@ module "app_service6" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
+module "app_service7" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice-win"
+  azurerm_app_service_plan        = azurerm_app_service_plan.windows.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.app_service7}"
+}
+
 module "azure_function1" {
   depends_on                       = [module.resource_group]
   source                           = "./../modules/function-basic"

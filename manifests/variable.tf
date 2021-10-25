@@ -219,6 +219,13 @@ variable "tier_az_appservice_bsaigeneralpurpose" {
 variable "size_az_appservice_bsaigeneralpurpose" {
 }
 
+/* APP_SERVICE_PLAN Azure WINDOWS */
+variable "tier_az_appservice_windows" {
+}
+
+variable "size_az_appservice_windows" {
+}
+
 /* APP_SERVICE_1 */
 variable "app_service1" { 
 }
@@ -283,6 +290,10 @@ variable "docker_custom_image_name_app_service6" {
 }
 
 variable "linux_fx_version_app_service6" {
+}
+
+/* APP_SERVICE_7 */
+variable "app_service7" { 
 }
 
 #/* ACI */
