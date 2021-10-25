@@ -4,14 +4,13 @@ docker_registry_server_username = "devbsai"
 docker_registry_server_password = "lh9Do7/2HFEkuyvUBPVDYJH9sCYXRuOF"
 docker_custom_image_name_app_service1 = "devbsai.azurecr.io/voxelbox:latest"
 linux_fx_version_app_service1 = "DOCKER|devbsai.azurecr.io/voxelbox:latest"
-#app_storage_key_1 = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
 app_storage_key_1  = "oeJ6/JQaRKiFfO2bSmTutT7wA3MHbxVb+Um4J7Eu6LZ38Cawdq7jTewUum8emaruohx8N+RKdiSky0jo5sbPAw=="
 /* APP_SERVICE-2 */
 docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
 linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
-#/* APP_SERVICE-3 */
-#docker_custom_image_name_app_service3 = "devbsai.azurecr.io/file_processsing:latest"
-#linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/file_processsing:latest"
+/* APP_SERVICE-3 */
+docker_custom_image_name_app_service3 = "maxbackendcontainer.azurecr.io/uploadfile:latest"
+linux_fx_version_app_service3 = "DOCKER|maxbackendcontainer.azurecr.io/uploadfile:latest"
 /* APP_SERVICE-4 */
 docker_custom_image_name_app_service4 = "devbsai.azurecr.io/file_processsing:latest"
 linux_fx_version_app_service4 = "DOCKER|devbsai.azurecr.io/file_processsing:latest"

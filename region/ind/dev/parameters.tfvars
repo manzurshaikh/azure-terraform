@@ -55,10 +55,14 @@ size_az_appservice_voxelbox_smri = "P1v3"
 tier_az_appservice_voxelbox_dti = "PremiumV3"
 size_az_appservice_voxelbox_dti = "P1v3"
 
+/* APP_SERVICE_PLAN AZURE APP SERVICE BsaiGeneralPurpose */
+tier_az_appservice_bsaigeneralpurpose = "PremiumV2"
+size_az_appservice_bsaigeneralpurpose = "P1v2"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
-#app_service3                  = "empty"   
+app_service3                  = "brainsightuploaderbackend"   
 app_service4                  = "fileprocessingnew"
 app_service5                  = "voxelboxsmri"
 app_service6                  = "voxelboxdti"

@@ -212,6 +212,13 @@ variable "tier_az_appservice_voxelbox_dti" {
 variable "size_az_appservice_voxelbox_dti" {
 }
 
+/* APP_SERVICE_PLAN Azure ML BRAINSIGHTUPLOADER */
+variable "tier_az_appservice_bsaigeneralpurpose" {
+}
+
+variable "size_az_appservice_bsaigeneralpurpose" {
+}
+
 /* APP_SERVICE_1 */
 variable "app_service1" { 
 }
@@ -238,15 +245,15 @@ variable "docker_custom_image_name_app_service2" {
 variable "linux_fx_version_app_service2" {
 }
 
-#/* APP_SERVICE_3 */
-#variable "app_service3" { 
-#}
-#
-#variable "docker_custom_image_name_app_service3" {
-#}
-#
-#variable "linux_fx_version_app_service3" {
-#}
+/* APP_SERVICE_3 */
+variable "app_service3" { 
+}
+
+variable "docker_custom_image_name_app_service3" {
+}
+
+variable "linux_fx_version_app_service3" {
+}
 
 /* APP_SERVICE_4 */
 variable "app_service4" { 
