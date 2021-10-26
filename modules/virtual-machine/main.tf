@@ -45,7 +45,7 @@ resource "azurerm_network_security_group" "vpnserver" {
     priority                   = 102
     protocol                   = "Tcp"
     source_port_range          = "*"
-    source_address_prefix      = "40.80.83.255/32"
+    source_address_prefix      = "*"
     destination_port_range     = "3389"
     destination_address_prefix = azurerm_network_interface.main.private_ip_address
   }

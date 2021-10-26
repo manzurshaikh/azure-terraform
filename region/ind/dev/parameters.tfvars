@@ -60,8 +60,8 @@ tier_az_appservice_bsaigeneralpurpose = "PremiumV2"
 size_az_appservice_bsaigeneralpurpose = "P1v2"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE windows */
-tier_az_appservice_windows = "Free"
-size_az_appservice_windows = "F1"
+tier_az_appservice_windows = "Basic"
+size_az_appservice_windows = "B1"
 
 /* APP SERVICE */
 app_service1                  = "voxelbox"
