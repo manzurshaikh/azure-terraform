@@ -66,7 +66,7 @@ size_az_appservice_windows = "B1"
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
-app_service3                  = "brainsightuploaderbackend"   
+app_service3                  = "bsaiuploaderbackend"   
 app_service4                  = "fileprocessingnew"
 app_service5                  = "voxelboxsmri"
 app_service6                  = "voxelboxdti"

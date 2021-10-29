@@ -18,12 +18,12 @@ resource "azurerm_public_ip" "medidataserver" {
   allocation_method   = "Static"
 }
 
-resource "azurerm_public_ip" "dassaultserver" {
-  name                = "${var.env}-dassaultserver"
-  resource_group_name = "${var.env}-bsai"
-  location            = "${var.region}"
-  allocation_method   = "Static"
-}
+#resource "azurerm_public_ip" "dassaultserver" {
+#  name                = "${var.env}-dassaultserver"
+#  resource_group_name = "${var.env}-bsai"
+#  location            = "${var.region}"
+#  allocation_method   = "Static"
+#}
 
 resource "azurerm_subnet" "vmsubnet" {
   name                 = "vmsubnet"
@@ -79,28 +79,28 @@ module "virtual_machine_medidata" {
   vm_admin_password          = "Brainsight@2021"
 }
 
-module "virtual_dassaultsystem" {
-  source                     = "./../modules/virtual-machine-windows"
-  public_ip_name             = "${var.env}-dassaultsystem"
-  vm_network_interface       = "dassaultsystem"
-  location                   = "${var.region}"
-  resource_group_name        = "${var.env}-bsai"
-  virtual_network_name       = "${var.env}-${var.region}-bsai"
-  vm_subnet_id               = azurerm_subnet.vmsubnet.id
-  vm_publicip_id             = azurerm_public_ip.dassaultserver.id
-  vm_network_securitygroup   = "dassaultserver"
-  vm_name                    = "dassaultserver"
-  vm_size                    = "Standard_NV4as_v4"
-  image_publisher            = "MicrosoftWindowsDesktop"
-  image_offer                = "Windows-10"
-  image_sku                  = "19h2-entn-g2"
-  image_version              = "latest"
-  vm_disk_name               = "dassaultvdisk"
-  vm_managed_disk_type       = "Standard_LRS"
-  vm_computer_name           = "dassaultsystem"
-  vm_admin_username          = "dassaultsystem"
-  vm_admin_password          = "Brainsight@2021"
-}
+#module "virtual_dassaultsystem" {
+#  source                     = "./../modules/virtual-machine-windows"
+#  public_ip_name             = "${var.env}-dassaultsystem"
+#  vm_network_interface       = "dassaultsystem"
+#  location                   = "${var.region}"
+#  resource_group_name        = "${var.env}-bsai"
+#  virtual_network_name       = "${var.env}-${var.region}-bsai"
+#  vm_subnet_id               = azurerm_subnet.vmsubnet.id
+#  vm_publicip_id             = azurerm_public_ip.dassaultserver.id
+#  vm_network_securitygroup   = "dassaultserver"
+#  vm_name                    = "dassaultserver"
+#  vm_size                    = "Standard_NV4as_v4"
+#  image_publisher            = "MicrosoftWindowsDesktop"
+#  image_offer                = "Windows-10"
+#  image_sku                  = "19h2-entn-g2"
+#  image_version              = "latest"
+#  vm_disk_name               = "dassaultvdisk"
+#  vm_managed_disk_type       = "Standard_LRS"
+#  vm_computer_name           = "dassaultsystem"
+#  vm_admin_username          = "dassaultsystem"
+#  vm_admin_password          = "Brainsight@2021"
+#}
 
 
 output "public_ip" {
@@ -111,9 +111,9 @@ output "public_ip_medidataserver" {
   value = "${azurerm_public_ip.medidataserver.id}"
 }
 
-output "public_ip_dassaultserver" {
-  value = "${azurerm_public_ip.dassaultserver.id}"
-}
+#output "public_ip_dassaultserver" {
+#  value = "${azurerm_public_ip.dassaultserver.id}"
+#}
 
 output "subnet_vmsubnet_id" {
   value = "${azurerm_subnet.vmsubnet.id}"

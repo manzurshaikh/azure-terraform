@@ -112,7 +112,7 @@ module "appservice_autoscaling_voxelbox_smri" {
 
 /* App_Service plan for Azure App Service ML BsaiGeneralPurpose */
 resource "azurerm_app_service_plan" "bsaigeneralpurpose" {
-  name                         = "${var.env}_bsaigeneralpurpose"
+  name                         = "${var.env}_generalpurpose"
   location                     = var.region
   resource_group_name          = "${var.env}-bsai"
   kind                         = "Linux"
@@ -130,7 +130,7 @@ resource "azurerm_app_service_plan" "bsaigeneralpurpose" {
 /* Azure Autoscaling for App Service Plan for BSAIGeneralPurpose */
 module "appservice_autoscaling_brainsightuploader" {
   source                        = "./../modules/appservicescale"
-  appservice_plan_name          = "bsaigeneralpurpose_scaling_rule"
+  appservice_plan_name          = "bsaigenpurpose_scaling_rule"
   resource_group_name           = "${var.env}-bsai"
   location                      = var.region
   appservice_target_resource_id = azurerm_app_service_plan.bsaigeneralpurpose.id
