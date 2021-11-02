@@ -296,6 +296,26 @@ variable "linux_fx_version_app_service6" {
 variable "app_service7" { 
 }
 
+/* APP_SERVICE_8 */
+variable "app_service8" { 
+}
+
+variable "docker_custom_image_name_app_service8" {
+}
+
+variable "linux_fx_version_app_service8" {
+}
+
+/* APP_SERVICE_9 */
+variable "app_service9" { 
+}
+
+variable "docker_custom_image_name_app_service9" {
+}
+
+variable "linux_fx_version_app_service9" {
+}
+
 #/* ACI */
 #variable "aci_name_1" {
 #}

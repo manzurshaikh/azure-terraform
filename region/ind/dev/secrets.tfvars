@@ -20,6 +20,12 @@ linux_fx_version_app_service5 = "DOCKER|devbsai.azurecr.io/voxelbox_smri_cloud:l
 /* APP_SERVICE-6 */
 docker_custom_image_name_app_service6 = "devbsai.azurecr.io/voxelbox_dti:latest"
 linux_fx_version_app_service6 = "DOCKER|devbsai.azurecr.io/voxelbox_dti:latest"
+/* APP_SERVICE-8 */
+docker_custom_image_name_app_service8 = "devbsai.azurecr.io/voxelbox-fc:latest"
+linux_fx_version_app_service8 = "DOCKER|devbsai.azurecr.io/voxelbox-fc:latest"
+/* APP_SERVICE-9 */
+docker_custom_image_name_app_service9 = "devbsai.azurecr.io/voxelbox-dementia:latest"
+linux_fx_version_app_service9 = "DOCKER|devbsai.azurecr.io/voxelbox-dementia:latest"
 #/* ACI */
 #docker_registry_server_url_aci = "devbsai.azurecr.io"
 #aci_storage_key = "aSQyQNQ1mkE4Vuv+G+4gmXh0gamTa1smZcXwIuzDhLLz71PhhSH/LMepGpQ+KSswV3pHiZ3gdj5NbdetPKcj2Q=="
