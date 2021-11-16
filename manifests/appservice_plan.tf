@@ -127,6 +127,34 @@ resource "azurerm_app_service_plan" "bsaigeneralpurpose" {
   }
 }
 
+/* App_Service plan for Azure App Service Voxelbox-plus */
+resource "azurerm_app_service_plan" "voxelbox_plus" {
+  name                         = "${var.env}_voxelbox_plus"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
+
+  sku {
+  #  capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_voxelbox_plus
+    size     = var.size_az_appservice_voxelbox_plus
+  }
+}
+
+/* Azure Autoscaling for App Service Plan voxelbox_plus */
+module "appservice_autoscaling_voxelbox_plus" {
+  source                        = "./../modules/appservicescale"
+  appservice_plan_name          = "voxelbox_plus_scaling_rule"
+  resource_group_name           = "${var.env}-bsai"
+  location                      = var.region
+  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_plus.id
+  metric_name_scale_up          = "CpuPercentage"       #MemoryPercentage
+  metric_name_scale_down        = "CpuPercentage"
+}
+
 /* Azure Autoscaling for App Service Plan for BSAIGeneralPurpose */
 module "appservice_autoscaling_brainsightuploader" {
   source                        = "./../modules/appservicescale"

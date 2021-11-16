@@ -147,6 +147,26 @@ resource "azurerm_subnet" "internalml2" {
   }
 }
 
+resource "azurerm_subnet" "internalml3" {
+  depends_on                                    = [module.vnet]
+  name                                          = "internalml3"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.12.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
 resource "azurerm_subnet" "generalpurpose" {
   depends_on                                    = [module.vnet]
   name                                          = "generalpurpose"
@@ -312,11 +332,11 @@ module "app_service1" {
 module "app_service2" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
+  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = "${var.env}-${var.app_service2}"
-  virtual_network_name            = azurerm_subnet.application.id
+  virtual_network_name            = azurerm_subnet.internalml3.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
@@ -328,7 +348,7 @@ module "app_service2" {
   app_storage_mount_path          = "/training"
   app_storage_name_prefix         = "dev-storage"
   app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
 }
 
 module "app_service3" {

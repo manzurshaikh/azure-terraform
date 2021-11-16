@@ -208,6 +208,13 @@ variable "tier_az_appservice_voxelbox_smri" {
 variable "size_az_appservice_voxelbox_smri" {
 }
 
+/* APP_SERVICE_PLAN Azure VOXELBOX-PLUS */
+variable "tier_az_appservice_voxelbox_plus" {
+}
+
+variable "size_az_appservice_voxelbox_plus" {
+}
+
 /* APP_SERVICE_PLAN Azure ML DOCKER_DTI */
 variable "tier_az_appservice_voxelbox_dti" {
 }

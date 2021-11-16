@@ -2,8 +2,8 @@
 docker_registry_server_url = "https://devbsai.azurecr.io"
 docker_registry_server_username = "devbsai"
 docker_registry_server_password = "lh9Do7/2HFEkuyvUBPVDYJH9sCYXRuOF"
-docker_custom_image_name_app_service1 = "devbsai.azurecr.io/voxelbox:latest"
-linux_fx_version_app_service1 = "DOCKER|devbsai.azurecr.io/voxelbox:latest"
+docker_custom_image_name_app_service1 = "devbsai.azurecr.io/voxelbox:new"
+linux_fx_version_app_service1 = "DOCKER|devbsai.azurecr.io/voxelbox:new"
 app_storage_key_1  = "oeJ6/JQaRKiFfO2bSmTutT7wA3MHbxVb+Um4J7Eu6LZ38Cawdq7jTewUum8emaruohx8N+RKdiSky0jo5sbPAw=="
 /* APP_SERVICE-2 */
 docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusgliomaecm:latest"

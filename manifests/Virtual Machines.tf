@@ -7,14 +7,14 @@
 resource "azurerm_public_ip" "openvpn" {
   name                = "${var.env}-vpnip"
   resource_group_name = "${var.env}-bsai"
-  location            = "${var.region}"
+  location            = var.region
   allocation_method   = "Static"
 }
 
 resource "azurerm_public_ip" "medidataserver" {
   name                = "${var.env}-medidataserver"
   resource_group_name = "${var.env}-bsai"
-  location            = "${var.region}"
+  location            = var.region
   allocation_method   = "Static"
 }
 

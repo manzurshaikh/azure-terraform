@@ -40,8 +40,8 @@ size_az_funpremium_plan     = "EP1"
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
 app_service_plan_docker_name       = "app_service_mldocker_plan"
 #capacity_az_appservice_docker_plan = "1"
-tier_az_appservice_docker_plan     = "PremiumV2"
-size_az_appservice_docker_plan     = "P2v2"
+tier_az_appservice_docker_plan     = "PremiumV3"
+size_az_appservice_docker_plan     = "P2v3"
 
 /* APP_SERICE_PLAN File_processing Docker */
 tier_az_appservice_fileprocess_plan = "PremiumV3"
@@ -62,6 +62,10 @@ size_az_appservice_bsaigeneralpurpose = "P1v2"
 /* APP_SERVICE_PLAN AZURE APP SERVICE windows */
 tier_az_appservice_windows = "Basic"
 size_az_appservice_windows = "B1"
+
+/* APP_SERVICE_PLAN AZURE APP SERVICE VOXELBOX_PLUS */
+tier_az_appservice_voxelbox_plus = "PremiumV2"
+size_az_appservice_voxelbox_plus = "P1v2"
 
 /* APP SERVICE */
 app_service1                  = "voxelbox"
