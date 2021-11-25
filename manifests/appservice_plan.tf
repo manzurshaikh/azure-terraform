@@ -42,7 +42,6 @@ resource "azurerm_app_service_plan" "fileprocess_plan" {
     size     = var.size_az_appservice_fileprocess_plan
   }
 }
-
 /* Azure Autoscaling for App Service Plan */
 module "appservice_autoscaling_fileprocessing" {
   source                        = "./../modules/appservicescale"
@@ -53,7 +52,6 @@ module "appservice_autoscaling_fileprocessing" {
   metric_name_scale_up          = "CpuPercentage"
   metric_name_scale_down        = "CpuPercentage"
 }
-
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
 resource "azurerm_app_service_plan" "voxelbox_dti" {
   name                         = "${var.env}_voxelbox_dti"

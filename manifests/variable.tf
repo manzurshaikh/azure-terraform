@@ -194,7 +194,6 @@ variable "size_az_appservice_docker_plan" {
 variable "fileprocess_plan_name" {
     default = "fileprocessing_plan"
 }
-
 variable "tier_az_appservice_fileprocess_plan" {
 }
 
@@ -235,7 +234,6 @@ variable "tier_az_appservice_windows" {
 
 variable "size_az_appservice_windows" {
 }
-
 /* APP_SERVICE_1 */
 variable "app_service1" { 
 }
