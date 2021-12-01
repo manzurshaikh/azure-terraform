@@ -77,6 +77,7 @@ app_service6                  = "voxelboxdti"
 app_service7                  = "brainsightuploader"
 app_service8                  = "voxelboxfc"
 app_service9                  = "voxelboxdementia"
+app_service10                 = "datafiletesting"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 
