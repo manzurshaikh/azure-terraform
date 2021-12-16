@@ -334,6 +334,16 @@ variable "docker_custom_image_name_app_service10" {
 variable "linux_fx_version_app_service10" {
 }
 
+/* APP_SERVICE_11 */
+variable "app_service11" { 
+}
+
+variable "docker_custom_image_name_app_service11" {
+}
+
+variable "linux_fx_version_app_service11" {
+}
+
 #/* ACI */
 #variable "aci_name_1" {
 #}

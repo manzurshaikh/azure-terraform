@@ -74,10 +74,11 @@ app_service3                  = "bsaiuploaderbackend"
 app_service4                  = "fileprocessingnew"
 app_service5                  = "voxelboxsmri"
 app_service6                  = "voxelboxdti"
-app_service7                  = "brainsightuploader"
+app_service7                  = "brainsightuploader"  #manual upload code
 app_service8                  = "voxelboxfc"
 app_service9                  = "voxelboxdementia"
 app_service10                 = "datafiletesting"
+app_service11                 = "fileprocessing-carpl"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 

@@ -543,6 +543,29 @@ module "app_service10" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
+module "app_service11" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.bsaigeneralpurpose.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service11}"
+  #virtual_network_name            = azurerm_subnet.internalml2.id
+  virtual_network_name            = azurerm_subnet.generalpurpose.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service11
+  linux_fx_version                = var.linux_fx_version_app_service11
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
+}
+
 #
 #
 #
