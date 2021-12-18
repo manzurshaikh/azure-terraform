@@ -311,7 +311,7 @@ module "storage_bsai_1" {
   stg_ip_rules              = var.stg_ip_rules_bsai1
   default_action_rule       = var.default_action_rule1
   #vnet_subnet_id            = azurerm_subnet.backend.id
-  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id]
+  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id, azurerm_subnet.internalml3.id]
   allow_blob_public_access  = var.allow_blob_public_access_bsai1
   enable_https_traffic_only = var.enable_https_traffic_only_bsai1
   nfsv3_enabled             = var.nfsv3_enabled_bsai1
