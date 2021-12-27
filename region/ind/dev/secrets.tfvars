@@ -13,7 +13,7 @@ docker_custom_image_name_app_service3 = "devbsai.azurecr.io/uploadfile:latest"
 linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/uploadfile:latest"
 /* APP_SERVICE-4 */
 docker_custom_image_name_app_service4 = "devbsai.azurecr.io/file_processsing:medidata"
-linux_fx_version_app_service4 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_env"
+linux_fx_version_app_service4 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_largefile"
 /* APP_SERVICE-5 */
 docker_custom_image_name_app_service5 = "devbsai.azurecr.io/voxelbox_smri_cloud:latest"
 linux_fx_version_app_service5 = "DOCKER|devbsai.azurecr.io/voxelbox_smri_cloud:latest"
@@ -31,7 +31,10 @@ docker_custom_image_name_app_service10 = "devbsai.azurecr.io/datafile_testing:la
 linux_fx_version_app_service10 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_innovate"
 /* APP_SERVICE-11 */
 docker_custom_image_name_app_service11 = "devbsai.azurecr.io/datafile_testing:latest"
-linux_fx_version_app_service11 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_innovate"
+linux_fx_version_app_service11 = "DOCKER|devbsai.azurecr.io/file_processsing:carpel"
+/* APP_SERVICE-12 */
+docker_custom_image_name_app_service12 = "devbsai.azurecr.io/normative_mapping:latest"
+linux_fx_version_app_service12 = "DOCKER|devbsai.azurecr.io/normative_mapping:latest"
 
 #/* ACI */
 #docker_registry_server_url_aci = "devbsai.azurecr.io"
