@@ -327,6 +327,15 @@ module "container_registery" {
   contreg_location         = "${var.region}"  
 }
 
+
+module "container_registery_ge" {
+  depends_on               = [module.resource_group]
+  source                   = "./../modules/contreg"
+  contreg_name             = "${var.env}gerepo"
+  resource_group_name      = "${var.env}-bsai"
+  contreg_location         = "${var.region}"  
+}
+
 module "app_service1" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
@@ -588,6 +597,7 @@ module "app_service12" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
+#
 #
 #
 #
