@@ -113,22 +113,57 @@ spec:
         averageUtilization: 50
         type: Utilization
 ---
-#ingress
+##ingress
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: dev-ingress
+#  annotations:
+#    kubernetes.io/ingress.class: addon-http-application-routing
+#spec:
+#  tls:
+#  - hosts:
+#    - demo.azure.com
+#    secretName: aks-ingress-tls
+#  rules:
+#  - host: voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
+#    http:
+#      paths:
+#      - path: /
+#        pathType: Prefix
+#        backend:
+#          service: 
+#            name: voxelbox-plus
+#            port: 
+#              number: 8080
+
+###
+#kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
+#ingressv2
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dev-ingress
+  namespace: backend
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  tls:
+  - hosts:
+    #- voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
+    - voxelbox-plus.brainsightai.com
+    secretName: bsai-ssl-tls
   rules:
-  - host: voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
+  #- host: voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
+  - host: voxelbox-plus.brainsightai.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
-          service: 
+          service:
             name: voxelbox-plus
-            port: 
+            port:
               number: 8080
