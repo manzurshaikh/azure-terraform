@@ -70,6 +70,17 @@ resource "azurerm_kubernetes_cluster" "example" {
     network_policy     = "calico"
   }
 
+
+addon_profile {
+  aci_connector_linux {
+    enabled = false
+  }
+
+http_application_routing {
+    enabled = true
+  }
+}
+
   tags = {
     environment = "Terraform_aks"  
    }

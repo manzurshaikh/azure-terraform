@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-plus
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-plus
+  template:
+    metadata:
+      labels:
+        app: voxelbox-plus
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: voxelbox-plus
+        image: devbsai.azurecr.io/voxelboxplusgliomaecm:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 500m
+            memory: 800Mi
+          limits:
+            cpu: 600m
+            memory: 1400Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-plus
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+#  name: voxelbox-plus
+#  namespace: backend 
+#spec:
+#  loadBalancerIP: 20.204.65.113
+#  type: LoadBalancer
+#  ports:
+#  - port: 8080
+#    protocol: TCP
+#    targetPort: 5000
+#  selector:
+#    app: voxelbox-plus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-plus
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-plus
+---
+#HPA 
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: voxelbox-plus
+  namespace: backend
+spec:
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 3600
+  scaleTargetRef:
+    #apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
+    kind: Deployment
+    name: voxelbox-plus
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much cpu is 80% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        # NOTE:
+        # Please take a look into pod's resource reservations and limits for
+        # better understanding how much memory is 160% of average utilization.
+        averageUtilization: 50
+        type: Utilization
+---
+#ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dev-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: voxelbox-plus
+            port: 
+              number: 8080
