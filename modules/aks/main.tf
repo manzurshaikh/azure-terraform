@@ -69,16 +69,33 @@ resource "azurerm_kubernetes_cluster" "example" {
     load_balancer_sku  = "standard"
     network_policy     = "calico"
   }
-
-
-addon_profile {
-  aci_connector_linux {
-    enabled = false
-  }
+  
+ addon_profile {
+   aci_connector_linux {
+     enabled = false
+ }
 
 http_application_routing {
     enabled = true
   }
+
+azure_policy {
+  enabled = false
+}
+
+ingress_application_gateway {
+  enabled = false
+  #ingress_application_gateway_identity = []
+}
+
+kube_dashboard {
+  enabled = false
+}
+
+oms_agent {
+  enabled = false 
+  #oms_agent_identity = [] 
+ }
 }
 
   tags = {
