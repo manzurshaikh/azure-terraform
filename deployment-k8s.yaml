@@ -100,23 +100,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: voxelbox-smri
+  name: voxelbox-nmap
   namespace: "backend"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: voxelbox-smri
+      app: voxelbox-nmap
   template:
     metadata:
       labels:
-        app: voxelbox-smri
+        app: voxelbox-nmap
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: voxelbox-smri
-        image: devbsai.azurecr.io/voxelbox_smri_cloud:latest
+      - name: voxelbox-nmap
+        image: devbsai.azurecr.io/normative_mapping:latest
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -132,8 +132,8 @@ spec:
             cpu: 8000m
             memory: 9000Mi
         ports:
-        - containerPort: 2000
-          name: voxelbox-smri
+        - containerPort: 5000
+          name: voxelbox-nmap
       volumes:
       - name: azure
         azureFile:
@@ -146,7 +146,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: voxelbox-smri
+  name: voxelbox-nmap
   namespace: backend 
 spec:
   #loadBalancerIP: 20.204.65.113
@@ -154,15 +154,15 @@ spec:
   ports:
   - port: 8081
     protocol: TCP
-    targetPort: 2000
+    targetPort: 5000
   selector:
-    app: voxelbox-smri
+    app: voxelbox-nmap
 ---
 #HPA 
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: voxelbox-smri
+  name: voxelbox-nmap
   namespace: backend
 spec:
   behavior:
@@ -172,7 +172,7 @@ spec:
     #apiVersion: extensions/v1beta1
     apiVersion: apps/v1
     kind: Deployment
-    name: voxelbox-smri
+    name: voxelbox-nmap
   minReplicas: 1
   maxReplicas: 10
   metrics:
@@ -196,25 +196,22 @@ spec:
         type: Utilization
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
-###Ingress
+######Ingress#####
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dev-ingress
   namespace: backend
   annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    #nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
   - hosts:
-    #- voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
     - voxelbox-plus.brainsightai.com
-    #- voxelbox-smri.brainsightai.com
-    secretName: bsai-ssl-tls
+    secretName: aks-ingress-tls
   rules:
-  #- host: voxelbox-plus.a14955ea4abd4ec08692.centralindia.aksapp.io
   - host: voxelbox-plus.brainsightai.com
     http:
       paths:
@@ -225,13 +222,13 @@ spec:
             name: voxelbox-plus
             port:
               number: 8080
-#  - host: voxelbox-smri.brainsightai.com
-#    http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: voxelbox-smri
-#            port:
-#              number: 8081
+  - host: voxelbox-nmap.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-nmap
+            port:
+              number: 8081

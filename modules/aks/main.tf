@@ -67,7 +67,7 @@ resource "azurerm_kubernetes_cluster" "example" {
   network_profile {
     network_plugin     = "azure"
     load_balancer_sku  = "standard"
-    network_policy     = "calico"
+    #network_policy     = "calico"
   }
   
  addon_profile {
@@ -76,7 +76,7 @@ resource "azurerm_kubernetes_cluster" "example" {
  }
 
 http_application_routing {
-    enabled = true
+    enabled = false
   }
 
 azure_policy {
