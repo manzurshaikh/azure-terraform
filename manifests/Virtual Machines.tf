@@ -90,7 +90,7 @@ module "medidataserverv01" {
   vm_publicip_id             = azurerm_public_ip.medidataserverv01.id
   vm_network_securitygroup   = "medidataserverv01"
   vm_name                    = "medidataserver_v01"
-  vm_size                    = "Standard_B2s"
+  vm_size                    = "Standard_D2as_v4"
   image_publisher            = "MicrosoftWindowsServer"
   image_offer                = "WindowsServer"
   image_sku                  = "2019-datacenter-gensecond"

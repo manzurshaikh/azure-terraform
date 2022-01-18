@@ -311,7 +311,7 @@ module "storage_bsai_1" {
   stg_ip_rules              = var.stg_ip_rules_bsai1
   default_action_rule       = var.default_action_rule1
   #vnet_subnet_id            = azurerm_subnet.backend.id
-  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id, azurerm_subnet.internalml3.id]
+  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id, azurerm_subnet.internalml3.id, azurerm_subnet.akssubnet.id]
   allow_blob_public_access  = var.allow_blob_public_access_bsai1
   enable_https_traffic_only = var.enable_https_traffic_only_bsai1
   nfsv3_enabled             = var.nfsv3_enabled_bsai1
@@ -588,6 +588,28 @@ module "app_service12" {
   docker_registry_server_password = var.docker_registry_server_password
   docker_custom_image_name        = var.docker_custom_image_name_app_service12
   linux_fx_version                = var.linux_fx_version_app_service12
+  docker_enable_ci                = "true"
+  app_storage_key                 = var.app_storage_key_1
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
+}
+
+module "app_service13" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = "${var.env}-${var.app_service13}"
+  virtual_network_name            = azurerm_subnet.internalml3.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service13
+  linux_fx_version                = var.linux_fx_version_app_service13
   docker_enable_ci                = "true"
   app_storage_key                 = var.app_storage_key_1
   app_storage_account_name        = "${var.env}${var.storage_name1}"

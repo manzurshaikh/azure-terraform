@@ -16,15 +16,15 @@ resource "azurerm_app_service_plan" "mldockers_plan" {
 }
 
 /* Azure Autoscaling for App Service Plan */
-module "appservice_autoscaling_mldocker" {
-  source                        = "./../modules/appservicescale"
-  appservice_plan_name          = "mldockers_plan_scaling_rule"
-  resource_group_name           = "${var.env}-bsai"
-  location                      = var.region
-  appservice_target_resource_id = azurerm_app_service_plan.mldockers_plan.id
-  metric_name_scale_up          = "CpuPercentage"
-  metric_name_scale_down        = "CpuPercentage"
-}
+#module "appservice_autoscaling_mldocker" {
+#  source                        = "./../modules/appservicescale"
+#  appservice_plan_name          = "mldockers_plan_scaling_rule"
+#  resource_group_name           = "${var.env}-bsai"
+#  location                      = var.region
+#  appservice_target_resource_id = azurerm_app_service_plan.mldockers_plan.id
+#  metric_name_scale_up          = "CpuPercentage"
+#  metric_name_scale_down        = "CpuPercentage"
+#}
 
 /* App_Service plan for Azure App Service file_processing */
 resource "azurerm_app_service_plan" "fileprocess_plan" {
@@ -43,15 +43,15 @@ resource "azurerm_app_service_plan" "fileprocess_plan" {
   }
 }
 /* Azure Autoscaling for App Service Plan */
-module "appservice_autoscaling_fileprocessing" {
-  source                        = "./../modules/appservicescale"
-  appservice_plan_name          = "fileprocess_plan_scaling_rule"
-  resource_group_name           = "${var.env}-bsai"
-  location                      = var.region
-  appservice_target_resource_id = azurerm_app_service_plan.fileprocess_plan.id
-  metric_name_scale_up          = "CpuPercentage"
-  metric_name_scale_down        = "CpuPercentage"
-}
+#module "appservice_autoscaling_fileprocessing" {
+#  source                        = "./../modules/appservicescale"
+#  appservice_plan_name          = "fileprocess_plan_scaling_rule"
+#  resource_group_name           = "${var.env}-bsai"
+#  location                      = var.region
+#  appservice_target_resource_id = azurerm_app_service_plan.fileprocess_plan.id
+#  metric_name_scale_up          = "CpuPercentage"
+#  metric_name_scale_down        = "CpuPercentage"
+#}
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
 resource "azurerm_app_service_plan" "voxelbox_dti" {
   name                         = "${var.env}_voxelbox_dti"
@@ -70,15 +70,15 @@ resource "azurerm_app_service_plan" "voxelbox_dti" {
 }
 
 /* Azure Autoscaling for App Service Plan */
-module "appservice_autoscaling_voxelbox_dti" {
-  source                        = "./../modules/appservicescale"
-  appservice_plan_name          = "voxelbox_dti_scaling_rule"
-  resource_group_name           = "${var.env}-bsai"
-  location                      = var.region
-  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_dti.id
-  metric_name_scale_up          = "CpuPercentage"
-  metric_name_scale_down        = "CpuPercentage"
-}
+#module "appservice_autoscaling_voxelbox_dti" {
+#  source                        = "./../modules/appservicescale"
+#  appservice_plan_name          = "voxelbox_dti_scaling_rule"
+#  resource_group_name           = "${var.env}-bsai"
+#  location                      = var.region
+#  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_dti.id
+#  metric_name_scale_up          = "CpuPercentage"
+#  metric_name_scale_down        = "CpuPercentage"
+#}
 
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
 resource "azurerm_app_service_plan" "voxelbox_smri" {
@@ -98,15 +98,15 @@ resource "azurerm_app_service_plan" "voxelbox_smri" {
 }
 
 /* Azure Autoscaling for App Service Plan voxelbox_smri */
-module "appservice_autoscaling_voxelbox_smri" {
-  source                        = "./../modules/appservicescale"
-  appservice_plan_name          = "voxelbox_smri_scaling_rule"
-  resource_group_name           = "${var.env}-bsai"
-  location                      = var.region
-  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_smri.id
-  metric_name_scale_up          = "CpuPercentage"       #MemoryPercentage
-  metric_name_scale_down        = "CpuPercentage"
-}
+#module "appservice_autoscaling_voxelbox_smri" {
+#  source                        = "./../modules/appservicescale"
+#  appservice_plan_name          = "voxelbox_smri_scaling_rule"
+#  resource_group_name           = "${var.env}-bsai"
+#  location                      = var.region
+#  appservice_target_resource_id = azurerm_app_service_plan.voxelbox_smri.id
+#  metric_name_scale_up          = "CpuPercentage"       #MemoryPercentage
+#  metric_name_scale_down        = "CpuPercentage"
+#}
 
 /* App_Service plan for Azure App Service ML BsaiGeneralPurpose */
 resource "azurerm_app_service_plan" "bsaigeneralpurpose" {

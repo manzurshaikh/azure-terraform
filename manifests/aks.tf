@@ -3,6 +3,7 @@ resource "azurerm_subnet" "akssubnet" {
   resource_group_name  = "${var.env}-bsai"
   address_prefixes     = ["10.0.5.0/24"]
   virtual_network_name = "${var.env}-${var.region}-bsai"
+  enforce_private_link_endpoint_network_policies = true
   service_endpoints    = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
 }
 

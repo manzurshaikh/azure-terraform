@@ -31,7 +31,8 @@ resource "azurerm_kubernetes_cluster" "example" {
   location                = var.location
   resource_group_name     = var.resource_group_name
   dns_prefix              = var.aks_dns_name
-  kubernetes_version      = "1.20.7"
+  #kubernetes_version      = "1.20.7"
+  kubernetes_version      = "1.21.2"
   private_cluster_enabled = false
   #sku_tier                = "Free"
 
@@ -114,6 +115,23 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   max_count             = 10
   node_labels = {
     "hardware" = "highmem"
+  }
+
+  tags = {
+    Environment = "Production"
+  }
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "cpu" {
+  name                  = "cpunodepool"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.example.id
+  vm_size               = "Standard_B2s"
+  os_disk_size_gb       = 50
+  enable_auto_scaling   = true
+  min_count             = 1
+  max_count             = 10
+  node_labels = {
+    "hardware" = "highcpu"
   }
 
   tags = {

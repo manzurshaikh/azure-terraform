@@ -80,6 +80,7 @@ app_service9                  = "voxelboxdementia"
 app_service10                 = "datafiletesting"
 app_service11                 = "fileprocessing-carpl"
 app_service12                 = "normative-mapping"
+app_service13                 = "voxelbox-innovative"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 

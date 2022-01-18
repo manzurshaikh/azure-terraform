@@ -2,6 +2,7 @@ resource "azurerm_network_interface" "main" {
   name                = var.vm_network_interface
   location            = var.location
   resource_group_name = var.resource_group_name
+  enable_accelerated_networking = true
 
   ip_configuration {
     name                          = "winconfiguration"
