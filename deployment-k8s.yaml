@@ -194,7 +194,7 @@ spec:
         averageUtilization: 50
         type: Utilization
 ---
-#
+#voxelbox-nmap
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -224,11 +224,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 7000m
-            memory: 4300Mi
+            cpu: 800m
+            memory: 1700Mi
           limits:
-            cpu: 8000m
-            memory: 9000Mi
+            cpu: 1000m
+            memory: 1800Mi
         ports:
         - containerPort: 5000
           name: voxelbox-nmap
@@ -250,7 +250,7 @@ spec:
   #loadBalancerIP: 20.204.65.113
   type: NodePort
   ports:
-  - port: 8081
+  - port: 8083
     protocol: TCP
     targetPort: 5000
   selector:
