@@ -18,3 +18,6 @@ variable "client_secret" {
 
 variable "aks_dns_name" {
 }
+
+variable "aks_subnet_id" {
+}

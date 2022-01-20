@@ -45,3 +45,6 @@ variable "app_storage_name_prefix" {
 
 variable "app_storage_share_name" {
 }
+
+variable "health_check_path" {
+}

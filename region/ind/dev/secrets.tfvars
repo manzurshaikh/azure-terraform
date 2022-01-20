@@ -45,5 +45,5 @@ linux_fx_version_app_service13 = "DOCKER|devbsai.azurecr.io/voxelbox:innovate"
 
 
 # terraform.tfvars
-appId         = "b4b06b1b-8647-4e86-a396-b3f4b5e4cd45"
-client_secret = "qhp9eLNvqBf17i~5S3-YukFiA6e~6yKeAm"
+appId         = "32521498-0df8-4e73-b157-33bdd70ddfd2"
+client_secret = "Bg4uNiMW4--Vj13lD6NXB2qHjEQ78ioOBk"

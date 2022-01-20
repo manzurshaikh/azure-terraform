@@ -53,6 +53,7 @@ resource "azurerm_kubernetes_cluster" "example" {
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 10
+    vnet_subnet_id          = var.aks_subnet_id
   }
 
 
@@ -69,6 +70,9 @@ resource "azurerm_kubernetes_cluster" "example" {
     network_plugin     = "azure"
     load_balancer_sku  = "standard"
     #network_policy     = "calico"
+    service_cidr       = "172.0.0.0/24"
+    dns_service_ip     = "172.0.0.10"
+    docker_bridge_cidr = "172.17.0.1/16"
   }
   
  addon_profile {
@@ -109,6 +113,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.example.id
   #vm_size               = "Standard_DS2_v2" 
   vm_size               = "Standard_D8as_v4"
+  vnet_subnet_id          = var.aks_subnet_id
   os_disk_size_gb       = 50
   enable_auto_scaling   = true
   min_count             = 0
@@ -126,6 +131,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cpu" {
   name                  = "cpunodepool"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.example.id
   vm_size               = "Standard_B2s"
+  vnet_subnet_id          = var.aks_subnet_id
   os_disk_size_gb       = 50
   enable_auto_scaling   = true
   min_count             = 1

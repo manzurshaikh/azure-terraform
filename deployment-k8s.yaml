@@ -313,7 +313,7 @@ spec:
         hardware: highcpu
       containers:
       - name: voxelbox-innov
-        image: devbsai.azurecr.io/voxelbox:innov
+        image: devbsai.azurecr.io/voxelbox:innovate
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
