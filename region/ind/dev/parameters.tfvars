@@ -41,7 +41,7 @@ size_az_funpremium_plan     = "EP1"
 app_service_plan_docker_name       = "app_service_mldocker_plan"
 #capacity_az_appservice_docker_plan = "1"
 tier_az_appservice_docker_plan     = "PremiumV3"
-size_az_appservice_docker_plan     = "P2v3"
+size_az_appservice_docker_plan     = "P3v3"
 
 /* APP_SERICE_PLAN File_processing Docker */
 tier_az_appservice_fileprocess_plan = "PremiumV3"
