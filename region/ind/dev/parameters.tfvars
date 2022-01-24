@@ -41,7 +41,7 @@ size_az_funpremium_plan     = "EP1"
 app_service_plan_docker_name       = "app_service_mldocker_plan"
 #capacity_az_appservice_docker_plan = "1"
 tier_az_appservice_docker_plan     = "PremiumV3"
-size_az_appservice_docker_plan     = "P3v3"
+size_az_appservice_docker_plan     = "P2v3"
 
 /* APP_SERICE_PLAN File_processing Docker */
 tier_az_appservice_fileprocess_plan = "PremiumV3"
@@ -67,6 +67,10 @@ size_az_appservice_windows = "B1"
 tier_az_appservice_voxelbox_plus = "PremiumV2"
 size_az_appservice_voxelbox_plus = "P1v2"
 
+/* APP_SERVICE_PLAN AZURE APP SERVICE VOXELBOX_PROD */
+tier_az_appservice_voxelbox_prod = "PremiumV3"
+size_az_appservice_voxelbox_prod = "P2v3"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
@@ -81,6 +85,7 @@ app_service10                 = "datafiletesting"
 app_service11                 = "fileprocessing-carpl"
 app_service12                 = "normative-mapping"
 app_service13                 = "voxelbox-innovative"
+app_service14                 = "voxelbox-prod"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 

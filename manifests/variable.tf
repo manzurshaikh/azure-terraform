@@ -214,6 +214,13 @@ variable "tier_az_appservice_voxelbox_plus" {
 variable "size_az_appservice_voxelbox_plus" {
 }
 
+/* APP_SERVICE_PLAN Azure VOXELBOX-PROD */
+variable "tier_az_appservice_voxelbox_prod" {
+}
+
+variable "size_az_appservice_voxelbox_prod" {
+}
+
 /* APP_SERVICE_PLAN Azure ML DOCKER_DTI */
 variable "tier_az_appservice_voxelbox_dti" {
 }
@@ -362,6 +369,16 @@ variable "docker_custom_image_name_app_service13" {
 }
 
 variable "linux_fx_version_app_service13" {
+}
+
+#/* APP_SERVICE_14 */
+variable "app_service14" { 
+}
+
+variable "docker_custom_image_name_app_service14" {
+}
+
+variable "linux_fx_version_app_service14" {
 }
 
 #/* ACI */

@@ -7,7 +7,7 @@ resource "azurerm_app_service" "app_service" {
     site_config {
     app_command_line = ""
     linux_fx_version = var.linux_fx_version
-    health_check_path = var.health_check_path
+    #health_check_path = var.health_check_path
   }
 
   app_settings = {
@@ -17,7 +17,7 @@ resource "azurerm_app_service" "app_service" {
     "DOCKER_REGISTRY_SERVER_PASSWORD"     = var.docker_registry_server_password
     "DOCKER_CUSTOM_IMAGE_NAME"            = var.docker_custom_image_name
     "DOCKER_ENABLE_CI"                    = var.docker_enable_ci
-    "WEBSITE_HEALTHCHECK_MAXPINGFAILURES" = "10"
+    #"WEBSITE_HEALTHCHECK_MAXPINGFAILURES" = "10"
   }
 
   tags = {

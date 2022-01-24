@@ -38,6 +38,9 @@ linux_fx_version_app_service12 = "DOCKER|devbsai.azurecr.io/normative_mapping:la
 /* APP_SERVICE-13 */
 docker_custom_image_name_app_service13 = "devbsai.azurecr.io/voxelbox:innovate"
 linux_fx_version_app_service13 = "DOCKER|devbsai.azurecr.io/voxelbox:innovate"
+/* APP_SERVICE-14 */
+docker_custom_image_name_app_service14 = "devbsai.azurecr.io/medidata-final"
+linux_fx_version_app_service14 = "DOCKER|devbsai.azurecr.io/medidata-final"
 
 #/* ACI */
 #docker_registry_server_url_aci = "devbsai.azurecr.io"
