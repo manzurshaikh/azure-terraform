@@ -14,10 +14,10 @@ spec:
         app: voxelbox
     spec:
       nodeSelector:
-        hardware: highcpu
+        hardware: highmem
       containers:
       - name: voxelbox
-        image: devbsai.azurecr.io/voxelbox:new
+        image: devbsai.azurecr.io/voxelbox:medidata-optimization1
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -27,11 +27,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 800m
-            memory: 1700Mi
+            cpu: 3000m
+            memory: 14000Mi
           limits:
-            cpu: 1000m
-            memory: 1800Mi
+            cpu: 4000m
+            memory: 14000Mi
         ports:
         - containerPort: 5000
           name: voxelbox
@@ -59,42 +59,42 @@ spec:
   selector:
     app: voxelbox
 ---
-#HPA 
-apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: voxelbox
-  namespace: backend
-spec:
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 3600
-  scaleTargetRef:
-    #apiVersion: extensions/v1beta1
-    apiVersion: apps/v1
-    kind: Deployment
-    name: voxelbox
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much cpu is 80% of average utilization.
-        averageUtilization: 50
-        type: Utilization
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much memory is 160% of average utilization.
-        averageUtilization: 50
-        type: Utilization
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 90
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 90
+#        type: Utilization
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -157,42 +157,42 @@ spec:
   selector:
     app: voxelbox-plus
 ---
-#HPA 
-apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: voxelbox-plus
-  namespace: backend
-spec:
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 3600
-  scaleTargetRef:
-    #apiVersion: extensions/v1beta1
-    apiVersion: apps/v1
-    kind: Deployment
-    name: voxelbox-plus
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much cpu is 80% of average utilization.
-        averageUtilization: 50
-        type: Utilization
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much memory is 160% of average utilization.
-        averageUtilization: 50
-        type: Utilization
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-plus
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-plus
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
 ---
 #voxelbox-nmap
 apiVersion: apps/v1
@@ -256,42 +256,42 @@ spec:
   selector:
     app: voxelbox-nmap
 ---
-#HPA 
-apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: voxelbox-nmap
-  namespace: backend
-spec:
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 3600
-  scaleTargetRef:
-    #apiVersion: extensions/v1beta1
-    apiVersion: apps/v1
-    kind: Deployment
-    name: voxelbox-nmap
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much cpu is 80% of average utilization.
-        averageUtilization: 50
-        type: Utilization
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much memory is 160% of average utilization.
-        averageUtilization: 50
-        type: Utilization
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-nmap
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-nmap
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
 ---
 #####voxelbox-innov
 apiVersion: apps/v1
@@ -355,42 +355,42 @@ spec:
   selector:
     app: voxelbox-innov
 ---
-#HPA 
-apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: voxelbox-innov
-  namespace: backend
-spec:
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 3600
-  scaleTargetRef:
-    #apiVersion: extensions/v1beta1
-    apiVersion: apps/v1
-    kind: Deployment
-    name: voxelbox-innov
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much cpu is 80% of average utilization.
-        averageUtilization: 50
-        type: Utilization
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        # NOTE:
-        # Please take a look into pod's resource reservations and limits for
-        # better understanding how much memory is 160% of average utilization.
-        averageUtilization: 50
-        type: Utilization
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-innov
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-innov
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
