@@ -97,6 +97,7 @@ function_name6                = "inferenceinvokebs"
 function_name7                = "smriinvokebs"
 function_name8                = "feedbackbs"
 #function_name9                = "processstatuslinuxbs"
+function_name10                = "inferenceinvokebsuat"
 functions_worker_runtime      = "node"
 website_node_default_version  = "~14"
 website_run_from_package      = "0"
@@ -111,6 +112,9 @@ servicebus_queue_name_2 = "preprocesstrigger"       #should not use "-" for serv
 
 servicebus_name_3       = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
 servicebus_queue_name_3 = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
+
+servicebus_name_4       = "inferencetriggeruat"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_4 = "inferencetriggeruat"        #should not use "-" for servicebus_queue_name 
 
 #/* ACI */
 #aci_name_1              = "voxelbox"

@@ -112,6 +112,9 @@ variable "function_name8" {
 #variable "function_name9" {
 #}
 
+variable "function_name10" {
+}
+
 variable "functions_worker_runtime" {
 }
 
@@ -162,6 +165,12 @@ variable "servicebus_name_3" {
 }
 
 variable "servicebus_queue_name_3" {
+}
+
+variable "servicebus_name_4" {
+}
+
+variable "servicebus_queue_name_4" {
 }
 
 /* Premium_Plan Azure Function */

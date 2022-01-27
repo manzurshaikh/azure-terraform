@@ -831,6 +831,22 @@ module "azure_function8" {
 #  website_enable_sync_update_site    = "true"
 #}
 
+module "azure_function10" {
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = "${var.env}${var.function_name10}"
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = "1"
+  app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
+}
 
 module "cosmosdb_1" {
   depends_on                   = [module.vnet]
@@ -890,6 +906,17 @@ module "servicebus_3" {
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_3
+  max_delivery_count    = 1
+}
+
+module "servicebus_4" {
+  depends_on            = [module.resource_group]
+  source                = "./../modules/service-bus"
+  servicebus_name       = "${var.env}${var.servicebus_name_4}"
+  servicebus_sku        = "Standard"
+  resource_group_name   = "${var.env}-bsai"
+  location              = "${var.region}"
+  servicebus_queue_name = var.servicebus_queue_name_4
   max_delivery_count    = 1
 }
 
