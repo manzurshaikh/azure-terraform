@@ -109,8 +109,8 @@ variable "function_name7" {
 variable "function_name8" {
 }
 
-#variable "function_name9" {
-#}
+variable "function_name9" {
+}
 
 variable "function_name10" {
 }
@@ -171,6 +171,12 @@ variable "servicebus_name_4" {
 }
 
 variable "servicebus_queue_name_4" {
+}
+
+variable "servicebus_name_5" {
+}
+
+variable "servicebus_queue_name_5" {
 }
 
 /* Premium_Plan Azure Function */
@@ -388,6 +394,16 @@ variable "docker_custom_image_name_app_service14" {
 }
 
 variable "linux_fx_version_app_service14" {
+}
+
+#/* APP_SERVICE_15 */
+variable "app_service15" { 
+}
+
+variable "docker_custom_image_name_app_service15" {
+}
+
+variable "linux_fx_version_app_service15" {
 }
 
 #/* ACI */

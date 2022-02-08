@@ -81,11 +81,12 @@ app_service6                  = "voxelboxdti"
 app_service7                  = "brainsightuploader"  #manual upload code
 app_service8                  = "voxelboxfc"
 app_service9                  = "voxelboxdementia"
-app_service10                 = "datafiletesting"
+app_service10                 = "uat-datafiletesting"
 app_service11                 = "fileprocessing-carpl"
 app_service12                 = "normative-mapping"
-app_service13                 = "voxelbox-innovative"
+app_service13                 = "uat-voxelbox"
 app_service14                 = "voxelbox-prod"
+app_service15                 = "uat-voxelboxfc"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 
@@ -96,8 +97,8 @@ function_name5                = "inferencestatusbs"
 function_name6                = "inferenceinvokebs"
 function_name7                = "smriinvokebs"
 function_name8                = "feedbackbs"
-#function_name9                = "processstatuslinuxbs"
-function_name10                = "inferenceinvokebsuat"
+function_name9                = "uatpreprocessinvokebs"
+function_name10               = "uatinferenceinvokebs"
 functions_worker_runtime      = "node"
 website_node_default_version  = "~14"
 website_run_from_package      = "0"
@@ -113,8 +114,11 @@ servicebus_queue_name_2 = "preprocesstrigger"       #should not use "-" for serv
 servicebus_name_3       = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
 servicebus_queue_name_3 = "inferencetrigger"        #should not use "-" for servicebus_queue_name 
 
-servicebus_name_4       = "inferencetriggeruat"        #should not use "-" for servicebus_queue_name 
-servicebus_queue_name_4 = "inferencetriggeruat"        #should not use "-" for servicebus_queue_name 
+servicebus_name_4       = "uatinferencetrigger"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_4 = "uatinferencetrigger"        #should not use "-" for servicebus_queue_name 
+
+servicebus_name_5       = "uatpreprocesstrigger"        #should not use "-" for servicebus_queue_name 
+servicebus_queue_name_5 = "uatpreprocesstrigger"        #should not use "-" for servicebus_queue_name 
 
 #/* ACI */
 #aci_name_1              = "voxelbox"

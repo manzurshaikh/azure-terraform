@@ -564,7 +564,7 @@ module "app_service10" {
   azurerm_app_service_plan        = azurerm_app_service_plan.bsaigeneralpurpose.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service10}"
+  app_service_name                = var.app_service10
   #virtual_network_name            = azurerm_subnet.internalml2.id
   virtual_network_name            = azurerm_subnet.generalpurpose.id
   docker_registry_server_url      = var.docker_registry_server_url
@@ -635,7 +635,7 @@ module "app_service13" {
   azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service13}"
+  app_service_name                = var.app_service13
   virtual_network_name            = azurerm_subnet.internalml3.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
@@ -666,6 +666,30 @@ module "app_service14" {
   docker_registry_server_password = var.docker_registry_server_password
   docker_custom_image_name        = var.docker_custom_image_name_app_service14
   linux_fx_version                = var.linux_fx_version_app_service14
+  docker_enable_ci                = "true"
+  #health_check_path               = "/"
+  app_storage_key                 = var.app_storage_key_1
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
+}
+
+module "app_service15" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = var.app_service15
+  virtual_network_name            = azurerm_subnet.internalml3.id
+  #virtual_network_name            = azurerm_subnet.application.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service15
+  linux_fx_version                = var.linux_fx_version_app_service15
   docker_enable_ci                = "true"
   #health_check_path               = "/"
   app_storage_key                 = var.app_storage_key_1
@@ -814,27 +838,27 @@ module "azure_function8" {
   website_enable_sync_update_site    = "true"
 }
 
-#module "azure_function9" {
-#  depends_on                       = [module.resource_group]
-#  source                           = "./../modules/function-basic"
-#  function_name                    = "${var.env}${var.function_name9}"
-#  location                         = "${var.region}"
-#  resource_group_name              = "${var.env}-bsai"
-#  virtual_network_name             = azurerm_subnet.backend.id
-#  functions_worker_runtime         = var.functions_worker_runtime
-#  website_node_default_version     = var.website_node_default_version
-#  website_run_from_package         = var.website_run_from_package
-#  #AzureWebJobs_fileupload_Disabled = "1"
-#  app_service_plan_id              = azurerm_app_service_plan.main.id
-#  fun_os_type                      = toset(null)
-#  website_enable_app_service_storage = "true"
-#  website_enable_sync_update_site    = "true"
-#}
+module "azure_function9" {
+  depends_on                       = [module.resource_group]
+  source                           = "./../modules/function-basic"
+  function_name                    = var.function_name9
+  location                         = "${var.region}"
+  resource_group_name              = "${var.env}-bsai"
+  virtual_network_name             = azurerm_subnet.backend.id
+  functions_worker_runtime         = var.functions_worker_runtime
+  website_node_default_version     = var.website_node_default_version
+  website_run_from_package         = var.website_run_from_package
+  #AzureWebJobs_fileupload_Disabled = "1"
+  app_service_plan_id              = azurerm_app_service_plan.main.id
+  fun_os_type                      = toset(null)
+  website_enable_app_service_storage = "true"
+  website_enable_sync_update_site    = "true"
+}
 
 module "azure_function10" {
   depends_on                       = [module.resource_group]
   source                           = "./../modules/function-basic"
-  function_name                    = "${var.env}${var.function_name10}"
+  function_name                    = var.function_name10
   location                         = "${var.region}"
   resource_group_name              = "${var.env}-bsai"
   virtual_network_name             = azurerm_subnet.backend.id
@@ -912,11 +936,22 @@ module "servicebus_3" {
 module "servicebus_4" {
   depends_on            = [module.resource_group]
   source                = "./../modules/service-bus"
-  servicebus_name       = "${var.env}${var.servicebus_name_4}"
+  servicebus_name       = var.servicebus_name_4
   servicebus_sku        = "Standard"
   resource_group_name   = "${var.env}-bsai"
   location              = "${var.region}"
   servicebus_queue_name = var.servicebus_queue_name_4
+  max_delivery_count    = 1
+}
+
+module "servicebus_5" {
+  depends_on            = [module.resource_group]
+  source                = "./../modules/service-bus"
+  servicebus_name       = var.servicebus_name_5
+  servicebus_sku        = "Standard"
+  resource_group_name   = "${var.env}-bsai"
+  location              = "${var.region}"
+  servicebus_queue_name = var.servicebus_queue_name_5
   max_delivery_count    = 1
 }
 

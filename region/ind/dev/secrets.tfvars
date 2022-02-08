@@ -28,7 +28,7 @@ docker_custom_image_name_app_service9 = "devbsai.azurecr.io/voxelbox-dementia:la
 linux_fx_version_app_service9 = "DOCKER|devbsai.azurecr.io/voxelbox-dementia:latest"
 /* APP_SERVICE-10 */
 docker_custom_image_name_app_service10 = "devbsai.azurecr.io/datafile_testing:latest"
-linux_fx_version_app_service10 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_testing"
+linux_fx_version_app_service10 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_optm"
 /* APP_SERVICE-11 */
 docker_custom_image_name_app_service11 = "devbsai.azurecr.io/datafile_testing:latest"
 linux_fx_version_app_service11 = "DOCKER|devbsai.azurecr.io/file_processsing:carpel"
@@ -41,6 +41,9 @@ linux_fx_version_app_service13 = "DOCKER|devbsai.azurecr.io/voxelbox:innovate"
 /* APP_SERVICE-14 */
 docker_custom_image_name_app_service14 = "devbsai.azurecr.io/medidata-final"
 linux_fx_version_app_service14 = "DOCKER|devbsai.azurecr.io/voxelbox:new"
+/* APP_SERVICE-15 */
+docker_custom_image_name_app_service15 = "devbsai.azurecr.io/voxelbox-fc"
+linux_fx_version_app_service15 = "DOCKER|devbsai.azurecr.io/voxelbox-fc:new"
 
 #/* ACI */
 #docker_registry_server_url_aci = "devbsai.azurecr.io"
