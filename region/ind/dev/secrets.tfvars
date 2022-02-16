@@ -43,7 +43,10 @@ docker_custom_image_name_app_service14 = "devbsai.azurecr.io/medidata-final"
 linux_fx_version_app_service14 = "DOCKER|devbsai.azurecr.io/voxelbox:new"
 /* APP_SERVICE-15 */
 docker_custom_image_name_app_service15 = "devbsai.azurecr.io/voxelbox-fc"
-linux_fx_version_app_service15 = "DOCKER|devbsai.azurecr.io/voxelbox-fc:new"
+linux_fx_version_app_service15 = "DOCKER|devbsai.azurecr.io/voxelbox-fc:medidata-gct"
+/* APP_SERVICE-16 */
+docker_custom_image_name_app_service16 = "devbsai.azurecr.io/voxelbox-nmli"
+linux_fx_version_app_service16 = "DOCKER|devbsai.azurecr.io/voxelbox-nmli:medidata-gct"
 
 #/* ACI */
 #docker_registry_server_url_aci = "devbsai.azurecr.io"

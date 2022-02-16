@@ -199,3 +199,35 @@ resource "azurerm_app_service_plan" "voxelbox_prod" {
     size     = var.size_az_appservice_voxelbox_prod
   }
 }
+
+resource "azurerm_app_service_plan" "uat_voxelboxfc" {
+  name                         = "uat_voxelboxfc"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
+
+  sku {
+  #  capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_uat_voxelboxfc
+    size     = var.size_az_appservice_uat_voxelboxfc
+  }
+}
+
+resource "azurerm_app_service_plan" "uat_voxelbox" {
+  name                         = "uat_voxelbox"
+  location                     = var.region
+  resource_group_name          = "${var.env}-bsai"
+  kind                         = "Linux"
+  reserved                     = true
+  #maximum_elastic_worker_count = "10"
+  per_site_scaling             = false
+
+  sku {
+  #  capacity = var.capacity_az_appservice_docker_plan
+    tier     = var.tier_az_appservice_uat_voxelbox
+    size     = var.size_az_appservice_uat_voxelbox
+  }
+}

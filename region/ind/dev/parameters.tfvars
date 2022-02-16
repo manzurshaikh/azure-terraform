@@ -71,6 +71,14 @@ size_az_appservice_voxelbox_plus = "P1v2"
 tier_az_appservice_voxelbox_prod = "PremiumV3"
 size_az_appservice_voxelbox_prod = "P2v3"
 
+/* APP_SERVICE_PLAN AZURE APP SERVICE UAT_VOXELBOX_FC */
+tier_az_appservice_uat_voxelboxfc = "PremiumV3"
+size_az_appservice_uat_voxelboxfc = "P1v3"
+
+/* APP_SERVICE_PLAN AZURE APP SERVICE UAT_VOXELBOX */
+tier_az_appservice_uat_voxelbox = "PremiumV3"
+size_az_appservice_uat_voxelbox = "P2v3"
+
 /* APP SERVICE */
 app_service1                  = "voxelbox"
 app_service2                  = "voxelboxplus"
@@ -87,6 +95,7 @@ app_service12                 = "normative-mapping"
 app_service13                 = "uat-voxelbox"
 app_service14                 = "voxelbox-prod"
 app_service15                 = "uat-voxelboxfc"
+app_service16                 = "uat-voxelboxnmli"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 

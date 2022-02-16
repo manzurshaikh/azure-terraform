@@ -207,6 +207,46 @@ resource "azurerm_subnet" "voxelboxprod" {
   }
 }
 
+resource "azurerm_subnet" "subnet01" {
+  depends_on                                    = [module.vnet]
+  name                                          = "subnet01"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.14.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "subnet02" {
+  depends_on                                    = [module.vnet]
+  name                                          = "subnet02"
+  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+  resource_group_name                           = "${var.env}-bsai"
+  address_prefixes                              = ["10.0.15.0/24"]
+  enforce_private_link_service_network_policies = false
+  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
 #resource "azurerm_subnet" "generalpurpose2" {
 #  depends_on                                    = [module.vnet]
 #  name                                          = "generalpurpose2"
@@ -331,7 +371,7 @@ module "storage_bsai_1" {
   stg_ip_rules              = var.stg_ip_rules_bsai1
   default_action_rule       = var.default_action_rule1
   #vnet_subnet_id            = azurerm_subnet.backend.id
-  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id, azurerm_subnet.internalml3.id, azurerm_subnet.akssubnet.id, azurerm_subnet.voxelboxprod.id]
+  vnet_subnet_id            = [azurerm_subnet.backend.id, azurerm_subnet.application.id, azurerm_subnet.frontend.id, azurerm_subnet.internal.id, azurerm_subnet.internalml.id, azurerm_subnet.internalml2.id, azurerm_subnet.vmsubnet.id, azurerm_subnet.generalpurpose.id, azurerm_subnet.internalml3.id, azurerm_subnet.akssubnet.id, azurerm_subnet.voxelboxprod.id, azurerm_subnet.subnet01.id, azurerm_subnet.subnet02.id]
   allow_blob_public_access  = var.allow_blob_public_access_bsai1
   enable_https_traffic_only = var.enable_https_traffic_only_bsai1
   nfsv3_enabled             = var.nfsv3_enabled_bsai1
@@ -632,11 +672,11 @@ module "app_service12" {
 module "app_service13" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
+  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelbox.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = var.app_service13
-  virtual_network_name            = azurerm_subnet.internalml3.id
+  virtual_network_name            = azurerm_subnet.subnet02.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
@@ -679,17 +719,41 @@ module "app_service14" {
 module "app_service15" {
   depends_on                      = [module.resource_group]
   source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
+  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
   location                        = "${var.region}"
   resource_group_name             = "${var.env}-bsai"
   app_service_name                = var.app_service15
-  virtual_network_name            = azurerm_subnet.internalml3.id
+  virtual_network_name            = azurerm_subnet.subnet01.id
   #virtual_network_name            = azurerm_subnet.application.id
   docker_registry_server_url      = var.docker_registry_server_url
   docker_registry_server_username = var.docker_registry_server_username
   docker_registry_server_password = var.docker_registry_server_password
   docker_custom_image_name        = var.docker_custom_image_name_app_service15
   linux_fx_version                = var.linux_fx_version_app_service15
+  docker_enable_ci                = "true"
+  #health_check_path               = "/"
+  app_storage_key                 = var.app_storage_key_1
+  app_storage_account_name        = "${var.env}${var.storage_name1}"
+  app_storage_mount_path          = "/training"
+  app_storage_name_prefix         = "dev-storage"
+  app_storage_share_name          = "training"
+  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
+}
+
+module "app_service16" {
+  depends_on                      = [module.resource_group]
+  source                          = "./../modules/appservice"
+  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
+  location                        = "${var.region}"
+  resource_group_name             = "${var.env}-bsai"
+  app_service_name                = var.app_service16
+  virtual_network_name            = azurerm_subnet.subnet01.id
+  #virtual_network_name            = azurerm_subnet.application.id
+  docker_registry_server_url      = var.docker_registry_server_url
+  docker_registry_server_username = var.docker_registry_server_username
+  docker_registry_server_password = var.docker_registry_server_password
+  docker_custom_image_name        = var.docker_custom_image_name_app_service16
+  linux_fx_version                = var.linux_fx_version_app_service16
   docker_enable_ci                = "true"
   #health_check_path               = "/"
   app_storage_key                 = var.app_storage_key_1
@@ -883,7 +947,7 @@ module "cosmosdb_1" {
   enable_automatic_failover    = var.enable_automatic_failover
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.voxelboxprod.id}]
+  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.voxelboxprod.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
 }
 
 module "cosmosdb_1_serverless" {
@@ -897,7 +961,7 @@ module "cosmosdb_1_serverless" {
   enable_automatic_failover    = var.enable_automatic_failover
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}]
+  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
 }
 
 module "servicebus_1" {

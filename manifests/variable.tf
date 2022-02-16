@@ -250,6 +250,20 @@ variable "tier_az_appservice_bsaigeneralpurpose" {
 variable "size_az_appservice_bsaigeneralpurpose" {
 }
 
+/* APP_SERVICE_PLAN Azure uat_voxelboxfc */
+variable "tier_az_appservice_uat_voxelboxfc" {
+}
+
+variable "size_az_appservice_uat_voxelboxfc" {
+}
+
+/* APP_SERVICE_PLAN Azure uat_voxelbox */
+variable "tier_az_appservice_uat_voxelbox" {
+}
+
+variable "size_az_appservice_uat_voxelbox" {
+}
+
 /* APP_SERVICE_PLAN Azure WINDOWS */
 variable "tier_az_appservice_windows" {
 }
@@ -404,6 +418,16 @@ variable "docker_custom_image_name_app_service15" {
 }
 
 variable "linux_fx_version_app_service15" {
+}
+
+#/* APP_SERVICE_16 */
+variable "app_service16" { 
+}
+
+variable "docker_custom_image_name_app_service16" {
+}
+
+variable "linux_fx_version_app_service16" {
 }
 
 #/* ACI */
