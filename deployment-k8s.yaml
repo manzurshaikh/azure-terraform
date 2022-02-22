@@ -453,6 +453,68 @@ spec:
   selector:
     app: fileprocessing
 ---
+#####voxelbox-fc
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-fc
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-fc
+  template:
+    metadata:
+      labels:
+        app: voxelbox-fc
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: voxelbox-fc
+        image: devbsai.azurecr.io/voxelbox-fc:medidata-gct
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 1700Mi
+          limits:
+            cpu: 1000m
+            memory: 1800Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-fc
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-fc
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8085
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-fc
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -520,3 +582,13 @@ spec:
             name: fileprocessing
             port:
               number: 8084
+  - host: voxelbox-fc.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-fc
+            port:
+              number: 8085
