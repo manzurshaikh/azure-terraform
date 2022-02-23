@@ -115,7 +115,7 @@ spec:
         hardware: highcpu
       containers:
       - name: voxelbox-plus
-        image: devbsai.azurecr.io/voxelboxplusgliomaecm:latest
+        image: devbsai.azurecr.io/voxelbox-nmli:medidata-gct
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
