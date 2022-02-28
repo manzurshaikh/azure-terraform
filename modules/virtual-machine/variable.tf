@@ -54,3 +54,6 @@ variable "vm_admin_username" {
 
 variable "vm_admin_password" {
 }
+
+variable "disk_size_gb" {
+}
