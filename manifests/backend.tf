@@ -47,6 +47,26 @@ resource "azurerm_subnet" "backend" {
   }
 }
 
+#resource "azurerm_subnet" "aksnew" {
+#  depends_on                                    = [module.vnet]
+#  name                                          = "aksnew"
+#  virtual_network_name                          = "${var.env}-${var.region}-bsai"
+#  resource_group_name                           = "${var.env}-bsai"
+#  address_prefixes                              = ["10.70.0.0/16"]
+#  enforce_private_link_service_network_policies = false
+#  service_endpoints                             = ["Microsoft.Storage", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+#  service_endpoint_policy_ids                   = toset(null)    #Enable from the console currently not supported in Terraform
+#
+#  delegation {
+#    name = "delegation"
+#
+#    service_delegation {
+#      name    = "Microsoft.Web/serverFarms"
+#      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+#    }
+#  }
+#}
+
 resource "azurerm_subnet" "application" {
   depends_on                                    = [module.vnet]
   name                                          = "application"

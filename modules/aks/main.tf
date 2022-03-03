@@ -32,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "example" {
   resource_group_name     = var.resource_group_name
   dns_prefix              = var.aks_dns_name
   #kubernetes_version      = "1.20.7"
-  kubernetes_version      = "1.21.2"
+  kubernetes_version      = "1.21.9"
   private_cluster_enabled = false
   #sku_tier                = "Free"
 
@@ -118,6 +118,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   enable_auto_scaling   = true
   min_count             = 0
   max_count             = 10
+  max_pods              = 10
   node_labels = {
     "hardware" = "highmem"
   }
@@ -136,6 +137,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cpu" {
   enable_auto_scaling   = true
   min_count             = 1
   max_count             = 10
+  max_pods              = 10
   node_labels = {
     "hardware" = "highcpu"
   }
@@ -144,6 +146,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cpu" {
     Environment = "Production"
   }
 }
+
 
 #data "azurerm_public_ip" "aks" {
 #  name                = reverse(split("/", tolist(azurerm_kubernetes_cluster.example.network_profile.0.load_balancer_profile.0.effective_outbound_ips)[0]))[0]

@@ -39,6 +39,13 @@ resource "azurerm_public_ip" "medidataserver_prod" {
   allocation_method   = "Static"
 }
 
+resource "azurerm_public_ip" "download_vm" {
+  name                = "download_vm"
+  resource_group_name = "${var.env}-bsai"
+  location            = "${var.region}"
+  allocation_method   = "Static"
+}
+
 resource "azurerm_subnet" "vmsubnet" {
   name                 = "vmsubnet"
   resource_group_name  = "${var.env}-bsai"
@@ -116,6 +123,7 @@ module "virtual_machine_medidata" {
   vm_computer_name           = "medidataserver"
   vm_admin_username          = "medidata"
   vm_admin_password          = "Brainsight@2021"
+  disk_size_gb               = "127"
 }
 
 module "medidataserverv01" {
@@ -139,6 +147,7 @@ module "medidataserverv01" {
   vm_computer_name           = "medidatasvr01"
   vm_admin_username          = "medidata"
   vm_admin_password          = "Brainsight@2021"
+  disk_size_gb               = "127"
 }
 
 module "medidataserver_prod" {
@@ -162,6 +171,31 @@ module "medidataserver_prod" {
   vm_computer_name           = "medidatasvr01"
   vm_admin_username          = "medidata"
   vm_admin_password          = "Brainsight@2021"
+  disk_size_gb               = "127"
+}
+
+module "downloadvm_win" {
+  source                     = "./../modules/virtual-machine-windows"
+  public_ip_name             = "download_vm"
+  vm_network_interface       = "download_vm"
+  location                   = "${var.region}"
+  resource_group_name        = "${var.env}-bsai"
+  virtual_network_name       = "${var.env}-${var.region}-bsai"
+  vm_subnet_id               = azurerm_subnet.vmsubnet.id
+  vm_publicip_id             = azurerm_public_ip.download_vm.id
+  vm_network_securitygroup   = "download_vm"
+  vm_name                    = "download_vm"
+  vm_size                    = "Standard_DS1_v2"
+  image_publisher            = "MicrosoftWindowsServer"
+  image_offer                = "WindowsServer"
+  image_sku                  = "2019-datacenter-gensecond"
+  image_version              = "latest"
+  vm_disk_name               = "download_vm"
+  vm_managed_disk_type       = "Standard_LRS"
+  vm_computer_name           = "download"
+  vm_admin_username          = "download"
+  vm_admin_password          = "Brainsight@2021"
+  disk_size_gb               = "127"
 }
 
 

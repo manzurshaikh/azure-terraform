@@ -639,6 +639,67 @@ spec:
   selector:
     app: voxelbox-crpl
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-test
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-test
+  template:
+    metadata:
+      labels:
+        app: voxelbox-test
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-test
+        image: devbsai.azurecr.io/voxelbox:medidata-optimization2
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 14000Mi
+          limits:
+            cpu: 4000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-test
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-test
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8088
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-test
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -649,6 +710,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
     #nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
