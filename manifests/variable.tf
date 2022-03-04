@@ -74,6 +74,12 @@ variable "nfsv3_enabled_bsai1" {
 variable "account_replication_type_bsai1" {
 }
 
+variable "storage_name2" {
+}
+
+variable "stg_ip_rules_bsai2" {
+}
+
 /* Azure_Function_Service_Plan_consumtion */
 variable "fun_service_plan_name" {
 }

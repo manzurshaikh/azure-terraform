@@ -21,3 +21,9 @@ variable "aks_dns_name" {
 
 variable "aks_subnet_id" {
 }
+
+variable "private_cluster_enabled" {
+}
+
+variable "private_cluster_public_fqdn_enabled" {
+}

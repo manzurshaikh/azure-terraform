@@ -389,6 +389,29 @@ module "storage_bsai_1" {
   storage_min_tls_version   = "TLS1_2"
 }
 
+module "dev-storage_bsai" {
+  depends_on = [module.resource_group]
+  source   = "./../modules/storage"
+  storageaccount_name       = "${var.env}databs"
+  resource_group_name       = "${var.env}-bsai"
+  storageaccount_location   = "${var.region}"
+  storageshare_name         = "${var.env}${var.storage_name2}"
+  storage_account_name      = "${var.env}${var.storage_name2}"
+  storage_account_kind      = "FileStorage"
+  stg_account_tier          = var.stg_account_tier_bsai1
+  stg_access_tier           = var.stg_access_tier1
+  storageshare_quota        = var.storageshare_quota_bsai1
+  stg_ip_rules              = var.stg_ip_rules_bsai2
+  default_action_rule       = var.default_action_rule1
+  #vnet_subnet_id            = azurerm_subnet.backend.id
+  vnet_subnet_id            = [azurerm_subnet.dev-subnet-01.id, azurerm_subnet.dev-subnet-03.id]
+  allow_blob_public_access  = var.allow_blob_public_access_bsai1
+  enable_https_traffic_only = var.enable_https_traffic_only_bsai1
+  nfsv3_enabled             = var.nfsv3_enabled_bsai1
+  account_replication_type  = var.account_replication_type_bsai1
+  storage_min_tls_version   = "TLS1_2"
+}
+
 module "container_registery" {
   depends_on               = [module.resource_group]
   source                   = "./../modules/contreg"

@@ -26,6 +26,11 @@ nfsv3_enabled_bsai1             = false
 account_replication_type_bsai1 = "LRS"
 
 
+storage_name2                   = "databs"
+stg_ip_rules_bsai2              = ["20.193.136.157","20.193.136.160"] #fake IP
+
+
+
 /* AZURE FUNCTION PLAN - CONSUMTION */
 fun_service_plan_name        = "fun_service_plan"
 tier_az_fun_plan             = "Dynamic"

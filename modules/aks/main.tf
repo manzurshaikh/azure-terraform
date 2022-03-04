@@ -33,7 +33,8 @@ resource "azurerm_kubernetes_cluster" "example" {
   dns_prefix              = var.aks_dns_name
   #kubernetes_version      = "1.20.7"
   kubernetes_version      = "1.21.9"
-  private_cluster_enabled = false
+  private_cluster_enabled = var.private_cluster_enabled
+  private_cluster_public_fqdn_enabled  = var.private_cluster_public_fqdn_enabled
   #sku_tier                = "Free"
 
 
@@ -116,7 +117,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   vnet_subnet_id          = var.aks_subnet_id
   os_disk_size_gb       = 50
   enable_auto_scaling   = true
-  min_count             = 0
+  min_count             = 1
   max_count             = 10
   max_pods              = 10
   node_labels = {

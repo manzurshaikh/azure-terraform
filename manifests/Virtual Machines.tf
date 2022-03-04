@@ -198,7 +198,6 @@ module "downloadvm_win" {
   disk_size_gb               = "127"
 }
 
-
 output "public_ip" {
   value = "${azurerm_public_ip.openvpn.id}"
 }

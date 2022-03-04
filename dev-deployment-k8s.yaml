@@ -1,0 +1,800 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox
+  template:
+    metadata:
+      labels:
+        app: voxelbox
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox
+        image: devbsai.azurecr.io/voxelbox:medidata-optimization2
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 14000Mi
+          limits:
+            cpu: 4000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8082
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox
+---
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 90
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 90
+#        type: Utilization
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-plus
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-plus
+  template:
+    metadata:
+      labels:
+        app: voxelbox-plus
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-plus
+        image: devbsai.azurecr.io/voxelbox-nmli:medidata-gct
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 900m
+            memory: 14000Mi
+          limits:
+            cpu: 1000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-plus
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-plus
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-plus
+---
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-plus
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-plus
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+---
+#voxelbox-nmap
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-nmap
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-nmap
+  template:
+    metadata:
+      labels:
+        app: voxelbox-nmap
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: voxelbox-nmap
+        image: devbsai.azurecr.io/normative_mapping:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 1700Mi
+          limits:
+            cpu: 1000m
+            memory: 1800Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-nmap
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-nmap
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8083
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-nmap
+---
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-nmap
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-nmap
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+---
+#####voxelbox-innov
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-innov
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-innov
+  template:
+    metadata:
+      labels:
+        app: voxelbox-innov
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: voxelbox-innov
+        image: devbsai.azurecr.io/voxelbox:innovate
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 1700Mi
+          limits:
+            cpu: 1000m
+            memory: 1800Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-innov
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-innov
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8083
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-innov
+---
+##HPA 
+#apiVersion: autoscaling/v2beta2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: voxelbox-innov
+#  namespace: backend
+#spec:
+#  behavior:
+#    scaleDown:
+#      stabilizationWindowSeconds: 3600
+#  scaleTargetRef:
+#    #apiVersion: extensions/v1beta1
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: voxelbox-innov
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much cpu is 80% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+#  - type: Resource
+#    resource:
+#      name: memory
+#      target:
+#        # NOTE:
+#        # Please take a look into pod's resource reservations and limits for
+#        # better understanding how much memory is 160% of average utilization.
+#        averageUtilization: 50
+#        type: Utilization
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileprocessing
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileprocessing
+  template:
+    metadata:
+      labels:
+        app: fileprocessing
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: fileprocessing
+        image: devbsai.azurecr.io/file_processsing:medidata_optm
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 600m
+            memory: 1800Mi
+          limits:
+            cpu: 700m
+            memory: 1900Mi
+        ports:
+        - containerPort: 3000
+          name: fileprocessing
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: fileprocessing
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8084
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: fileprocessing
+---
+#####voxelbox-fc
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-fc
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-fc
+  template:
+    metadata:
+      labels:
+        app: voxelbox-fc
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-fc
+        image: devbsai.azurecr.io/voxelbox-fc:medidata-gct
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 8000Mi
+          limits:
+            cpu: 1000m
+            memory: 9000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-fc
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-fc
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8085
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-fc
+---
+#####fileprocessing-carpl
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileproc-crpl
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileproc-crpl
+  template:
+    metadata:
+      labels:
+        app: fileproc-crpl
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: fileproc-crpl
+        image: devbsai.azurecr.io/file_processsing:carpel
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 600m
+            memory: 1800Mi
+          limits:
+            cpu: 700m
+            memory: 1900Mi
+        ports:
+        - containerPort: 5000
+          name: fileproc-crpl
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: fileproc-crpl
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8086
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: fileproc-crpl
+---
+#####fileprocessing-carpl
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-crpl
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-crpl
+  template:
+    metadata:
+      labels:
+        app: voxelbox-crpl
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-crpl
+        image: devbsai.azurecr.io/voxelbox:carpl
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 14000Mi
+          limits:
+            cpu: 4000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-crpl
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-crpl
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8087
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-crpl
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-test
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-test
+  template:
+    metadata:
+      labels:
+        app: voxelbox-test
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-test
+        image: devbsai.azurecr.io/voxelbox:medidata-optimization2
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 14000Mi
+          limits:
+            cpu: 4000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-test
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-test
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8088
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-test
+---
+#####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
+######Ingress#####
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dev-ingress
+  namespace: backend
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - dev-voxelbox-plus.brainsightai.com
+    secretName: aks-ingress-tls
+  rules:
+  - host: dev-voxelbox-plus.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-plus
+            port:
+              number: 8080
+  - host: dev-voxelbox-nmap.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-nmap
+            port:
+              number: 8081
+  - host: dev-voxelbox.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox
+            port:
+              number: 8082
+  - host: dev-voxelbox-innov.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-innov
+            port:
+              number: 8083
+  - host: dev-fileprocessing.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fileprocessing
+            port:
+              number: 8084
+  - host: dev-voxelbox-fc.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-fc
+            port:
+              number: 8085
+  - host: dev-fileproc-crpl.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fileproc-crpl
+            port:
+              number: 8086
+  - host: dev-voxelbox-crpl.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-crpl
+            port:
+              number: 8087
