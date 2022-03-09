@@ -27,8 +27,9 @@ account_replication_type_bsai1 = "LRS"
 
 
 storage_name2                   = "databs"
-stg_ip_rules_bsai2              = ["20.193.136.157","20.193.136.160"] #fake IP
+stg_ip_rules_bsai2              = ["20.198.119.4","20.198.121.21","40.80.90.196"] #fake IP
 
+stg_ip_rules_bsai3              = ["20.198.119.4","20.198.121.21","40.80.90.196"] #fake IP
 
 
 /* AZURE FUNCTION PLAN - CONSUMTION */

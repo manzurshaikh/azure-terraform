@@ -401,7 +401,7 @@ module "dev-storage_bsai" {
   stg_account_tier          = var.stg_account_tier_bsai1
   stg_access_tier           = var.stg_access_tier1
   storageshare_quota        = var.storageshare_quota_bsai1
-  stg_ip_rules              = var.stg_ip_rules_bsai2
+  stg_ip_rules              = var.stg_ip_rules_bsai3
   default_action_rule       = var.default_action_rule1
   #vnet_subnet_id            = azurerm_subnet.backend.id
   vnet_subnet_id            = [azurerm_subnet.dev-subnet-01.id, azurerm_subnet.dev-subnet-03.id]
@@ -995,6 +995,20 @@ module "cosmosdb_1_serverless" {
   failover_location_secondary  = var.failover_location_secondary
   failover_priority_secondary  = var.failover_priority_secondary
   vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
+}
+
+module "dev_cosmosdb_serverless" {
+  depends_on                   = [module.vnet]
+  source                       = "./../modules/cosmosdb-serverless"
+  cosmodb_account_name         = "${var.env}-db"
+  resource_group_name          = "${var.env}-bsai"
+  ip_range_filter              = var.ip_range_filter
+  location                     = "${var.region}"
+  cosmosdb_name                = "${var.env}-dev"
+  enable_automatic_failover    = var.enable_automatic_failover
+  failover_location_secondary  = var.failover_location_secondary
+  failover_priority_secondary  = var.failover_priority_secondary
+  vnet_subnet_id               = [{id   = azurerm_subnet.dev-subnet-01.id}, {id = azurerm_subnet.dev-subnet-02.id}, {id = azurerm_subnet.dev-subnet-03.id}, {id = azurerm_subnet.dev-subnet-03-01.id}]
 }
 
 module "servicebus_1" {

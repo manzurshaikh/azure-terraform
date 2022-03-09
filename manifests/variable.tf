@@ -80,6 +80,9 @@ variable "storage_name2" {
 variable "stg_ip_rules_bsai2" {
 }
 
+variable "stg_ip_rules_bsai3" {
+}
+
 /* Azure_Function_Service_Plan_consumtion */
 variable "fun_service_plan_name" {
 }

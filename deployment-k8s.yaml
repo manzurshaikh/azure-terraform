@@ -250,7 +250,7 @@ spec:
   #loadBalancerIP: 20.204.65.113
   type: NodePort
   ports:
-  - port: 8083
+  - port: 8081
     protocol: TCP
     targetPort: 5000
   selector:
