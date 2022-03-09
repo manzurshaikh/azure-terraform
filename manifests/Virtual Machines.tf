@@ -18,6 +18,13 @@ resource "azurerm_public_ip" "cicd" {
   allocation_method   = "Static"
 }
 
+resource "azurerm_public_ip" "cicd-azuredevops" {
+  name                = "${var.env}-cicd-azuredevops"
+  resource_group_name = "${var.env}-bsai"
+  location            = var.region
+  allocation_method   = "Static"
+}
+
 resource "azurerm_public_ip" "medidataserver" {
   name                = "${var.env}-medidataserver"
   resource_group_name = "${var.env}-bsai"
@@ -101,6 +108,31 @@ module "cicd" {
   vm_admin_password          = "Brainsight@cicd"
   disk_size_gb               = "60"
 }
+
+module "cicd-azuredevops" {
+  source                     = "./../modules/virtual-machine"
+  public_ip_name             = "${var.env}-cicd-azuredevops"
+  vm_network_interface       = "cicd-azuredevops"
+  location                   = "${var.region}"
+  resource_group_name        = "${var.env}-bsai"
+  virtual_network_name       = "${var.env}-bsai"
+  vm_subnet_id               = azurerm_subnet.dev-subnet-03.id
+  vm_publicip_id             = azurerm_public_ip.cicd-azuredevops.id
+  vm_network_securitygroup   = "cicd-azuredevops"
+  vm_name                    = "cicd-azuredevops"
+  vm_size                    = "Standard_B2s"
+  image_publisher            = "Canonical"
+  image_offer                = "UbuntuServer"
+  image_sku                  = "18.04-LTS"
+  image_version              = "latest"
+  vm_disk_name               = "cicd-azuredevops"
+  vm_managed_disk_type       = "Standard_LRS"
+  vm_computer_name           = "cicd-azuredevops"
+  vm_admin_username          = "cicdbsai"
+  vm_admin_password          = "Brainsight@cicd"
+  disk_size_gb               = "60"
+}
+
 
 module "virtual_machine_medidata" {
   source                     = "./../modules/virtual-machine-windows"
