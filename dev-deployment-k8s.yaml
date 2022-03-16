@@ -699,6 +699,69 @@ spec:
     targetPort: 5000
   selector:
     app: vbox-fc-carpl
+
+---
+#wb-tool-backend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wb-tool-backend
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wb-tool-backend
+  template:
+    metadata:
+      labels:
+        app: wb-tool-backend
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: wb-tool-backend
+        image: devbsai.azurecr.io/wb_tool_backend:wbt-backend
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 1700Mi
+          limits:
+            cpu: 1000m
+            memory: 1800Mi
+        ports:
+        - containerPort: 5000
+          name: wb-tool-backend
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: wb-tool-backend
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8089
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: wb-tool-backend
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
@@ -808,3 +871,13 @@ spec:
             name: vbox-fc-carpl
             port:
               number: 8088
+  - host: dev-wb-tool-backend.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wb-tool-backend
+            port:
+              number: 8089
