@@ -737,7 +737,7 @@ spec:
             cpu: 1000m
             memory: 1800Mi
         ports:
-        - containerPort: 5000
+        - containerPort: 3000
           name: wb-tool-backend
       volumes:
       - name: azure
@@ -759,7 +759,7 @@ spec:
   ports:
   - port: 8089
     protocol: TCP
-    targetPort: 5000
+    targetPort: 3000
   selector:
     app: wb-tool-backend
 ---
