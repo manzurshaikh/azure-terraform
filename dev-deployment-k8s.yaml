@@ -871,7 +871,7 @@ spec:
             name: vbox-fc-carpl
             port:
               number: 8088
-  - host: dev-wb-tool-backend.brainsightai.com
+  - host: dev-wbt-backend.brainsightai.com
     http:
       paths:
       - path: /
