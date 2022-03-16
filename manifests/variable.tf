@@ -157,6 +157,9 @@ variable "ip_range_filter" {
     #default = "0.0.0.0"
 }
 
+variable "ip_range_filter1" {
+}
+
 /*SERVICE_BUS */
 variable "servicebus_name_1" {
 }

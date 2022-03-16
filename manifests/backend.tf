@@ -1002,7 +1002,7 @@ module "dev_cosmosdb_serverless" {
   source                       = "./../modules/cosmosdb-serverless"
   cosmodb_account_name         = "${var.env}-db"
   resource_group_name          = "${var.env}-bsai"
-  ip_range_filter              = var.ip_range_filter
+  ip_range_filter              = var.ip_range_filter1
   location                     = "${var.region}"
   cosmosdb_name                = "${var.env}-dev"
   enable_automatic_failover    = var.enable_automatic_failover
