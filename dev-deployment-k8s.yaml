@@ -794,11 +794,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 800m
-            memory: 1700Mi
+            cpu: 500m
+            memory: 800Mi
           limits:
-            cpu: 1000m
-            memory: 1800Mi
+            cpu: 600m
+            memory: 1400Mi
         ports:
         - containerPort: 80
           name: wb-toolfrontend
