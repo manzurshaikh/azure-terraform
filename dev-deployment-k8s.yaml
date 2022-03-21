@@ -768,22 +768,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wb-tool-frontend
+  name: wb-toolfrontend
   namespace: "backend"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wb-tool-frontend
+      app: wb-toolfrontend
   template:
     metadata:
       labels:
-        app: wb-tool-frontend
+        app: wb-toolfrontend
     spec:
       nodeSelector:
         hardware: highcpu
       containers:
-      - name: wb-tool-frontend
+      - name: wb-toolfrontend
         image: devbsai.azurecr.io/wb_tool_frontend:wb_tool_frontend
         imagePullPolicy: Always
         env:
@@ -801,7 +801,7 @@ spec:
             memory: 1800Mi
         ports:
         - containerPort: 80
-          name: wb-tool-frontend
+          name: wb-toolfrontend
       volumes:
       - name: azure
         azureFile:
@@ -814,7 +814,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: wb-tool-frontend
+  name: wb-toolfrontend
   namespace: backend 
 spec:
   #loadBalancerIP: 20.204.65.113
@@ -824,7 +824,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: wb-tool-frontend
+    app: wb-toolfrontend
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
@@ -951,6 +951,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: wb-tool-frontend
+            name: wb-toolfrontend
             port:
               number: 8090
