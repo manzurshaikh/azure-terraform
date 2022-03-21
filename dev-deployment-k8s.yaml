@@ -762,6 +762,69 @@ spec:
     targetPort: 3000
   selector:
     app: wb-tool-backend
+
+---
+#wb-tool-frontend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wb-tool-frontend
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wb-tool-frontend
+  template:
+    metadata:
+      labels:
+        app: wb-tool-frontend
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: wb-tool-frontend
+        image: devbsai.azurecr.io/wb_tool_frontend:wb_tool_frontend
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 800m
+            memory: 1700Mi
+          limits:
+            cpu: 1000m
+            memory: 1800Mi
+        ports:
+        - containerPort: 80
+          name: wb-tool-frontend
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: wb-tool-frontend
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8090
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: wb-tool-frontend
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
@@ -881,3 +944,13 @@ spec:
             name: wb-tool-backend
             port:
               number: 8089
+  - host: dev-wbt-frontend.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wb-tool-frontend
+            port:
+              number: 8090
