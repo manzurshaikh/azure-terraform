@@ -1014,3 +1014,13 @@ spec:
             name: wb-toolfrontend
             port:
               number: 8090
+  - host: dev-voxelbox-smri.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-smri
+            port:
+              number: 8091
