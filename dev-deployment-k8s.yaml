@@ -699,7 +699,67 @@ spec:
     targetPort: 5000
   selector:
     app: vbox-fc-carpl
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-smri
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-smri
+  template:
+    metadata:
+      labels:
+        app: voxelbox-smri
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: voxelbox-smri
+        image: devbsai.azurecr.io/voxelbox-smri:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 14000Mi
+          limits:
+            cpu: 4000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: voxelbox-smri
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-smri
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8091
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-smri
 ---
 #wb-tool-backend
 apiVersion: apps/v1
