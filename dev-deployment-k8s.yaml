@@ -323,11 +323,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 800m
-            memory: 1700Mi
+            cpu: 3000m
+            memory: 14000Mi
           limits:
-            cpu: 1000m
-            memory: 1800Mi
+            cpu: 4000m
+            memory: 15000Mi
         ports:
         - containerPort: 5000
           name: voxelbox-innov
