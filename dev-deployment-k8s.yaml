@@ -310,7 +310,7 @@ spec:
         app: voxelbox-innov
     spec:
       nodeSelector:
-        hardware: highcpu
+        hardware: highmem
       containers:
       - name: voxelbox-innov
         image: devbsai.azurecr.io/voxelbox:innovate
