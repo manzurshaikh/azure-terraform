@@ -1004,7 +1004,7 @@ spec:
             name: wb-tool-backend
             port:
               number: 8089
-  - host: dev-wbt-frontend.brainsightai.com
+  - host: voxelboxbasics.brainsightai.com
     http:
       paths:
       - path: /
