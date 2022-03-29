@@ -719,7 +719,7 @@ spec:
         hardware: highmem
       containers:
       - name: voxelbox-smri
-        image: devbsai.azurecr.io/voxelbox-smri:latest
+        image: devbsai.azurecr.io/voxelboxsmri:latest
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
