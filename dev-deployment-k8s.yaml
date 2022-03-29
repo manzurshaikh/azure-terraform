@@ -729,11 +729,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 3000m
-            memory: 14000Mi
+            cpu: 300m
+            memory: 800Mi
           limits:
-            cpu: 4000m
-            memory: 15000Mi
+            cpu: 700m
+            memory: 1000Mi
         ports:
         - containerPort: 5000
           name: voxelbox-smri
