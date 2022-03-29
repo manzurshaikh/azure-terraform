@@ -735,7 +735,7 @@ spec:
             cpu: 700m
             memory: 1000Mi
         ports:
-        - containerPort: 5000
+        - containerPort: 3000
           name: voxelbox-smri
       volumes:
       - name: azure
@@ -757,7 +757,7 @@ spec:
   ports:
   - port: 8091
     protocol: TCP
-    targetPort: 5000
+    targetPort: 3000
   selector:
     app: voxelbox-smri
 ---
