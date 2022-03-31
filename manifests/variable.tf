@@ -205,17 +205,17 @@ variable "size_az_funpremium_plan" {
 }
 
 /* APP_SERVICE_PLAN Azure ML Docker */
-variable "app_service_plan_docker_name" {
-}
+#variable "app_service_plan_docker_name" {
+#}
 
 #variable "capacity_az_appservice_docker_plan" {
 #}
 
-variable "tier_az_appservice_docker_plan" {
-}
+#variable "tier_az_appservice_docker_plan" {
+#}
 
-variable "size_az_appservice_docker_plan" {
-}
+#variable "size_az_appservice_docker_plan" {
+#}
 
 /* APP_SERICE_PLAN File_processing */
 variable "fileprocess_plan_name" {
@@ -227,12 +227,12 @@ variable "tier_az_appservice_fileprocess_plan" {
 variable "size_az_appservice_fileprocess_plan" {
 }
 
-/* APP_SERVICE_PLAN Azure ML DOCKER_SMRI */
-variable "tier_az_appservice_voxelbox_smri" {
-}
-
-variable "size_az_appservice_voxelbox_smri" {
-}
+#/* APP_SERVICE_PLAN Azure ML DOCKER_SMRI */
+#variable "tier_az_appservice_voxelbox_smri" {
+#}
+#
+#variable "size_az_appservice_voxelbox_smri" {
+#}
 
 /* APP_SERVICE_PLAN Azure VOXELBOX-PLUS */
 variable "tier_az_appservice_voxelbox_plus" {
@@ -262,19 +262,19 @@ variable "tier_az_appservice_bsaigeneralpurpose" {
 variable "size_az_appservice_bsaigeneralpurpose" {
 }
 
-/* APP_SERVICE_PLAN Azure uat_voxelboxfc */
-variable "tier_az_appservice_uat_voxelboxfc" {
-}
+#/* APP_SERVICE_PLAN Azure uat_voxelboxfc */
+#variable "tier_az_appservice_uat_voxelboxfc" {
+#}
+#
+#variable "size_az_appservice_uat_voxelboxfc" {
+#}
 
-variable "size_az_appservice_uat_voxelboxfc" {
-}
+#/* APP_SERVICE_PLAN Azure uat_voxelbox */
+#variable "tier_az_appservice_uat_voxelbox" {
+#}
 
-/* APP_SERVICE_PLAN Azure uat_voxelbox */
-variable "tier_az_appservice_uat_voxelbox" {
-}
-
-variable "size_az_appservice_uat_voxelbox" {
-}
+#variable "size_az_appservice_uat_voxelbox" {
+#}
 
 /* APP_SERVICE_PLAN Azure WINDOWS */
 variable "tier_az_appservice_windows" {
@@ -282,31 +282,31 @@ variable "tier_az_appservice_windows" {
 
 variable "size_az_appservice_windows" {
 }
-/* APP_SERVICE_1 */
-variable "app_service1" { 
-}
-
+#/* APP_SERVICE_1 */
+#variable "app_service1" { 
+#}
+#
 variable "docker_registry_server_url" {
 }
-
-variable "docker_custom_image_name_app_service1" {
-}
-
-variable "linux_fx_version_app_service1" {
-}
-
+#
+#variable "docker_custom_image_name_app_service1" {
+#}
+#
+#variable "linux_fx_version_app_service1" {
+#}
+#
 variable "app_storage_key_1" {
 }
 
-/* APP_SERVICE_2 */
-variable "app_service2" { 
-}
-
-variable "docker_custom_image_name_app_service2" {
-}
-
-variable "linux_fx_version_app_service2" {
-}
+#/* APP_SERVICE_2 */
+#variable "app_service2" { 
+#}
+#
+#variable "docker_custom_image_name_app_service2" {
+#}
+#
+#variable "linux_fx_version_app_service2" {
+#}
 
 /* APP_SERVICE_3 */
 variable "app_service3" { 
@@ -328,25 +328,25 @@ variable "docker_custom_image_name_app_service4" {
 variable "linux_fx_version_app_service4" {
 }
 
-/* APP_SERVICE_5 */
-variable "app_service5" { 
-}
+#/* APP_SERVICE_5 */
+#variable "app_service5" { 
+#}
+#
+#variable "docker_custom_image_name_app_service5" {
+#}
+#
+#variable "linux_fx_version_app_service5" {
+#}
 
-variable "docker_custom_image_name_app_service5" {
-}
-
-variable "linux_fx_version_app_service5" {
-}
-
-/* APP_SERVICE_6 */
-variable "app_service6" { 
-}
-
-variable "docker_custom_image_name_app_service6" {
-}
-
-variable "linux_fx_version_app_service6" {
-}
+#/* APP_SERVICE_6 */
+#variable "app_service6" { 
+#}
+#
+#variable "docker_custom_image_name_app_service6" {
+#}
+#
+#variable "linux_fx_version_app_service6" {
+#}
 
 /* APP_SERVICE_7 */
 variable "app_service7" { 
@@ -382,15 +382,15 @@ variable "docker_custom_image_name_app_service10" {
 variable "linux_fx_version_app_service10" {
 }
 
-/* APP_SERVICE_11 */
-variable "app_service11" { 
-}
-
-variable "docker_custom_image_name_app_service11" {
-}
-
-variable "linux_fx_version_app_service11" {
-}
+#/* APP_SERVICE_11 */
+#variable "app_service11" { 
+#}
+#
+#variable "docker_custom_image_name_app_service11" {
+#}
+#
+#variable "linux_fx_version_app_service11" {
+#}
 
 #/* APP_SERVICE_12 */
 variable "app_service12" { 
@@ -403,14 +403,14 @@ variable "linux_fx_version_app_service12" {
 }
 
 #/* APP_SERVICE_13 */
-variable "app_service13" { 
-}
-
-variable "docker_custom_image_name_app_service13" {
-}
-
-variable "linux_fx_version_app_service13" {
-}
+#variable "app_service13" { 
+#}
+#
+#variable "docker_custom_image_name_app_service13" {
+#}
+#
+#variable "linux_fx_version_app_service13" {
+#}
 
 #/* APP_SERVICE_14 */
 variable "app_service14" { 
@@ -423,24 +423,24 @@ variable "linux_fx_version_app_service14" {
 }
 
 #/* APP_SERVICE_15 */
-variable "app_service15" { 
-}
-
-variable "docker_custom_image_name_app_service15" {
-}
-
-variable "linux_fx_version_app_service15" {
-}
+#variable "app_service15" { 
+#}
+#
+#variable "docker_custom_image_name_app_service15" {
+#}
+#
+#variable "linux_fx_version_app_service15" {
+#}
 
 #/* APP_SERVICE_16 */
-variable "app_service16" { 
-}
-
-variable "docker_custom_image_name_app_service16" {
-}
-
-variable "linux_fx_version_app_service16" {
-}
+#variable "app_service16" { 
+#}
+#
+#variable "docker_custom_image_name_app_service16" {
+#}
+#
+#variable "linux_fx_version_app_service16" {
+#}
 
 #/* ACI */
 #variable "aci_name_1" {

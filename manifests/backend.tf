@@ -429,53 +429,53 @@ module "container_registery_ge" {
   contreg_location         = "${var.region}"  
 }
 
-module "app_service1" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service1}"
-  virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service1
-  linux_fx_version                = var.linux_fx_version_app_service1
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
-}
+#module "app_service1" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.mldockers_plan.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service1}"
+#  virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service1
+#  linux_fx_version                = var.linux_fx_version_app_service1
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.mldockers_plan.id
+#}
 
 
-module "app_service2" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service2}"
-  virtual_network_name            = azurerm_subnet.internalml3.id
-  #virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service2
-  linux_fx_version                = var.linux_fx_version_app_service2
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
-}
+#module "app_service2" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_plus.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service2}"
+#  virtual_network_name            = azurerm_subnet.internalml3.id
+#  #virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service2
+#  linux_fx_version                = var.linux_fx_version_app_service2
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
+#}
 
 module "app_service3" {
   depends_on                      = [module.resource_group]
@@ -526,53 +526,53 @@ module "app_service4" {
   #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
 }
 
-module "app_service5" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_smri.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service5}"
-  virtual_network_name            = azurerm_subnet.internalml.id
-  #virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service5
-  linux_fx_version                = var.linux_fx_version_app_service5
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
-}
+#module "app_service5" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_smri.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service5}"
+#  virtual_network_name            = azurerm_subnet.internalml.id
+#  #virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service5
+#  linux_fx_version                = var.linux_fx_version_app_service5
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.fileprocess_plan.id
+#}
 
-module "app_service6" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_dti.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service6}"
-  #virtual_network_name            = azurerm_subnet.internalml2.id
-  virtual_network_name            = azurerm_subnet.internal.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service6
-  linux_fx_version                = var.linux_fx_version_app_service6
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
-}
+#module "app_service6" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.voxelbox_dti.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service6}"
+#  #virtual_network_name            = azurerm_subnet.internalml2.id
+#  virtual_network_name            = azurerm_subnet.internal.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service6
+#  linux_fx_version                = var.linux_fx_version_app_service6
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
+#}
 
 module "app_service7" {
   depends_on                      = [module.resource_group]
@@ -655,29 +655,29 @@ module "app_service10" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
-module "app_service11" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.bsaigeneralpurpose.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = "${var.env}-${var.app_service11}"
-  #virtual_network_name            = azurerm_subnet.internalml2.id
-  virtual_network_name            = azurerm_subnet.generalpurpose.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service11
-  linux_fx_version                = var.linux_fx_version_app_service11
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
-}
+#module "app_service11" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.bsaigeneralpurpose.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = "${var.env}-${var.app_service11}"
+#  #virtual_network_name            = azurerm_subnet.internalml2.id
+#  virtual_network_name            = azurerm_subnet.generalpurpose.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service11
+#  linux_fx_version                = var.linux_fx_version_app_service11
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
+#}
 
 module "app_service12" {
   depends_on                      = [module.resource_group]
@@ -702,28 +702,28 @@ module "app_service12" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
 }
 
-module "app_service13" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelbox.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = var.app_service13
-  virtual_network_name            = azurerm_subnet.subnet02.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service13
-  linux_fx_version                = var.linux_fx_version_app_service13
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
-}
+#module "app_service13" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelbox.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = var.app_service13
+#  virtual_network_name            = azurerm_subnet.subnet02.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service13
+#  linux_fx_version                = var.linux_fx_version_app_service13
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_dti.id
+#}
 
 module "app_service14" {
   depends_on                      = [module.resource_group]
@@ -749,53 +749,53 @@ module "app_service14" {
   #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
 }
 
-module "app_service15" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = var.app_service15
-  virtual_network_name            = azurerm_subnet.subnet01.id
-  #virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service15
-  linux_fx_version                = var.linux_fx_version_app_service15
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
-}
+#module "app_service15" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = var.app_service15
+#  virtual_network_name            = azurerm_subnet.subnet01.id
+#  #virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service15
+#  linux_fx_version                = var.linux_fx_version_app_service15
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
+#}
 
-module "app_service16" {
-  depends_on                      = [module.resource_group]
-  source                          = "./../modules/appservice"
-  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
-  location                        = "${var.region}"
-  resource_group_name             = "${var.env}-bsai"
-  app_service_name                = var.app_service16
-  virtual_network_name            = azurerm_subnet.subnet01.id
-  #virtual_network_name            = azurerm_subnet.application.id
-  docker_registry_server_url      = var.docker_registry_server_url
-  docker_registry_server_username = var.docker_registry_server_username
-  docker_registry_server_password = var.docker_registry_server_password
-  docker_custom_image_name        = var.docker_custom_image_name_app_service16
-  linux_fx_version                = var.linux_fx_version_app_service16
-  docker_enable_ci                = "true"
-  #health_check_path               = "/"
-  app_storage_key                 = var.app_storage_key_1
-  app_storage_account_name        = "${var.env}${var.storage_name1}"
-  app_storage_mount_path          = "/training"
-  app_storage_name_prefix         = "dev-storage"
-  app_storage_share_name          = "training"
-  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
-}
+#module "app_service16" {
+#  depends_on                      = [module.resource_group]
+#  source                          = "./../modules/appservice"
+#  azurerm_app_service_plan        = azurerm_app_service_plan.uat_voxelboxfc.id
+#  location                        = "${var.region}"
+#  resource_group_name             = "${var.env}-bsai"
+#  app_service_name                = var.app_service16
+#  virtual_network_name            = azurerm_subnet.subnet01.id
+#  #virtual_network_name            = azurerm_subnet.application.id
+#  docker_registry_server_url      = var.docker_registry_server_url
+#  docker_registry_server_username = var.docker_registry_server_username
+#  docker_registry_server_password = var.docker_registry_server_password
+#  docker_custom_image_name        = var.docker_custom_image_name_app_service16
+#  linux_fx_version                = var.linux_fx_version_app_service16
+#  docker_enable_ci                = "true"
+#  #health_check_path               = "/"
+#  app_storage_key                 = var.app_storage_key_1
+#  app_storage_account_name        = "${var.env}${var.storage_name1}"
+#  app_storage_mount_path          = "/training"
+#  app_storage_name_prefix         = "dev-storage"
+#  app_storage_share_name          = "training"
+#  #appservice_target_resource_id   = azurerm_app_service_plan.voxelbox_plus.id
+#}
 
 #azure_functions
 module "azure_function1" {
@@ -1151,17 +1151,17 @@ output "service_endpoint_policy_ids" {
   value = "${azurerm_subnet_service_endpoint_storage_policy.stg.id}"
 }
 
-output "app_service_plan_mldockers_plan" {
-  value = "${azurerm_app_service_plan.mldockers_plan.id}"
-}
+#output "app_service_plan_mldockers_plan" {
+#  value = "${azurerm_app_service_plan.mldockers_plan.id}"
+#}
 
 output "app_service_plan_funpremium_plan" {
   value = "${azurerm_app_service_plan.funpremium_plan.id}"
 }
 
-output "app_service_plan_voxelbox_smri" {
-  value = "${azurerm_app_service_plan.voxelbox_smri.id}"
-}
+#output "app_service_plan_voxelbox_smri" {
+#  value = "${azurerm_app_service_plan.voxelbox_smri.id}"
+#}
 
 output "app_service_plan_voxelbox_dti" {
   value = "${azurerm_app_service_plan.voxelbox_dti.id}"

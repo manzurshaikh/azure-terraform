@@ -1,19 +1,19 @@
 /* App_Service plan for Azure App Service ML Dockers */
-resource "azurerm_app_service_plan" "mldockers_plan" {
-  name                = "${var.env}_${var.app_service_plan_docker_name}"
-  location            = var.region
-  resource_group_name = "${var.env}-bsai"
-  kind                = "Linux"
-  reserved            = true
-  #maximum_elastic_worker_count = "10"
-  per_site_scaling             = false
-
-  sku {
-  #  capacity = var.capacity_az_appservice_docker_plan
-    tier     = var.tier_az_appservice_docker_plan
-    size     = var.size_az_appservice_docker_plan
-  }
-}
+#resource "azurerm_app_service_plan" "mldockers_plan" {
+#  name                = "${var.env}_${var.app_service_plan_docker_name}"
+#  location            = var.region
+#  resource_group_name = "${var.env}-bsai"
+#  kind                = "Linux"
+#  reserved            = true
+#  #maximum_elastic_worker_count = "10"
+#  per_site_scaling             = false
+#
+#  sku {
+#  #  capacity = var.capacity_az_appservice_docker_plan
+#    tier     = var.tier_az_appservice_docker_plan
+#    size     = var.size_az_appservice_docker_plan
+#  }
+#}
 
 /* Azure Autoscaling for App Service Plan */
 #module "appservice_autoscaling_mldocker" {
@@ -81,21 +81,21 @@ resource "azurerm_app_service_plan" "voxelbox_dti" {
 #}
 
 /* App_Service plan for Azure App Service ML DOCKER_SMRI */
-resource "azurerm_app_service_plan" "voxelbox_smri" {
-  name                         = "${var.env}_voxelbox_smri"
-  location                     = var.region
-  resource_group_name          = "${var.env}-bsai"
-  kind                         = "Linux"
-  reserved                     = true
-  #maximum_elastic_worker_count = "10"
-  per_site_scaling             = false
-
-  sku {
-  #  capacity = var.capacity_az_appservice_docker_plan
-    tier     = var.tier_az_appservice_voxelbox_smri
-    size     = var.size_az_appservice_voxelbox_smri
-  }
-}
+#resource "azurerm_app_service_plan" "voxelbox_smri" {
+#  name                         = "${var.env}_voxelbox_smri"
+#  location                     = var.region
+#  resource_group_name          = "${var.env}-bsai"
+#  kind                         = "Linux"
+#  reserved                     = true
+#  #maximum_elastic_worker_count = "10"
+#  per_site_scaling             = false
+#
+#  sku {
+#  #  capacity = var.capacity_az_appservice_docker_plan
+#    tier     = var.tier_az_appservice_voxelbox_smri
+#    size     = var.size_az_appservice_voxelbox_smri
+#  }
+#}
 
 /* Azure Autoscaling for App Service Plan voxelbox_smri */
 #module "appservice_autoscaling_voxelbox_smri" {
@@ -200,34 +200,34 @@ resource "azurerm_app_service_plan" "voxelbox_prod" {
   }
 }
 
-resource "azurerm_app_service_plan" "uat_voxelboxfc" {
-  name                         = "uat_voxelboxfc"
-  location                     = var.region
-  resource_group_name          = "${var.env}-bsai"
-  kind                         = "Linux"
-  reserved                     = true
-  #maximum_elastic_worker_count = "10"
-  per_site_scaling             = false
+#resource "azurerm_app_service_plan" "uat_voxelboxfc" {
+#  name                         = "uat_voxelboxfc"
+#  location                     = var.region
+#  resource_group_name          = "${var.env}-bsai"
+#  kind                         = "Linux"
+#  reserved                     = true
+#  #maximum_elastic_worker_count = "10"
+#  per_site_scaling             = false
+#
+#  sku {
+#  #  capacity = var.capacity_az_appservice_docker_plan
+#    tier     = var.tier_az_appservice_uat_voxelboxfc
+#    size     = var.size_az_appservice_uat_voxelboxfc
+#  }
+#}
 
-  sku {
-  #  capacity = var.capacity_az_appservice_docker_plan
-    tier     = var.tier_az_appservice_uat_voxelboxfc
-    size     = var.size_az_appservice_uat_voxelboxfc
-  }
-}
-
-resource "azurerm_app_service_plan" "uat_voxelbox" {
-  name                         = "uat_voxelbox"
-  location                     = var.region
-  resource_group_name          = "${var.env}-bsai"
-  kind                         = "Linux"
-  reserved                     = true
-  #maximum_elastic_worker_count = "10"
-  per_site_scaling             = false
-
-  sku {
-  #  capacity = var.capacity_az_appservice_docker_plan
-    tier     = var.tier_az_appservice_uat_voxelbox
-    size     = var.size_az_appservice_uat_voxelbox
-  }
-}
+#resource "azurerm_app_service_plan" "uat_voxelbox" {
+#  name                         = "uat_voxelbox"
+#  location                     = var.region
+#  resource_group_name          = "${var.env}-bsai"
+#  kind                         = "Linux"
+#  reserved                     = true
+#  #maximum_elastic_worker_count = "10"
+#  per_site_scaling             = false
+#
+#  sku {
+#  #  capacity = var.capacity_az_appservice_docker_plan
+#    tier     = var.tier_az_appservice_uat_voxelbox
+#    size     = var.size_az_appservice_uat_voxelbox
+#  }
+#}

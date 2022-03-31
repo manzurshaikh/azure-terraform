@@ -27,9 +27,9 @@ account_replication_type_bsai1 = "LRS"
 
 
 storage_name2                   = "databs"
-stg_ip_rules_bsai2              = ["20.198.119.4","20.198.121.21","40.80.90.196"] #fake IP
+stg_ip_rules_bsai2              = ["20.198.119.4","40.80.90.196","40.80.83.255"] #fake IP #40.80.90.196 medidata #40.80.83.255 vpn
 
-stg_ip_rules_bsai3              = ["20.198.119.4","20.198.121.21","40.80.90.196"] #fake IP
+stg_ip_rules_bsai3              = ["20.198.119.4","40.80.90.196","40.80.83.255"] #fake IP #40.80.90.196 medidata #40.80.83.255 VPN
 
 
 /* AZURE FUNCTION PLAN - CONSUMTION */
@@ -86,22 +86,22 @@ tier_az_appservice_uat_voxelbox = "PremiumV3"
 size_az_appservice_uat_voxelbox = "P2v3"
 
 /* APP SERVICE */
-app_service1                  = "voxelbox"
-app_service2                  = "voxelboxplus"
+#app_service1                  = "voxelbox"
+#app_service2                  = "voxelboxplus"
 app_service3                  = "bsaiuploaderbackend"   
 app_service4                  = "fileprocessingnew"
-app_service5                  = "voxelboxsmri"
-app_service6                  = "voxelboxdti"
+#app_service5                  = "voxelboxsmri"
+#app_service6                  = "voxelboxdti"
 app_service7                  = "brainsightuploader"  #manual upload code
 app_service8                  = "voxelboxfc"
 app_service9                  = "voxelboxdementia"
 app_service10                 = "uat-datafiletesting"
-app_service11                 = "fileprocessing-carpl"
+#app_service11                 = "fileprocessing-carpl"
 app_service12                 = "normative-mapping"
-app_service13                 = "uat-voxelbox"
+#app_service13                 = "uat-voxelbox"
 app_service14                 = "voxelbox-prod"
-app_service15                 = "uat-voxelboxfc"
-app_service16                 = "uat-voxelboxnmli"
+#app_service15                 = "uat-voxelboxfc"
+#app_service16                 = "uat-voxelboxnmli"
 
 /* AZURE FUNCTION */
 function_name1                = "fileuloadbs"    #should not use "-" for function_name 
