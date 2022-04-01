@@ -94,20 +94,20 @@ variable "size_az_fun_plan" {
 }
 
 /* Azure Function */
-variable "function_name1" {
-}
+#variable "function_name1" {
+#}
 
-variable "function_name2" {
-}
+#variable "function_name2" {
+#}
 
 variable "function_name3" {
 }
 
-variable "function_name4" {
-}
+#variable "function_name4" {
+#}
 
-variable "function_name5" {
-}
+#variable "function_name5" {
+#}
 
 variable "function_name6" {
 }
@@ -115,8 +115,8 @@ variable "function_name6" {
 variable "function_name7" {
 }
 
-variable "function_name8" {
-}
+#variable "function_name8" {
+#}
 
 variable "function_name9" {
 }
@@ -363,14 +363,14 @@ variable "linux_fx_version_app_service8" {
 }
 
 /* APP_SERVICE_9 */
-variable "app_service9" { 
-}
-
-variable "docker_custom_image_name_app_service9" {
-}
-
-variable "linux_fx_version_app_service9" {
-}
+#variable "app_service9" { 
+#}
+#
+#variable "docker_custom_image_name_app_service9" {
+#}
+#
+#variable "linux_fx_version_app_service9" {
+#}
 
 /* APP_SERVICE_10 */
 variable "app_service10" { 
@@ -393,14 +393,14 @@ variable "linux_fx_version_app_service10" {
 #}
 
 #/* APP_SERVICE_12 */
-variable "app_service12" { 
-}
-
-variable "docker_custom_image_name_app_service12" {
-}
-
-variable "linux_fx_version_app_service12" {
-}
+#variable "app_service12" { 
+#}
+#
+#variable "docker_custom_image_name_app_service12" {
+#}
+#
+#variable "linux_fx_version_app_service12" {
+#}
 
 #/* APP_SERVICE_13 */
 #variable "app_service13" { 
