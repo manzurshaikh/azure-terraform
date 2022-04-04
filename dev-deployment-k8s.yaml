@@ -411,7 +411,7 @@ spec:
         hardware: highcpu
       containers:
       - name: fileprocessing
-        image: devbsai.azurecr.io/file_processsing:medidatainn_gct_v1
+        image: devbsai.azurecr.io/file_processsing:medidatainn_gct
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
