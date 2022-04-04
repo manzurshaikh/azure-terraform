@@ -192,17 +192,17 @@ variable "servicebus_queue_name_5" {
 }
 
 /* Premium_Plan Azure Function */
-variable "fun_premium_plan_name" {
-}
+#variable "fun_premium_plan_name" {
+#
 
 #variable "capacity_az_funpremium_plan" {
 #}
 
-variable "tier_az_funpremium_plan" {
-}
+#variable "tier_az_funpremium_plan" {
+#}
 
-variable "size_az_funpremium_plan" {
-}
+#variable "size_az_funpremium_plan" {
+#}
 
 /* APP_SERVICE_PLAN Azure ML Docker */
 #variable "app_service_plan_docker_name" {
@@ -235,11 +235,11 @@ variable "size_az_appservice_fileprocess_plan" {
 #}
 
 /* APP_SERVICE_PLAN Azure VOXELBOX-PLUS */
-variable "tier_az_appservice_voxelbox_plus" {
-}
+#variable "tier_az_appservice_voxelbox_plus" {
+#}
 
-variable "size_az_appservice_voxelbox_plus" {
-}
+#variable "size_az_appservice_voxelbox_plus" {
+#}
 
 /* APP_SERVICE_PLAN Azure VOXELBOX-PROD */
 variable "tier_az_appservice_voxelbox_prod" {

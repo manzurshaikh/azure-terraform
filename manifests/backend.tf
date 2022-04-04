@@ -300,20 +300,20 @@ resource "azurerm_app_service_plan" "main" {
   }
 }
 
-/* App_Service plan for Premium Azure Function */
-resource "azurerm_app_service_plan" "funpremium_plan" {
-  name                = "${var.env}_${var.fun_premium_plan_name}"
-  location            = var.region
-  resource_group_name = "${var.env}-bsai"
-  kind                = "elastic"
-  reserved            = true
-
-  sku {
-  #  capacity = var.capacity_az_funpremium_plan
-    tier     = var.tier_az_funpremium_plan
-    size     = var.size_az_funpremium_plan
-  }
-}
+#/* App_Service plan for Premium Azure Function */
+#resource "azurerm_app_service_plan" "funpremium_plan" {
+#  name                = "${var.env}_${var.fun_premium_plan_name}"
+#  location            = var.region
+#  resource_group_name = "${var.env}-bsai"
+#  kind                = "elastic"
+#  reserved            = true
+#
+#  sku {
+#  #  capacity = var.capacity_az_funpremium_plan
+#    tier     = var.tier_az_funpremium_plan
+#    size     = var.size_az_funpremium_plan
+#  }
+#}
 
 /* Azure Resource Group */
 module "resource_group" {
@@ -1155,9 +1155,9 @@ output "service_endpoint_policy_ids" {
 #  value = "${azurerm_app_service_plan.mldockers_plan.id}"
 #}
 
-output "app_service_plan_funpremium_plan" {
-  value = "${azurerm_app_service_plan.funpremium_plan.id}"
-}
+#output "app_service_plan_funpremium_plan" {
+#  value = "${azurerm_app_service_plan.funpremium_plan.id}"
+#}
 
 #output "app_service_plan_voxelbox_smri" {
 #  value = "${azurerm_app_service_plan.voxelbox_smri.id}"

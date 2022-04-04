@@ -38,24 +38,24 @@ tier_az_fun_plan             = "Dynamic"
 size_az_fun_plan             = "Y1"
 
 /* Premium_Plan Azure Function */
-fun_premium_plan_name       = "fun_premium_plan"
+#fun_premium_plan_name       = "fun_premium_plan"
 #capacity_az_funpremium_plan = "1"
-tier_az_funpremium_plan     = "ElasticPremium"
-size_az_funpremium_plan     = "EP1"
+#tier_az_funpremium_plan     = "ElasticPremium"
+#size_az_funpremium_plan     = "EP1"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER */
-app_service_plan_docker_name       = "app_service_mldocker_plan"
+#app_service_plan_docker_name       = "app_service_mldocker_plan"
 #capacity_az_appservice_docker_plan = "1"
-tier_az_appservice_docker_plan     = "PremiumV3"
-size_az_appservice_docker_plan     = "P2v3"
+#tier_az_appservice_docker_plan     = "PremiumV3"
+#size_az_appservice_docker_plan     = "P2v3"
 
 /* APP_SERICE_PLAN File_processing Docker */
 tier_az_appservice_fileprocess_plan = "PremiumV3"
 size_az_appservice_fileprocess_plan = "P1v3"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE ML DOCKER_SMRI */
-tier_az_appservice_voxelbox_smri = "PremiumV3"
-size_az_appservice_voxelbox_smri = "P1v3"
+#tier_az_appservice_voxelbox_smri = "PremiumV3"
+#size_az_appservice_voxelbox_smri = "P1v3"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE VOXELBOX_DTI */
 tier_az_appservice_voxelbox_dti = "PremiumV3"
@@ -70,20 +70,20 @@ tier_az_appservice_windows = "Basic"
 size_az_appservice_windows = "B1"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE VOXELBOX_PLUS */
-tier_az_appservice_voxelbox_plus = "PremiumV2"
-size_az_appservice_voxelbox_plus = "P1v2"
+#tier_az_appservice_voxelbox_plus = "PremiumV2"
+#size_az_appservice_voxelbox_plus = "P1v2"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE VOXELBOX_PROD */
 tier_az_appservice_voxelbox_prod = "PremiumV3"
 size_az_appservice_voxelbox_prod = "P2v3"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE UAT_VOXELBOX_FC */
-tier_az_appservice_uat_voxelboxfc = "PremiumV3"
-size_az_appservice_uat_voxelboxfc = "P1v3"
+#tier_az_appservice_uat_voxelboxfc = "PremiumV3"
+#size_az_appservice_uat_voxelboxfc = "P1v3"
 
 /* APP_SERVICE_PLAN AZURE APP SERVICE UAT_VOXELBOX */
-tier_az_appservice_uat_voxelbox = "PremiumV3"
-size_az_appservice_uat_voxelbox = "P2v3"
+#tier_az_appservice_uat_voxelbox = "PremiumV3"
+#size_az_appservice_uat_voxelbox = "P2v3"
 
 /* APP SERVICE */
 #app_service1                  = "voxelbox"
