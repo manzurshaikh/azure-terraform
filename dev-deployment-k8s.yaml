@@ -1163,6 +1163,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: bsai-configuration
+            name: bsai-config
             port:
               number: 8093
