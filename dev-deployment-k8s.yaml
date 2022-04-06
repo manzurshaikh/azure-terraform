@@ -950,23 +950,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bsai-configuration
+  name: bsai-config
   namespace: "backend"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bsai-configuration
+      app: bsai-config
   template:
     metadata:
       labels:
-        app: bsai-configuration
+        app: bsai-config
     spec:
       nodeSelector:
-        hardware: highmem
+        hardware: highcpu
       containers:
-      - name: bsai-configuration
-        image: devbsai.azurecr.io/bsai-configuration:latest
+      - name: bsai-config
+        image: devbsai.azurecr.io/bsai-config:latest
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -983,7 +983,7 @@ spec:
             memory: 500Mi
         ports:
         - containerPort: 3000
-          name: bsai-configuration
+          name: bsai-config
       volumes:
       - name: azure
         azureFile:
@@ -996,7 +996,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: bsai-configuration
+  name: bsai-config
   namespace: backend 
 spec:
   #loadBalancerIP: 20.204.65.113
@@ -1006,7 +1006,7 @@ spec:
     protocol: TCP
     targetPort: 3000
   selector:
-    app: dcm2nii
+    app: bsai-config
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
