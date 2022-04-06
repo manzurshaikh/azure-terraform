@@ -947,6 +947,67 @@ spec:
   selector:
     app: dcm2nii
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bsai-configuration
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bsai-configuration
+  template:
+    metadata:
+      labels:
+        app: bsai-configuration
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: bsai-configuration
+        image: devbsai.azurecr.io/bsai-configuration:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 50m
+            memory: 400Mi
+          limits:
+            cpu: 200m
+            memory: 500Mi
+        ports:
+        - containerPort: 3000
+          name: bsai-configuration
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: bsai-configuration
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8093
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: dcm2nii
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -1095,3 +1156,13 @@ spec:
             name: dcm2nii
             port:
               number: 8092
+  - host: dev-bsai-configuration.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bsai-configuration
+            port:
+              number: 8093
