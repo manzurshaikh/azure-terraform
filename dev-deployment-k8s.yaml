@@ -886,6 +886,67 @@ spec:
   selector:
     app: wb-toolfrontend
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dcm2nii
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dcm2nii
+  template:
+    metadata:
+      labels:
+        app: dcm2nii
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: dcm2nii
+        image: devbsai.azurecr.io/dcm2nii:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 3000m
+            memory: 4000Mi
+          limits:
+            cpu: "4"
+            memory: 5000Mi
+        ports:
+        - containerPort: 5000
+          name: dcm2nii
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: dcm2nii
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8092
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: dcm2nii
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -1024,3 +1085,13 @@ spec:
             name: voxelbox-smri
             port:
               number: 8091
+  - host: dev-dcm2nii.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dcm2nii
+            port:
+              number: 8092
