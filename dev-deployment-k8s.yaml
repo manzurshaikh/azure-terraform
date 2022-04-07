@@ -1008,6 +1008,67 @@ spec:
   selector:
     app: bsai-config
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voxelbox-td
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voxelbox-td
+  template:
+    metadata:
+      labels:
+        app: voxelbox-td
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: voxelbox-td
+        image: devbsai.azurecr.io/voxelbox-td:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 300m
+            memory: 800Mi
+          limits:
+            cpu: 700m
+            memory: 1000Mi
+        ports:
+        - containerPort: 3000
+          name: voxelbox-td
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: voxelbox-td
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8094
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: voxelbox-td
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -1166,3 +1227,13 @@ spec:
             name: bsai-config
             port:
               number: 8093
+  - host: dev-voxelbox-td.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voxelbox-td
+            port:
+              number: 8094
