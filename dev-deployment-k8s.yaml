@@ -1088,7 +1088,7 @@ spec:
         hardware: highcpu
       containers:
       - name: orchestrator
-        image: devbsai.azurecr.io/orchestrator:latest
+        image: devbsai.azurecr.io/orchestrator_dev:latest
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -1298,7 +1298,7 @@ spec:
             name: voxelbox-td
             port:
               number: 8094
-  - host: dev-orch.brainsightai.com
+  - host: dev-orchestrator.brainsightai.com
     http:
       paths:
       - path: /
