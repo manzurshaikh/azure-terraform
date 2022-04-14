@@ -1069,6 +1069,67 @@ spec:
   selector:
     app: voxelbox-td
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orchestrator
+  template:
+    metadata:
+      labels:
+        app: orchestrator
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: orchestrator
+        image: devbsai.azurecr.io/orchestrator:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 300m
+            memory: 800Mi
+          limits:
+            cpu: 700m
+            memory: 1000Mi
+        ports:
+        - containerPort: 3000
+          name: orchestrator
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: orchestrator
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8095
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: orchestrator
+---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -1237,3 +1298,13 @@ spec:
             name: voxelbox-td
             port:
               number: 8094
+  - host: dev-orch.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: orchestrator 
+            port:
+              number: 8095
