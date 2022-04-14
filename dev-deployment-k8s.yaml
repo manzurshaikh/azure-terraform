@@ -412,6 +412,7 @@ spec:
       containers:
       - name: fileprocessing
         image: devbsai.azurecr.io/file_processsing:medidatainn_gct
+        #image: devbsai.azurecr.io/fileprocessing_service:latest
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -1098,11 +1099,11 @@ spec:
           mountPath: /training
         resources:
           requests:
-            cpu: 300m
-            memory: 800Mi
+            cpu: 100m
+            memory: 400Mi
           limits:
-            cpu: 700m
-            memory: 1000Mi
+            cpu: 200m
+            memory: 800Mi
         ports:
         - containerPort: 3000
           name: orchestrator
@@ -1129,6 +1130,70 @@ spec:
     targetPort: 3000
   selector:
     app: orchestrator
+---
+#fileprocessing-service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileprocessing-service
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileprocessing-service
+  template:
+    metadata:
+      labels:
+        app: fileprocessing-service
+    spec:
+      nodeSelector:
+        hardware: highcpu
+      containers:
+      - name: fileprocessing-service
+        #image: devbsai.azurecr.io/file_processsing:medidatainn_gct
+        image: devbsai.azurecr.io/fileprocessing_service:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 600m
+            memory: 1800Mi
+          limits:
+            cpu: 700m
+            memory: 1900Mi
+        ports:
+        - containerPort: 3000
+          name: fileprocessing-service
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: fileprocessing-service
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8096
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: fileprocessing-service
+
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
@@ -1308,3 +1373,15 @@ spec:
             name: orchestrator 
             port:
               number: 8095
+  - host: dev-fileprocessing-service.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fileprocessing-service 
+            port:
+              number: 8096
+
+              
