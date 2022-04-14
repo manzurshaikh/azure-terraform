@@ -1135,22 +1135,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fileprocessingcd
+  name: fileprocessingc
   namespace: "backend"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fileprocessingcd
+      app: fileprocessingc
   template:
     metadata:
       labels:
-        app: fileprocessingcd
+        app: fileprocessingc
     spec:
       nodeSelector:
         hardware: highcpu
       containers:
-      - name: fileprocessingcd
+      - name: fileprocessingc
         #image: devbsai.azurecr.io/file_processsing:medidatainn_gct
         image: devbsai.azurecr.io/fileprocessing_service:latest
         imagePullPolicy: Always
@@ -1169,7 +1169,7 @@ spec:
             memory: 1900Mi
         ports:
         - containerPort: 3000
-          name: fileprocessingcd
+          name: fileprocessingc
       volumes:
       - name: azure
         azureFile:
@@ -1182,7 +1182,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: fileprocessingcd
+  name: fileprocessingc
   namespace: backend 
 spec:
   #loadBalancerIP: 20.204.65.113
@@ -1192,7 +1192,7 @@ spec:
     protocol: TCP
     targetPort: 3000
   selector:
-    app: fileprocessingcd
+    app: fileprocessingc
 
 ---
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
@@ -1380,7 +1380,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: fileprocessing-service 
+            name: fileprocessingc 
             port:
               number: 8096
 
