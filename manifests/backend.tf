@@ -983,19 +983,19 @@ module "cosmosdb_1" {
   vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.voxelboxprod.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
 }
 
-module "cosmosdb_1_serverless" {
-  depends_on                   = [module.vnet]
-  source                       = "./../modules/cosmosdb-serverless"
-  cosmodb_account_name         = "medidata-tf"
-  resource_group_name          = "${var.env}-bsai"
-  ip_range_filter              = var.ip_range_filter
-  location                     = "${var.region}"
-  cosmosdb_name                = "medidata-tf"
-  enable_automatic_failover    = var.enable_automatic_failover
-  failover_location_secondary  = var.failover_location_secondary
-  failover_priority_secondary  = var.failover_priority_secondary
-  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
-}
+#module "cosmosdb_1_serverless" {
+#  depends_on                   = [module.vnet]
+#  source                       = "./../modules/cosmosdb-serverless"
+#  cosmodb_account_name         = "medidata-tf"
+#  resource_group_name          = "${var.env}-bsai"
+#  ip_range_filter              = var.ip_range_filter
+#  location                     = "${var.region}"
+#  cosmosdb_name                = "medidata-tf"
+#  enable_automatic_failover    = var.enable_automatic_failover
+#  failover_location_secondary  = var.failover_location_secondary
+#  failover_priority_secondary  = var.failover_priority_secondary
+#  vnet_subnet_id               = [{id   = azurerm_subnet.backend.id}, {id = azurerm_subnet.application.id}, {id = azurerm_subnet.frontend.id}, {id = azurerm_subnet.internal.id}, {id = azurerm_subnet.akssubnet.id}, {id = azurerm_subnet.vmsubnet.id}, {id = azurerm_subnet.internalml2.id}, {id = azurerm_subnet.internalml3.id}, {id = azurerm_subnet.generalpurpose.id}, {id = azurerm_subnet.subnet01.id}, {id = azurerm_subnet.subnet02.id}]
+#}
 
 module "dev_cosmosdb_serverless" {
   depends_on                   = [module.vnet]
