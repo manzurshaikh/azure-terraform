@@ -294,67 +294,67 @@ spec:
 #        averageUtilization: 50
 #        type: Utilization
 ---
-#####voxelbox-innov
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: voxelbox-innov
-  namespace: "backend"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: voxelbox-innov
-  template:
-    metadata:
-      labels:
-        app: voxelbox-innov
-    spec:
-      nodeSelector:
-        hardware: highmem
-      containers:
-      - name: voxelbox-innov
-        image: devbsai.azurecr.io/voxelbox:innovate
-        imagePullPolicy: Always
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        volumeMounts:
-        - name: azure
-          mountPath: /training
-        resources:
-          requests:
-            cpu: 3000m
-            memory: 14000Mi
-          limits:
-            cpu: 4000m
-            memory: 15000Mi
-        ports:
-        - containerPort: 5000
-          name: voxelbox-innov
-      volumes:
-      - name: azure
-        azureFile:
-          secretName: azure-secret1
-          shareName: training
-          readOnly: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: voxelbox-innov
-  namespace: backend 
-spec:
-  #loadBalancerIP: 20.204.65.113
-  type: NodePort
-  ports:
-  - port: 8083
-    protocol: TCP
-    targetPort: 5000
-  selector:
-    app: voxelbox-innov
+######voxelbox-innov # removed due to consolidation
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: voxelbox-innov
+#  namespace: "backend"
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: voxelbox-innov
+#  template:
+#    metadata:
+#      labels:
+#        app: voxelbox-innov
+#    spec:
+#      nodeSelector:
+#        hardware: highmem
+#      containers:
+#      - name: voxelbox-innov
+#        image: devbsai.azurecr.io/voxelbox:innovate
+#        imagePullPolicy: Always
+#        env:
+#        - name: ALLOW_EMPTY_PASSWORD
+#          value: "yes"
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#        resources:
+#          requests:
+#            cpu: 3000m
+#            memory: 14000Mi
+#          limits:
+#            cpu: 4000m
+#            memory: 15000Mi
+#        ports:
+#        - containerPort: 5000
+#          name: voxelbox-innov
+#      volumes:
+#      - name: azure
+#        azureFile:
+#          secretName: azure-secret1
+#          shareName: training
+#          readOnly: false
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+#  name: voxelbox-innov
+#  namespace: backend 
+#spec:
+#  #loadBalancerIP: 20.204.65.113
+#  type: NodePort
+#  ports:
+#  - port: 8083
+#    protocol: TCP
+#    targetPort: 5000
+#  selector:
+#    app: voxelbox-innov
 ---
 ##HPA 
 #apiVersion: autoscaling/v2beta2
@@ -579,67 +579,67 @@ spec:
   selector:
     app: fileproc-crpl
 ---
-#####fileprocessing-carpl
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: voxelbox-crpl
-  namespace: "backend"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: voxelbox-crpl
-  template:
-    metadata:
-      labels:
-        app: voxelbox-crpl
-    spec:
-      nodeSelector:
-        hardware: highmem
-      containers:
-      - name: voxelbox-crpl
-        image: devbsai.azurecr.io/voxelbox:carpl
-        imagePullPolicy: Always
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        volumeMounts:
-        - name: azure
-          mountPath: /training
-        resources:
-          requests:
-            cpu: 3000m
-            memory: 14000Mi
-          limits:
-            cpu: 4000m
-            memory: 15000Mi
-        ports:
-        - containerPort: 5000
-          name: voxelbox-crpl
-      volumes:
-      - name: azure
-        azureFile:
-          secretName: azure-secret1
-          shareName: training
-          readOnly: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: voxelbox-crpl
-  namespace: backend 
-spec:
-  #loadBalancerIP: 20.204.65.113
-  type: NodePort
-  ports:
-  - port: 8087
-    protocol: TCP
-    targetPort: 5000
-  selector:
-    app: voxelbox-crpl
+#####fileprocessing-carpl #removed due to consolidation.
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: voxelbox-crpl
+#  namespace: "backend"
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: voxelbox-crpl
+#  template:
+#    metadata:
+#      labels:
+#        app: voxelbox-crpl
+#    spec:
+#      nodeSelector:
+#        hardware: highmem
+#      containers:
+#      - name: voxelbox-crpl
+#        image: devbsai.azurecr.io/voxelbox:carpl
+#        imagePullPolicy: Always
+#        env:
+#        - name: ALLOW_EMPTY_PASSWORD
+#          value: "yes"
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#        resources:
+#          requests:
+#            cpu: 3000m
+#            memory: 14000Mi
+#          limits:
+#            cpu: 4000m
+#            memory: 15000Mi
+#        ports:
+#        - containerPort: 5000
+#          name: voxelbox-crpl
+#      volumes:
+#      - name: azure
+#        azureFile:
+#          secretName: azure-secret1
+#          shareName: training
+#          readOnly: false
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+#  name: voxelbox-crpl
+#  namespace: backend 
+#spec:
+#  #loadBalancerIP: 20.204.65.113
+#  type: NodePort
+#  ports:
+#  - port: 8087
+#    protocol: TCP
+#    targetPort: 5000
+#  selector:
+#    app: voxelbox-crpl
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -1244,16 +1244,16 @@ spec:
             name: voxelbox
             port:
               number: 8082
-  - host: dev-voxelbox-innov.brainsightai.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: voxelbox-innov
-            port:
-              number: 8083
+  #- host: dev-voxelbox-innov.brainsightai.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: voxelbox-innov
+  #          port:
+  #            number: 8083
   - host: dev-fileprocessing.brainsightai.com
     http:
       paths:
@@ -1284,16 +1284,16 @@ spec:
             name: fileproc-crpl
             port:
               number: 8086
-  - host: dev-voxelbox-crpl.brainsightai.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: voxelbox-crpl
-            port:
-              number: 8087
+  #- host: dev-voxelbox-crpl.brainsightai.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: voxelbox-crpl
+  #          port:
+  #            number: 8087
   - host: dev-voxelbox-fc-crpl.brainsightai.com
     http:
       paths:
