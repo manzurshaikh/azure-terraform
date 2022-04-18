@@ -17,7 +17,8 @@ spec:
         hardware: highmem
       containers:
       - name: voxelbox
-        image: devbsai.azurecr.io/voxelbox:medidata-optimization2
+        #image: devbsai.azurecr.io/voxelbox:medidata-optimization2
+        image: devbsai.azurecr.io/voxelbox:latest #consolidation
         imagePullPolicy: Always
         env:
         - name: ALLOW_EMPTY_PASSWORD
