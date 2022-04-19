@@ -393,67 +393,67 @@ spec:
 #        averageUtilization: 50
 #        type: Utilization
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: fileprocessing
-  namespace: "backend"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fileprocessing
-  template:
-    metadata:
-      labels:
-        app: fileprocessing
-    spec:
-      nodeSelector:
-        hardware: highcpu
-      containers:
-      - name: fileprocessing
-        image: devbsai.azurecr.io/file_processsing:medidatainn_gct
-        #image: devbsai.azurecr.io/fileprocessing_service:latest
-        imagePullPolicy: Always
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        volumeMounts:
-        - name: azure
-          mountPath: /training
-        resources:
-          requests:
-            cpu: 600m
-            memory: 1800Mi
-          limits:
-            cpu: 700m
-            memory: 1900Mi
-        ports:
-        - containerPort: 3000
-          name: fileprocessing
-      volumes:
-      - name: azure
-        azureFile:
-          secretName: azure-secret1
-          shareName: training
-          readOnly: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: fileprocessing
-  namespace: backend 
-spec:
-  #loadBalancerIP: 20.204.65.113
-  type: NodePort
-  ports:
-  - port: 8084
-    protocol: TCP
-    targetPort: 3000
-  selector:
-    app: fileprocessing
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: fileprocessing
+#  namespace: "backend"
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: fileprocessing
+#  template:
+#    metadata:
+#      labels:
+#        app: fileprocessing
+#    spec:
+#      nodeSelector:
+#        hardware: highcpu
+#      containers:
+#      - name: fileprocessing
+#        image: devbsai.azurecr.io/file_processsing:medidatainn_gct
+#        #image: devbsai.azurecr.io/fileprocessing_service:latest
+#        imagePullPolicy: Always
+#        env:
+#        - name: ALLOW_EMPTY_PASSWORD
+#          value: "yes"
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#        resources:
+#          requests:
+#            cpu: 600m
+#            memory: 1800Mi
+#          limits:
+#            cpu: 700m
+#            memory: 1900Mi
+#        ports:
+#        - containerPort: 3000
+#          name: fileprocessing
+#      volumes:
+#      - name: azure
+#        azureFile:
+#          secretName: azure-secret1
+#          shareName: training
+#          readOnly: false
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+#  name: fileprocessing
+#  namespace: backend 
+#spec:
+#  #loadBalancerIP: 20.204.65.113
+#  type: NodePort
+#  ports:
+#  - port: 8084
+#    protocol: TCP
+#    targetPort: 3000
+#  selector:
+#    app: fileprocessing
 ---
 #####voxelbox-fc
 apiVersion: apps/v1
@@ -518,66 +518,66 @@ spec:
     app: voxelbox-fc
 ---
 #####fileprocessing-carpl
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: fileproc-crpl
-  namespace: "backend"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fileproc-crpl
-  template:
-    metadata:
-      labels:
-        app: fileproc-crpl
-    spec:
-      nodeSelector:
-        hardware: highcpu
-      containers:
-      - name: fileproc-crpl
-        image: devbsai.azurecr.io/file_processsing:carpel
-        imagePullPolicy: Always
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        volumeMounts:
-        - name: azure
-          mountPath: /training
-        resources:
-          requests:
-            cpu: 600m
-            memory: 1800Mi
-          limits:
-            cpu: 700m
-            memory: 1900Mi
-        ports:
-        - containerPort: 5000
-          name: fileproc-crpl
-      volumes:
-      - name: azure
-        azureFile:
-          secretName: azure-secret1
-          shareName: training
-          readOnly: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: fileproc-crpl
-  namespace: backend 
-spec:
-  #loadBalancerIP: 20.204.65.113
-  type: NodePort
-  ports:
-  - port: 8086
-    protocol: TCP
-    targetPort: 5000
-  selector:
-    app: fileproc-crpl
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: fileproc-crpl
+#  namespace: "backend"
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: fileproc-crpl
+#  template:
+#    metadata:
+#      labels:
+#        app: fileproc-crpl
+#    spec:
+#      nodeSelector:
+#        hardware: highcpu
+#      containers:
+#      - name: fileproc-crpl
+#        image: devbsai.azurecr.io/file_processsing:carpel
+#        imagePullPolicy: Always
+#        env:
+#        - name: ALLOW_EMPTY_PASSWORD
+#          value: "yes"
+#        volumeMounts:
+#        - name: azure
+#          mountPath: /training
+#        resources:
+#          requests:
+#            cpu: 600m
+#            memory: 1800Mi
+#          limits:
+#            cpu: 700m
+#            memory: 1900Mi
+#        ports:
+#        - containerPort: 5000
+#          name: fileproc-crpl
+#      volumes:
+#      - name: azure
+#        azureFile:
+#          secretName: azure-secret1
+#          shareName: training
+#          readOnly: false
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+#  name: fileproc-crpl
+#  namespace: backend 
+#spec:
+#  #loadBalancerIP: 20.204.65.113
+#  type: NodePort
+#  ports:
+#  - port: 8086
+#    protocol: TCP
+#    targetPort: 5000
+#  selector:
+#    app: fileproc-crpl
 ---
 #####fileprocessing-carpl #removed due to consolidation.
 #apiVersion: apps/v1
@@ -1254,16 +1254,16 @@ spec:
   #          name: voxelbox-innov
   #          port:
   #            number: 8083
-  - host: dev-fileprocessing.brainsightai.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: fileprocessing
-            port:
-              number: 8084
+  #- host: dev-fileprocessing.brainsightai.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: fileprocessing
+  #          port:
+  #            number: 8084
   - host: dev-voxelbox-fc.brainsightai.com
     http:
       paths:
@@ -1274,16 +1274,16 @@ spec:
             name: voxelbox-fc
             port:
               number: 8085
-  - host: dev-fileproc-crpl.brainsightai.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: fileproc-crpl
-            port:
-              number: 8086
+  #- host: dev-fileproc-crpl.brainsightai.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: fileproc-crpl
+  #          port:
+  #            number: 8086
   #- host: dev-voxelbox-crpl.brainsightai.com
   #  http:
   #    paths:
