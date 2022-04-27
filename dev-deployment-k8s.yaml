@@ -1195,26 +1195,26 @@ spec:
   selector:
     app: fileprocessingc
 ---
----
+#dti-preprocess
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dtipreprocessing
+  name: dti-preprocess
   namespace: "backend"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dtipreprocessing
+      app: dti-preprocess
   template:
     metadata:
       labels:
-        app: dtipreprocessing
+        app: dti-preprocess
     spec:
       nodeSelector:
         hardware: highmem
       containers:
-      - name: dtipreprocessing
+      - name: dti-preprocess
         image: devbsai.azurecr.io/dti-preprocessing:latest
         imagePullPolicy: Always
         env:
@@ -1232,7 +1232,7 @@ spec:
             memory: 15000Mi
         ports:
         - containerPort: 5000
-          name: dtipreprocessing
+          name: dti-preprocess
       volumes:
       - name: azure
         azureFile:
@@ -1245,7 +1245,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
-  name: dtipreprocessing
+  name: dti-preprocess
   namespace: backend 
 spec:
   #loadBalancerIP: 20.204.65.113
@@ -1255,7 +1255,7 @@ spec:
     protocol: TCP
     targetPort: 5000
   selector:
-    app: dtipreprocessing
+    app: dti-preprocess
 ---
 
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
@@ -1453,7 +1453,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dtipreprocessing 
+            name: dti-preprocess
             port:
               number: 8097
 
