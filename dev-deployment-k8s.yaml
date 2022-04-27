@@ -1194,8 +1194,70 @@ spec:
     targetPort: 3000
   selector:
     app: fileprocessingc
-
 ---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dti-preprocessing
+  namespace: "backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dti-preprocessing
+  template:
+    metadata:
+      labels:
+        app: dti-preprocessing
+    spec:
+      nodeSelector:
+        hardware: highmem
+      containers:
+      - name: dti-preprocessing
+        image: devbsai.azurecr.io/dti-preprocessing:latest
+        imagePullPolicy: Always
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - name: azure
+          mountPath: /training
+        resources:
+          requests:
+            cpu: 900m
+            memory: 14000Mi
+          limits:
+            cpu: 1000m
+            memory: 15000Mi
+        ports:
+        - containerPort: 5000
+          name: dti-preprocessing
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret1
+          shareName: training
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: dev-bsai
+  name: dti-preprocessing
+  namespace: backend 
+spec:
+  #loadBalancerIP: 20.204.65.113
+  type: NodePort
+  ports:
+  - port: 8097
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: dti-preprocessing
+---
+
 #####kubectl create secret tls aks-ingress-tls --namespace backend --key star_brainsightai_com.key --cert merged.crt
 ######Ingress#####
 apiVersion: networking.k8s.io/v1
@@ -1384,5 +1446,15 @@ spec:
             name: fileprocessingc 
             port:
               number: 8096
+  - host: dti-preprocessing.brainsightai.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dti-preprocessing 
+            port:
+              number: 8097
 
               
