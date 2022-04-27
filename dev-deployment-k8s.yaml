@@ -1446,7 +1446,7 @@ spec:
             name: fileprocessingc 
             port:
               number: 8096
-  - host: dti-preprocessing.brainsightai.com
+  - host: dev-dtipreprocessing.brainsightai.com
     http:
       paths:
       - path: /
