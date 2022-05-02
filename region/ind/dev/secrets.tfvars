@@ -10,7 +10,7 @@ docker_custom_image_name_app_service2 = "devbsai.azurecr.io/voxelboxplusgliomaec
 linux_fx_version_app_service2 = "DOCKER|devbsai.azurecr.io/voxelboxplusgliomaecm:latest"
 /* APP_SERVICE-3 */
 docker_custom_image_name_app_service3 = "devbsai.azurecr.io/uploadfile:latest"
-linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/uploadfile:latest"
+linux_fx_version_app_service3 = "DOCKER|devbsai.azurecr.io/uploadfile:latestver1"
 /* APP_SERVICE-4 */
 docker_custom_image_name_app_service4 = "devbsai.azurecr.io/file_processsing:medidata"
 linux_fx_version_app_service4 = "DOCKER|devbsai.azurecr.io/file_processsing:medidata_prod"
